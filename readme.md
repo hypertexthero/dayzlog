@@ -9,6 +9,7 @@ Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.
     - blog/post creation form in public area?
 - Blog
     - URLs 
+        - /u/username/notes/id? 
     - Webnotes
     - Comments with Disqus
     - Feeds

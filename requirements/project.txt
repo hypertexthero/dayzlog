@@ -23,6 +23,7 @@ PIL
 
 # https://github.com/pinax/pinax-theme-bootstrap
 pinax-theme-bootstrap==2.0.4
+django_forms_bootstrap
 
 # http://nomadblue.com/projects/django-nomadblog/
-nomadblog
+# nomadblog

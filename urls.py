@@ -10,8 +10,6 @@ from pinax.apps.account.openid_consumer import PinaxConsumer
 
 handler500 = "pinax.views.server_error"
 
-NOMADBLOG_MULTIPLE_BLOGS = getattr(settings, 'NOMADBLOG_MULTIPLE_BLOGS', True)
-
 urlpatterns = patterns("",
     url(r"^$", direct_to_template, {
         "template": "homepage.html",
@@ -24,7 +22,7 @@ urlpatterns = patterns("",
     url(r"^profiles/", include("idios.urls")),
     url(r"^notices/", include("notification.urls")),
     url(r"^announcements/", include("announcements.urls")),
-    url(r'^blog/', include('nomadblog.urls')) if not NOMADBLOG_MULTIPLE_BLOGS else url(r'^blogs/(?P<blog_slug>[-\w]+)/', include('nomadblog.urls')),
+    url(r'^notes/', include('notes.urls')),
 )
 
 

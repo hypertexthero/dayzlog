@@ -174,7 +174,7 @@ INSTALLED_APPS = [
     # project
     "about",
     "profiles",
-    "nomadblog",
+    "notes",
 ]
 
 FIXTURE_DIRS = [
@@ -184,6 +184,9 @@ FIXTURE_DIRS = [
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+# Production backend?
+# EMAIL_BACKEND = "mailer.backend.DbBackend"
 
 # Testing Email Sending in local development environment
 # https://docs.djangoproject.com/en/dev/topics/email/#testing-e-mail-sending
@@ -196,11 +199,8 @@ EMAIL_PORT = 1025
 # EMAIL_HOST_PASSWORD
 # EMAIL_USE_TLS
 
-# EMAIL_BACKEND = "mailer.backend.DbBackend"
-
 ABSOLUTE_URL_OVERRIDES = {
     "auth.user": lambda o: "/profiles/profile/%s/" % o.username,
-    # 'nomadblog.blogs': lambda o: "/blogs/%s/" % o.slug,
 }
 
 AUTH_PROFILE_MODULE = "profiles.Profile"
@@ -218,7 +218,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_URL = "/account/login/" # @@@ any way this can be a url name?
-LOGIN_REDIRECT_URLNAME = "what_next"
+LOGIN_REDIRECT_URLNAME = "home"
 LOGOUT_REDIRECT_URLNAME = "home"
 
 EMAIL_CONFIRMATION_DAYS = 2
@@ -228,8 +228,6 @@ DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }
 
-# http://nomadblue.com/projects/django-nomadblog/
-NOMADBLOG_MULTIPLE_BLOGS = True
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

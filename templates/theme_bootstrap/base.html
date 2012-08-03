@@ -59,6 +59,14 @@
 
         {% block body_base %}
             <div class="container">
+                
+                <ul class="breadcrumb">
+                  <li>
+                    <a href="/">Home</a> <span class="divider">/</span>
+                  </li>
+                  {% block breadcrumb %}{% endblock %}
+                </ul>
+                
                 {% include "_messages.html" %}
                 {% block body %}
                 {% endblock %}
@@ -75,6 +83,8 @@
             </div>
         {% endblock %}
 
+        {% include "includes/markdown_cheatsheet.html" %}
+
         {% block script_base %}
             <script src="{% block jquery_src %}{% static "pinax/js/jquery.js" %}{% endblock %}"></script>
             <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
@@ -85,5 +95,6 @@
         {% block extra_body_base %}
             {% block extra_body %}{% endblock %}
         {% endblock %}
+                
     </body>
 </html>

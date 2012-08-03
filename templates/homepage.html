@@ -16,7 +16,7 @@
         <h2>Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.</h2>
         
             <ol>
-                <li>Write your stories using <a href="http://daringfireball.net/projects/markdown/">Markdown</a> format.</li>
+                <li>Write your stories using <a data-toggle="modal" href="#markdownhelp">Markdown</a> format.</li>
                 <li>Generate a <a href="/help">squad.xml file and URL to add to your in-game profile</a> so other players can see who they&rsquo;re dealing with.</li>
             </ol>
     {% endif %}
@@ -33,17 +33,16 @@
     {% if user.is_authenticated %}
     {% load url from future %}
         <p>
-            <a href="{{ new_post }}" class="btn btn-primary"><i class="icon-pencil"></i> Write a new story on your blog</a> or
+            <a href="/notes/new" class="btn btn-primary"><i class="icon-pencil"></i> Write a new note on your journal</a> or
             <a href="{% url "profile_detail" user.username %}" class="btn"><i class="icon-user"></i> edit your profile</a> to generate a <a href="/help">squad.xml file and URL you can add to your Day Z in-game profile</a> so other players can see who they&rsquo;re dealing with.
             {# <a href="{% url acct_email %}" class="btn btn-primary" title="So you can receive notifications, reset your password and so people can find you more easily.">verify an email address</a> #}
             {# <a href="{{ what_next_url }}" class="btn">more actions</a></p> #}
     {% else %}
         {% url acct_login as login_url %}
         {% ifsetting ACCOUNT_OPEN_SIGNUP %}
-            {% url acct_signup as signup_url %}
-            <p>{% blocktrans %}<a href="{{ login_url }}" class="btn">Log In</a> or <a href="{{ signup_url }}" class="btn btn-primary">Sign Up</a>{% endblocktrans %}</p>
+            <p><a href="/account/login/" class="btn">Log In</a> or <a href="/account/signup/" class="btn btn-primary">Sign Up</a></p>
         {% else %}
-            <p>{% blocktrans %}<a href="{{ login_url }}" class="btn primary large">Log In</a>{% endblocktrans %}</p>
+            <p><a href="/account/login/" class="btn">Log In</a></p>
         {% endifsetting %}
     {% endif %}
 {% endblock %}
@@ -162,4 +161,5 @@
      {# https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#slice #}
      {# {{ some_list|slice:":2" }} #}
 {% endif %}
+
 {% endblock %}
