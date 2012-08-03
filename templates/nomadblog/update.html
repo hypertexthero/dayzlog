@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block headtitle %}Editing &lsquo;{{ note.title }}&rsquo; - {% endblock %}
+
+{% block breadcrumbs %} &rarr; Editing &lsquo;{{ note.title }}&rsquo;{% endblock %}
+
+{% block nav %}
+    {% if user.is_authenticated %}
+    <p>{# · {{ user.first_name }} {{ user.last_name }} · #}<a href="{% url django.contrib.auth.views.logout %}?next={% firstof request.path '/' %}">Log out</a></p>
+    {% else %}
+    {# http://stackoverflow.com/a/1711592/412329 #}
+    {# Alternative redirect technique?: http://stackoverflow.com/a/476720/412329 #}
+    <p><a class="edit" href="{% url django.contrib.auth.views.login %}?next={% firstof request.path '/' %}">Log in</a></p>
+    {% endif %}
+    
+{% endblock %}
+
+{% block content %}
+
+    {# <form action="" method="post"> #}
+    {#     {% csrf_token %} #}
+    {#     {{ form.as_p }}     #}
+    {#     <p><input type="submit" value="Continue &rarr;" /></p> #}
+    {# </form> #}
+    
+    {# Customized form template: https://docs.djangoproject.com/en/dev/topics/forms/#customizing-the-form-template #}
+    {# Reusable form templates: https://docs.djangoproject.com/en/dev/topics/forms/#reusable-form-templates #}
+    <form action="" method="post">
+            {% csrf_token %}
+            <p><input class="btn" type="submit" value="Save &rarr;" /> or <a class="warning" href="{% firstof request.META.HTTP_REFERER url notes_detail note.id %}">cancel</a></p>
+                {% include "includes/note_form.html" %}
+            <p class="clearboth"><input class="btn" type="submit" value="Save &rarr;" tabindex="4" /> or <a class="warning" href="{% firstof request.META.HTTP_REFERER url notes_detail note.id %}">cancel</a></p>
+            <p class="floatright"><a class="warning" href="{% url notes_delete note.id %}">delete this note</a></p>
+        </form>
+{% endblock %}
+
+{% block footer %}
+    Last modified: {{ note.modified|date:"d F Y" }} at {{ note.modified|date:"H:m A" }}<br />
+{% endblock %}

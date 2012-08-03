@@ -1,0 +1,102 @@
+{% extends 'site_base.html' %}
+{# {% block bodyid %}home{% endblock %} #}
+{% block content %}
+{% if latest %} {# the 'latest' variable of the template context is assigned automatically by the django.views.generic.date_based.archive_index generic view - https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-date-based-archive-index #}
+{% for post in latest %}
+{# https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#ifchanged #}
+{% ifchanged %}
+    {# <hr /> #}
+    {# https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#date #}
+    <h2 class="dateline">{{ post.created|date:"l, d F Y" }}</h2>
+{% endifchanged %}
+
+{% if post.kind == "A" %}
+<pre class="articlebreak">
+     __|__
+-------O-------
+    o´   `o
+</pre>
+<h1 class="first">
+<a href="{% url posts_detail post.id %}">{{ post.title }}</a>
+{% if user.is_authenticated %} 
+{# <span class="smaller normal quiet"> last edited {{ post.modified|timesince }} ago by {{ user.first_name }} {{ user.last_name }}</span> #}
+<span class="smaller normal"> <a class="edit" href="{% url posts_update post.id %}">edit</a> <a class="warning" href="{% url posts_delete post.id %}">delete</a></span>
+{% endif %}
+</h1>
+{{ post.content_html|safe }}            
+<pre class="articlebreak">
+     __|__
+-------O-------
+    o´   `o
+</pre>
+
+{% else %} {# post.kind == "A" #}
+
+<dl>
+    <dt>
+        <a href="{{ post.url }}">{{ post.title }}</a>
+        <a class="plink" href="{% url posts_detail post.id %}" rel="permalink" title="Permanent link to {{ post.title }}.">#</a> 
+        {% if user.is_authenticated %} 
+        {# <span class="smaller normal quiet"> last edited {{ post.modified|timesince }} ago by {{ user.first_name }} {{ user.last_name }}</span> #}
+        <span class="smaller normal"> <a class="edit" href="{% url posts_update post.id %}">edit</a> <a class="warning" href="{% url posts_delete post.id %}">delete</a></span>
+        {% endif %}
+    </dt>
+    <dd>
+        {{ post.content_html|safe }}
+    </dd>
+</dl>
+{% endif %} {# / if.post.kind == "A" #}
+
+{% endfor %} {# / for post in latest #}
+
+{% else %}
+    You don't have any posts.
+{% endif %} {# / if latest #}
+    
+{% endblock %} {# / block content #}
+
+{% block sidebar %}
+{% endblock %}
+
+{# TODO: if post category is 'article', post article format, otherwise post the link format #}
+{# https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#ifequal #}
+
+{# {% if post.post_type == "article" %} #}
+{#     <pre class="articlebreak"> #}
+{#          __|__ #}
+{#     -------O------- #}
+{#         o´   `o #}
+{#     </pre> #}
+{#      #}
+{#     <div class="article"> #}
+{#  #}
+{#         <h1><a href="{% url posts_detail post.id %}">{{ post.title }}</a> #}
+{#             {% if user.is_authenticated %}  #}
+{#                 <span class="small normal quiet">- Last edited {{ post.modified|timesince }} ago by {{ user.first_name }} {{ user.last_name }}</span> #}
+{#                 <span class="small normal"> <a class="edit" href="{% url posts_update post.id %}">edit</a> <a class="warning" href="{% url posts_delete post.id %}">delete</a></span> #}
+{#             {% endif %} #}
+{#         </h1> #}
+{#         <h2 class="dateline">{{ post.created|date:"A, d F Y" }}</h2> #}
+{#         {{ post.content_html|safe }} #}
+{#     </div> #}
+{#      #}
+{#     <pre class="articlebreak"> #}
+{#          __|__ #}
+{#     -------O------- #}
+{#         o´   `o #}
+{#     </pre> #}
+{#  #}
+{# {% else %} #}
+{#  #}
+{#     {% ifchanged %} #}
+{#         <hr /> #}
+{#         <h2 class="dateline">{{ post.created|date:"A, d F Y" }}</h2> #}
+{#     {% endifchanged %} #}
+{#  #}
+{#     <dl> #}
+{#     <dt><txp:if_custom_field name="link"><a href="<txp:custom_field name="link" />"><txp:title /></a><txp:else /><txp:title /></txp:if_custom_field> &nbsp;<a class="plink" title="Permanent link to <txp:title />" href="<txp:permlink />">#</a></dt> #}
+{#     <dd> #}
+{#     <txp:body /> #}
+{#     </dd> #}
+{#     </dl> #}
+{# {% endif %} #}

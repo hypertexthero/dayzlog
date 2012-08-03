@@ -1,0 +1,15 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block body_base %}
+    <div class="container">
+        {% include "_messages.html" %}
+        <div class="hero-unit well">
+        {% block banner %}
+        {% endblock %}
+        </div>
+        {% block homepage %}
+        {% endblock %}
+    </div>
+{% endblock %}

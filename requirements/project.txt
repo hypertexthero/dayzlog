@@ -1,0 +1,28 @@
+# project.txt is a pip requirements file which describes the distributions
+# required by your project to run.
+
+--requirement=base.txt
+
+# Put project-specific requirements here.
+
+
+# To install all these run the following from terminal: pip install -r project.txt
+
+# http://www.freewisdom.org/projects/python-markdown
+Markdown
+# http://code.google.com/p/typogrify/
+typogrify
+
+# http://fi.am/entry/code-highlighting-in-django/
+# http://freewisdom.org/projects/python-markdown/CodeHilite
+Pygments
+
+PIL
+
+# South
+
+# https://github.com/pinax/pinax-theme-bootstrap
+pinax-theme-bootstrap==2.0.4
+
+# http://nomadblue.com/projects/django-nomadblog/
+nomadblog

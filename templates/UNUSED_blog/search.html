@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block bodyid %}home{% endblock %}
+{% block headtitle %}Search results for: {{ query }}  - {% endblock %}
+
+
+
+
+{% block content %}
+{% if title_results or results %} 
+    <p>Search results for &ldquo;<strong>{{ query }}</strong>&rdquo;:</p> 
+    {% if title_results %}
+        <ul>
+        {% for post in title_results %} 
+            <li><a href="{% url posts_detail post.id %}">{{ post.title }}</a></li>
+        {% endfor %} 
+        </ul>
+    {% endif %} 
+    {% if results %}
+        <ul>
+        {% for post in results %} 
+            <li><a href="{% url posts_detail post.id %}">{{ post.title }}</a></li>
+        {% endfor %} 
+        </ul>
+    {% endif %} 
+{% endif %} 
+
+{% if query and not title_results and not results %}
+    <p class="warning">No results found.</p> 
+    {% else %}
+    {# <p>Type a search query into the box below, and press "Submit" to search.</p> #}    
+{% endif %}
+
+{% endblock %}

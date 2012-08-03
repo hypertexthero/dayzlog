@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block headtitle %}{{ post.title }} - {% endblock %}
+
+{% block bodyid %} id="detail"{% endblock %}
+
+{% block breadcrumbs %} &rarr; {{ post.title }}{% endblock %}
+
+{% block content %}
+        {# <h1 class="first">{{ post.title }}</h1> #}
+        {# <p class="small">By {{ user.first_name }} {{ user.last_name }} on {{ post.created|date:"l, d F Y" }} at {{ post.modified|date:"H:m" }}.</p> #}
+        {# {% if user.is_authenticated %}  #}
+        {#     <p class="editing"><a class="edit" href="{% url posts_update post.id %}">Edit</a> or <a class="warning" href="{% url posts_delete post.id %}">delete</a> this post.</p> #}
+        {# {% endif %} #}
+        {# {{ post.content_html|safe }} #}
+        {# {% if user.is_authenticated %}  #}
+        {#     <p class="floatright quiet"><a class="edit" href="{% url posts_update post.id %}">Edit</a> or <a class="warning" href="{% url posts_delete post.id %}">delete</a> this post.</p> #}
+        {# {% endif %} #}
+        {#  #}
+        {#  #}
+
+        {% if post.kind == "A" %}
+        {# <pre class="articlebreak"> #}
+        {#      __|__ #}
+        {# -------O------- #}
+        {#     o´   `o #}
+        {# </pre> #}
+        <h1 class="first">
+        <a href="{% url posts_detail post.id %}">{{ post.title }}</a>
+        {% if user.is_authenticated %} 
+        <span class="small normal quiet"> · last edited {{ post.modified|timesince }} ago by {{ user.first_name }} {{ user.last_name }}</span>
+        <span class="small normal"> <a class="edit" href="{% url posts_update post.id %}">edit</a> <a class="warning" href="{% url posts_delete post.id %}">delete</a></span>
+        {% endif %}
+        </h1>
+        {{ post.content_html|safe }}            
+        {# <pre class="articlebreak"> #}
+        {#      __|__ #}
+        {# -------O------- #}
+        {#     o´   `o #}
+        {# </pre> #}
+
+        {% else %}
+
+        <dl>
+            <dt>
+                <a href="{{ post.url }}">{{ post.title }}</a>
+                {# <a href="{% url posts_detail post.id %}" rel="permalink" title="Permanent link to {{ post.title }}.">#</a>  #}
+                {% if user.is_authenticated %} 
+                <span class="small normal quiet"> · last edited {{ post.modified|timesince }} ago by {{ user.first_name }} {{ user.last_name }}</span>
+                <span class="small normal"> <a class="edit" href="{% url posts_update post.id %}">edit</a> <a class="warning" href="{% url posts_delete post.id %}">delete</a></span>
+                {% endif %}
+            </dt>
+            <dd>
+                {{ post.content_html|safe }}
+            </dd>
+            <dd>
+                <small class="quiet">{{ post.created|date:"l, d F Y" }}</small>
+            </dd>
+        </dl>
+        {% endif %} {# / if.post.kind == "A" #}        
+        
+        
+{% endblock %}
+
+{% block footer %}
+    Last update: {{ post.modified|date:"d F Y, H:m" }}<br />
+{% endblock %}
