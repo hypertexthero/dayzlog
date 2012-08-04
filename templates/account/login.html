@@ -6,11 +6,13 @@
 {% load account_tags %}
 {% load url from future %}
 
-{% block head_title %}{% trans "Log In" %}{% endblock %}
+{% block head_title %}Log In{% endblock %}
+
+{% block breadcrumb %}<li><li class="active">Login</li>{% endblock %}
 
 {% block body %}
     <header class="jumbotron subhead" id="overview">
-        <h1>{% trans "Log in" %}</h1>
+        <h1>Log in</h1>
         {# <p class="lead">{% trans "If you have an existing account, provide your login credentials below." %}</p> #}
     </header>
     

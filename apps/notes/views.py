@@ -68,17 +68,17 @@ def notes_create(request):
     )            
 
 @login_required
-def notes_update(request, id):
+def notes_edit(request, id):
     """Update note based on id"""
  
     return update_object(request,
         # model=Note
         form_class=NoteForm, # Needed to specify form_class instead of model so that the custom date widget for dropdown menu is displayed: https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-create-update-create-object
         object_id=id,
-        template_name='notes/update.html',
+        template_name='notes/edit.html',
         # extra_context={'kind': 'kind', 'url': 'url'},
         post_save_redirect="/notes/archive/%(id)s/", # todo: add object.get_absolute_url() to models.py
-        template_object_name='note' # so I can write {{ note.title }} in templates/notes/update.html (otherwise I would need to write {{ object.title }})
+        template_object_name='note' # so I can write {{ note.title }} in templates/notes/edit.html (otherwise I would need to write {{ object.title }})
     )            
 
 @login_required

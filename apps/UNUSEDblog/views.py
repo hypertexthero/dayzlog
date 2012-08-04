@@ -75,10 +75,10 @@ def posts_update(request, id):
         # model=Post
         form_class=PostForm, # Needed to specify form_class instead of model so that the custom date widget for dropdown menu is displayed: https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-create-update-create-object
         object_id=id,
-        template_name='blog/update.html',
+        template_name='blog/edit.html',
         # extra_context={'kind': 'kind', 'url': 'url'},
         post_save_redirect="/blog/archive/%(id)s/", # todo: add object.get_absolute_url() to models.py
-        template_object_name='post' # so I can write {{ post.title }} in templates/posts/update.html (otherwise I would need to write {{ object.title }})
+        template_object_name='post' # so I can write {{ post.title }} in templates/posts/edit.html (otherwise I would need to write {{ object.title }})
     )            
 
 @login_required

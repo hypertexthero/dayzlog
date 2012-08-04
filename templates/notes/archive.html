@@ -25,7 +25,7 @@
                 </p> 
             {# {% if user.is_authenticated %}  #}
             {# <span class="small normal quiet">- Last edited {{note.modified|timesince}} ago by {{ user.first_name }} {{ user.last_name }}</span> #}
-            {#     <span class="small normal"> <a class="edit" href="{% url notes_update note.id %}">edit</a> <a class="warning" href="{% url notes_delete note.id %}">delete</a></span> #}
+            {#     <span class="small normal"> <a class="edit" href="{% url notes_edit note.id %}">edit</a> <a class="warning" href="{% url notes_delete note.id %}">delete</a></span> #}
             {# {% endif %} #}
         
     {% endfor %}

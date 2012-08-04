@@ -2,7 +2,7 @@
 <div id="lastupdate">
     <h4 class="quiet">Last Updated Note:</h4>
     {% for note in notes %}
-        {% if user.is_authenticated %}<p class="floatright"><a class="edit" href="{% url notes_update note.id %}">edit</a> <a class="warning" href="{% url notes_delete note.id %}">delete</a></span></p>{% endif %}
+        {% if user.is_authenticated %}<p class="floatright"><a class="edit" href="{% url notes_edit note.id %}">edit</a> <a class="warning" href="{% url notes_delete note.id %}">delete</a></span></p>{% endif %}
     {% endfor %}
     
     <div id="lastupdatenote">

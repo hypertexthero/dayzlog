@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'django.views.generic.date_based.archive_index', entry_info_dict, name='posts_list'),
     url(r'^archive/(?P<id>\d+)/$', views.posts_detail, name='posts_detail'),  
     url(r'^new/$', views.posts_create, name='posts_create'),  
-    url(r'^update/(?P<id>\d+)/$', views.posts_update, name='posts_update'),  
+    url(r'^edit/(?P<id>\d+)/$', views.posts_update, name='posts_update'),  
     url(r'^delete/(?P<id>\d+)/$', views.posts_delete, name='posts_delete'), 
     url(r'^search/$', views.search, name="posts_search"),
 )

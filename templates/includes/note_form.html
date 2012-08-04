@@ -1,4 +1,4 @@
-{# Called as include in templates/notes/create.html and templates/notes/update.html #}
+{# Called as include in templates/notes/create.html and templates/notes/edit.html #}
 {# Reusable form templates: https://docs.djangoproject.com/en/dev/topics/forms/#reusable-form-templates #}
 
 {# {% block extrahead %} #}
@@ -50,30 +50,6 @@
     <script type="text/javascript" src="/static/js/wmd.js"></script>
     <script type="text/javascript" src="/static/js/showdown.js"></script>
     
-<script type="text/javascript" charset="utf-8">
-        // Disable link url field if note kind is Article
-        // http://stackoverflow.com/a/4597170/412329
-        // http://jsfiddle.net/gnarf/GpmSs/2/        
-        // TODO?: alternative - http://stackoverflow.com/a/2171606/412329        
-
-        $(document).ready(function(){            
-            
-            var $kind = $('#id_kind'),
-                $url = $('#id_url');
-        
-            $kind.change(function() {
-                if ($kind.val() == 'L') {
-                    $url.removeAttr('disabled').show();
-                } else {
-                    $url.attr('disabled', 'disabled').val('').hide();
-                }
-            }).trigger('change'); // added trigger to calculate initial state
-            // 
-            // $("input[type=text]").click(function() { // automatically select text on click - http://stackoverflow.com/a/3150370/412329
-            //    $(this).select();
-            // });
-        });
-</script>
 {% endblock %}
 
 
@@ -86,7 +62,7 @@
         <input id="id_title" type="text" name="title" value="{{ form.title.value|default:'' }}" maxlength="255" tabindex="1" placeholder="Title…" />
 
             <br />
-          <label for="id_kind">Kind: <span class="smaller">(link to other content or original article?)</span></label>
+          <label for="id_status">Status:</label>
               <br />
                           
               {# <select name="kind" id="id_kind" class="floatleft" style="width:15%; margin-right:1em;"> #}
@@ -95,9 +71,7 @@
               {# </select>  #}
               
               {# need to do this to get the set value for a select field #}
-              <div class="floatleft">
-              {{ form.kind }}
-              </div>
+              {{ form.status }}
               
                   <span id="linkurl" class="floatleft" style="width:83%;">
                       {# <label for="id_url">Url:</label>  #}
