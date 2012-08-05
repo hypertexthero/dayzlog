@@ -24,6 +24,6 @@
         {% ifsetting USE_I18N %}
             <li><a href="{% url "acct_language_change" %}">{% trans "Language" %}</a></li>
         {% endifsetting %}
-        <li><a href="{% url "acct_timezone_change" %}">{% trans "Timezone" %}</a></li>
+        {# <li><a href="{% url "acct_timezone_change" %}">{% trans "Timezone" %}</a></li> #}
     </ul>
 {% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'notes/notes_base.html' %}
+{% load i18n %}
+{% load ifsetting_tag %}
+
+{% block head_title %}{{ user }} - {% endblock %}
+
+{% block breadcrumb %}<li class="active">Notes</li>{% endblock %}
+
+{% block body %}
+{% if username %} {# the 'latest' variable of the template context is assigned automatically by the django.views.generic.date_based.archive_index generic view - https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-date-based-archive-index #}
+{% for note in latest %}
+{# https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#ifchanged #}
+{% ifchanged %}
+    {# <hr /> #}
+    {# https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#date #}
+    <h2 class="dateline">{{ note.created|date:"l, d F Y" }}</h2>
+{% endifchanged %}
+
+<h1>
+<a href="{% url notes_detail note.id %}">{{ note.title }}</a>
+{% if user.is_authenticated %} 
+{# <span class="smaller normal quiet"> last edited {{ note.modified|timesince }} ago by {{ user.first_name }} {{ user.last_name }}</span> #}
+<span class="smaller normal"> <a class="edit" href="{% url notes_edit note.id %}">edit</a> <a class="warning" href="{% url notes_delete note.id %}">delete</a></span>
+{% endif %}
+</h1>
+
+{{ note.content_html|safe }}            
+
+{% endfor %} {# /for note in latest #}
+
+{% else %}
+    No notes yet.
+{% endif %} {# /if latest #}
+    
+{% endblock %} {# /body #}

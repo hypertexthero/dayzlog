@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+
+{% load i18n %}
+
+{% block breadcrumblog %}
+    <li class="active">My log entries</li>
+{% endblock %}
+
+
+{% block body %}
+    {# <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all"> #}
+    {#     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"> #}
+    {#         <li class="ui-state-default ui-corner-top{% block my_post_list_tab_class %}{% endblock %}"> #}
+    {#             <a href="{% url blog_my_post_list %}">{% trans "My posts" %}</a> #}
+    {#         </li> #}
+    {#         <li class="ui-state-default ui-corner-top{% block add_tab_class %}{% endblock %}"> #}
+    {#             <a href="{% url blog_add %}">{% trans "Write post" %}</a> #}
+    {#         </li> #}
+    {#     </ul> #}
+
+    {% block content %}{% endblock %}
+
+{% endblock %}

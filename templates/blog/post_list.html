@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+{# {% extends "search/all.html" %} #}
+{% load i18n %}
+
+{% block head_title %}Latest Entries - Day Z Logs{% endblock %}
+
+{% block extra_head %}
+    {{ block.super }}
+    {# <link href="{{ MEDIA_URL }}css/blog.css" rel="stylesheet" type="text/css">     #}
+
+    {# =todo: feed format is breaking jquery and drop-down menus - =fixme #}
+    <link rel="alternate" type="application/atom+xml" title="{% trans "All posts" %}" href="/feeds/posts/all/" />
+{% endblock %}
+
+{% block body %}
+    <h1>Latest Day Z Log Entries</h1>
+    {% if post_list %}
+        {% include "blog/post_iterator.html" %}
+    {% else %}
+        <p>No posts yet.</p>
+    {% endif %}
+{% endblock %}

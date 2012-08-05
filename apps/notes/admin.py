@@ -3,7 +3,7 @@ from django.contrib import admin
 
 class NoteAdmin(admin.ModelAdmin):
     # fields = ('title', 'url', 'created')
-    list_display = ('title', 'status', 'created', 'modified')
+    list_display = ('title', 'created', 'modified')
     # date_hierarchy = 'modified'
     # list_filter = ('title', 'kind', 'url', 'created', 'modified')
 

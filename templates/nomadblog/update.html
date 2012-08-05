@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block headtitle %}Editing &lsquo;{{ note.title }}&rsquo; - {% endblock %}
 
-{% block breadcrumbs %} &rarr; Editing &lsquo;{{ note.title }}&rsquo;{% endblock %}
+{% block breadcrumb %} &rarr; Editing &lsquo;{{ note.title }}&rsquo;{% endblock %}
 
 {% block nav %}
     {% if user.is_authenticated %}

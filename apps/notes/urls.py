@@ -15,6 +15,11 @@ import views
 urlpatterns = patterns('', 
  
     url(r'^$', views.notes_list, name='notes_list'),  
+    
+    # =todo: posts_by_author 
+    # url(r'^u/(?P<username>[\w.@+-]+)/$', views.profile_view, name='profile_view'),  
+    # url(r'^user/(?P<username>[\w\._\-]+)/$', 'blog.views.user_post_list', dict(post_dict_public, template_name='blog/user_post_list.html'), name='blog_user_post_list'),
+    
     url(r'^archive/$', views.notes_archive, name='notes_archive'),  
     # url(r'^$', 'django.views.generic.date_based.archive_index', entry_info_dict, name='notes_list'),
     url(r'^archive/(?P<id>\d+)/$', views.notes_detail, name='notes_detail'),  

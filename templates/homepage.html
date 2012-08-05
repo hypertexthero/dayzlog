@@ -9,7 +9,7 @@
 
 {% block banner %}
     {% if user.is_authenticated %}
-    <h1>{{ user|capfirst }}&rsquo;s <span class="normal">Day Z Log</span></h1>
+    <h1><a href="/logs/mylog/">{{ user|capfirst }}&rsquo;s <span class="normal">Day Z Log</span></a></h1>
 
     {% else %}
     <h1>Day Z Log</h1>
@@ -33,7 +33,7 @@
     {% if user.is_authenticated %}
     {% load url from future %}
         <p>
-            <a href="/notes/new" class="btn btn-primary"><i class="icon-pencil"></i> Write a new note on your journal</a> or
+            <a href="/logs/new/" class="btn btn-primary"><i class="icon-pencil"></i> Write a new entry in your log</a> or
             <a href="{% url "profile_detail" user.username %}" class="btn"><i class="icon-user"></i> edit your profile</a> to generate a <a href="/help">squad.xml file and URL you can add to your Day Z in-game profile</a> so other players can see who they&rsquo;re dealing with.
             {# <a href="{% url acct_email %}" class="btn btn-primary" title="So you can receive notifications, reset your password and so people can find you more easily.">verify an email address</a> #}
             {# <a href="{{ what_next_url }}" class="btn">more actions</a></p> #}
@@ -106,7 +106,7 @@
             <p><a class="btn" href="#">Read &raquo;</a></p>
         </div>
         <div class="span12">
-             <p class="lead"><a href="/u/username/blog/archive/">Archive of {{user|capfirst}}&rsquo;s Day Z Stories</a></p>
+             <p class="lead"><a href="/blog/u/blog/archive/">Archive of {{user|capfirst}}&rsquo;s Day Z Stories</a></p>
         </div>
     </div>
     

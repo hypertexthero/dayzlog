@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block head_title %}Editing &lsquo;{{ post.title }}&rsquo; - {% endblock %}
 
-{% block breadcrumbs %} &rarr; Editing &lsquo;{{ post.title }}&rsquo;{% endblock %}
+{% block breadcrumb %} &rarr; Editing &lsquo;{{ post.title }}&rsquo;{% endblock %}
 
 {% block nav %}
     {% if user.is_authenticated %}

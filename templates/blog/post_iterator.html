@@ -1,0 +1,10 @@
+{% load blog_tags %}
+{% load pagination_tags %}
+
+{% autopaginate post_list %}
+
+{% for post in post_list %}
+    {% show_blog_post post %}
+{% endfor %}
+
+{% paginate %}

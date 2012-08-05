@@ -1,0 +1,32 @@
+{% extends "blog/base.html" %}
+
+{% load i18n %}
+{% load blog_tags %}
+
+{% block head_title %}{{ post.title }} - {{ user.username|capfirst }}'s Day Z Log{% endblock %}
+
+{% block external_css %}
+    {{ block.super }}
+    {# <link rel="stylesheet" href="{{ STATIC_URL }}wysiwyg-bbcode/editor.css" /> #}
+{% endblock %}
+ 
+{% block extra_head %}
+    {{ block.super }}
+    {# <link rel="stylesheet" href="{{ MEDIA_URL }}css/comments.css" /> #}
+    {# <link rel="stylesheet" href="{{ MEDIA_URL }}css/pygments.css" /> #}
+{% endblock %}
+
+{# {% block external_js %} #}
+{#     {{ block.super }} #}
+{#     <script src="{{ STATIC_URL }}wysiwyg-bbcode/editor.js" language="JavaScript" type="text/javascript"></script> #}
+{# {% endblock %}  #}
+{#  #}
+{# {% block js %} #}
+{#     {{ block.super }} #}
+{#     <script src="{{ STATIC_URL }}js/misc.js" language="JavaScript" type="text/javascript"></script> #}
+{#     <script src="{{ STATIC_URL }}js/comments.js" language="JavaScript" type="text/javascript"></script> #}
+{% endblock %} 
+
+{% block body %}
+    {% show_full_blog_post post %} 
+{% endblock %}

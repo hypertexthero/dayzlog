@@ -1,5 +1,8 @@
 from django.db import models
 from django.db.models import permalink
+
+from django.contrib.auth.models import User, AnonymousUser
+
 from markdown import markdown
 import datetime
 from typogrify.templatetags.typogrify_tags import typogrify
@@ -13,6 +16,7 @@ class Note(models.Model):
     
     LIVE_STATUS = 1
     DRAFT_STATUS = 2
+    
     STATUS_CHOICES = (
         (LIVE_STATUS, 'Live'),
         (DRAFT_STATUS, 'Draft'),
@@ -28,6 +32,8 @@ class Note(models.Model):
     created = models.DateTimeField(default=datetime.datetime.now)
     modified = models.DateTimeField(auto_now_add=True, editable=False)
 
+    # author = models.ForeignKey(User)  
+    
     # Need to be this way around so that non-live notes will show up in Admin, which uses the default (first) manager.
     objects = models.Manager()
     live = LiveNoteManager()
@@ -53,6 +59,21 @@ class Note(models.Model):
     # display note title in admin
     def __unicode__(self):
         return self.title
+
+    # @models.permalink
+    # def get_absolute_url(self):
+    #     return ('notes_detail', (), { 'author': self.author,
+    #                                   'slug': self.slug,
+    #                                   'id': self.id })
+
+    # @models.permalink
+    # def get_absolute_url(self):
+    #     return ('notes_detail', (), {  'year': self.pub_date.strftime("%Y"),
+    #                                             'month': self.pub_date.strftime("%b").lower(),
+    #                                             'day': self.pub_date.strftime("%d"),
+    #                                             'slug': self.slug })
+
+
 
 
 #     # def live_note_set(self):

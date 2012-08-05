@@ -11,12 +11,36 @@ from django.core.urlresolvers import reverse
 from models import Note
 from forms import NoteForm
 
+# from django.contrib.auth.models import User, AnonymousUser
+# from django.template import RequestContext
+
+
+# def profile_view(request, username):
+#     u = User.objects.get(username=username)
+#     return render_to_response('notes/user_notes_list.html', {'username': username},
+#             context_instance=RequestContext(request))
+
+
+# https://github.com/sunlightlabs/django-wordpress/blob/master/wordpress/views.py
+def author_list(request, username):
+    notes = Post.objects.published().filter(author__login=username)
+    return list_detail.object_list(request, queryset=notes,
+        paginate_by=PER_PAGE, template_name="notes/user_notes_list.html",
+        template_object_name="note", allow_empty=True)
+
+# =todo: posts_by_author 
+# def user_post_list(request, *kargs, **kwargs):
+#     user = get_object_or_404(User, username = kwargs.pop('username', ''))
+#     kwargs['queryset'] = kwargs['queryset'].filter(author=user)
+#     kwargs['extra_context'] = {'current_user': user}
+#     return list_detail.object_list(request, *kargs, **kwargs)
+
 # generic archive_index view to display notes ordered by date and not display ones saved with a future date - https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-date-based-archive-index
 def notes_list(request): 
     """Show all notes"""
     
     return archive_index(request, 
-        queryset=Note.objects.all().order_by('-created', 'title'), # https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by
+        queryset=Note.live.all().order_by('-created', 'title'), # https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by
         date_field='created', # don't forget to set {{ note.created|date:"d F Y" }} in notes/list.html
         template_name='notes/list.html',
         # template_object_name='note',
@@ -66,6 +90,28 @@ def notes_create(request):
         # post_save_redirect=reverse("notes_list")
         post_save_redirect="/notes/archive/%(id)s/" # todo: add object.get_absolute_url() to models.py
     )            
+
+# =todo: get /u/log/1 url working
+# @login_required
+# def notes_create(request):
+#     """Create new note"""
+#     
+#     if request.method == "POST":
+# 
+#         noteform = NoteForm(request.POST, instance=Note())
+# 
+#         user = request.user
+#         author = user.id
+# 
+#         if noteform.is_valid():
+#             new_note = noteform.save(commit=False)
+#             new_note.author = author
+#             noteform.save()
+#             return HttpResponseRedirect('/notes/archive/%(id)s/')
+#     else:
+#         noteform = NoteForm(instance=Note())
+#     return render_to_response('notes/create.html', {'noteform': noteform},
+#         context_instance=RequestContext(request))
 
 @login_required
 def notes_edit(request, id):

@@ -1,0 +1,32 @@
+{% extends "blog/base_my.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Write a Blog Post" %}{% endblock %}
+
+{% block external_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{{ STATIC_URL }}redactor/css/editor.css" type="text/css" />
+{% endblock %}
+
+{% block external_js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}redactor/editor.js" language="JavaScript" type="text/javascript"></script>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}js/blog.js" language="JavaScript" type="text/javascript"></script>
+{% endblock %}
+
+{% block add_tab_class %} ui-tabs-selected ui-state-active{% endblock %}
+
+{% block content %}
+    <form class="uniForm" id="add_post" method="POST" action="{% url blog_add %}">
+        {% csrf_token %}
+        <fieldset class="inlineLabels">
+            {{ post_form }}
+            <input type="submit" class="default" value="{% trans "Create" %}"/>
+        </fieldset>
+    </form>
+{% endblock %}

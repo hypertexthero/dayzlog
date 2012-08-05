@@ -42,7 +42,8 @@ DATABASES = {
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = "US/Eastern"
+USE_TZ = True
+TIME_ZONE = "Europe/Rome"
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -52,7 +53,7 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = False
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
@@ -89,10 +90,14 @@ STATICFILES_FINDERS = [
 ADMIN_MEDIA_PREFIX = posixpath.join(STATIC_URL, "admin/")
 
 # Subdirectory of COMPRESS_ROOT to store the cached media files in
-COMPRESS_OUTPUT_DIR = "cache"
+# COMPRESS_OUTPUT_DIR = "cache"
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = "verysecret"
+# http://stackoverflow.com/questions/7602904/temporarily-disabling-django-caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = [
@@ -110,7 +115,7 @@ MIDDLEWARE_CLASSES = [
     "pinax.apps.account.middleware.LocaleMiddleware",
     "pagination.middleware.PaginationMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "dayzlog.urls"
@@ -157,7 +162,7 @@ INSTALLED_APPS = [
     "notification", # must be first
     "staticfiles",
     "compressor",
-    "debug_toolbar",
+    # "debug_toolbar",
     "mailer",
     "django_openid",
     "timezones",
@@ -174,7 +179,8 @@ INSTALLED_APPS = [
     # project
     "about",
     "profiles",
-    "notes",
+    # "notes",
+    "blog",
 ]
 
 FIXTURE_DIRS = [
@@ -201,6 +207,7 @@ EMAIL_PORT = 1025
 
 ABSOLUTE_URL_OVERRIDES = {
     "auth.user": lambda o: "/profiles/profile/%s/" % o.username,
+    # "auth.user": lambda o: "/up/%s/" % o.username,
 }
 
 AUTH_PROFILE_MODULE = "profiles.Profile"
@@ -224,10 +231,13 @@ LOGOUT_REDIRECT_URLNAME = "home"
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
 
-DEBUG_TOOLBAR_CONFIG = {
-    "INTERCEPT_REDIRECTS": False,
-}
+# DEBUG_TOOLBAR_CONFIG = {
+#     "INTERCEPT_REDIRECTS": False,
+# }
 
+# https://github.com/ilblackdragon/django-blogs
+BLOG_ENABLE_BLOGS = False
+BLOG_ENABLE_USER_BLOG = True
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
@@ -235,3 +245,4 @@ try:
     from local_settings import *
 except ImportError:
     pass
+

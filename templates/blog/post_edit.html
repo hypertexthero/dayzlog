@@ -1,0 +1,32 @@
+{% extends "blog/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}Edit - {{ post.title }} - {{ user.username|capfirst }}'s Day Z Log{% endblock %}
+
+{% block external_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{{ STATIC_URL }}redactor/css/editor.css" type="text/css" />
+{% endblock %}
+
+{% block external_js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}redactor/editor.js" language="JavaScript" type="text/javascript"></script>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}js/blog.js" language="JavaScript" type="text/javascript"></script>
+{% endblock %}
+
+{% block body %}
+<h2><span class="normal">Edit entry titled</span> {{ post.title }}</h2>
+    <form class="uniForm" id="edit_post" method="POST" action="{% url blog_edit post.id %}">
+        {% csrf_token %}
+        <fieldset class="inlineLabels">
+            {{ post_form }}
+            <br>
+            <input class="btn" type="submit" class="default" value="{% trans "Update" %}"/> or <a class="warning" href="{% firstof request.META.HTTP_REFERER url notes_detail note.id %}">cancel</a>
+        </fieldset>
+    </form>
+{% endblock %}

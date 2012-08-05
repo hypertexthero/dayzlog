@@ -1,16 +1,59 @@
 {% load i18n %}
-<div class="profile_info">
-    {% if profile.name %}<p><b>{% trans "Name" %}</b>: {{ profile.name }}</p>{% endif %}
-    {% if profile.about %}<p><b>{% trans "About" %}</b>: {{ profile.about }}</p>{% endif %}
-    {% if profile.location %}<p><b>{% trans "Location" %}</b>: {{ profile.location }}</p>{% endif %}
-    {# {% if profile.website %}<p><b>{% trans "Website" %}</b>: <a href="{{ profile.website }}">{{ profile.website }}</a></p>{% endif %} #}
+
+<div class="hero-unit">
+        
+
+        {% ifequal request.user other_user %}
+            <h1 style="margin-bottom:0.25em;">{{ profile.name|capfirst }}</h1>
+        {% else %}
+            <h1 style="margin-bottom:0.25em;">{{ profile.user.username|capfirst }}</h1>
+        {% endifequal %}
+
+    <div class="profile_info">
+        <p><b>Day Z Log URL</b>: <b><a href="/logs/u/{{profile.user.username}}">http://{{SITE_NAME}}/logs/u/{{profile.user.username}}</a></b></p>
+        {% if profile.name %}<p><b>{% trans "Day Z in-game Profile Name" %}</b>: {{ profile.name }}</p>{% endif %}
+        {% if profile.about %}<p><b>{% trans "About" %}</b>: {{ profile.about }}</p>{% endif %}
+        {% if profile.location %}<p><b>{% trans "Location" %}</b>: {{ profile.location }}</p>{% endif %}
+        {# {% if profile.website %}<p><b>{% trans "Website" %}</b>: <a href="{{ profile.website }}">{{ profile.website }}</a></p>{% endif %} #}
+    </div>
+
+    {% load account_tags %}
+    {% load url from future %}
+    {% if is_me %}
+        <p><a href="{% url "profile_edit" %}" class="btn">{% trans "Edit my profile" %}</a></p>
+    {% endif %}
+
 </div>
 
-{% if profile.name %}
-<div class="profile_info">
-    <p class="lead">
-    <b>Put the following URL in your Day Z in-game profile URL:</b> <small><a href="/help">how do I do this?</a></small> <br>
-    http://www.dayz.be/profiles/profile/{{ profile.name }} 
-    </p>
-</div>
+{# show only to authenticated user who is also the owner of the profile #}
+{% if user.is_authenticated %}
+{% ifequal user.username profile.user.username %} 
+{# or {% if is_me %} #}
+        <p class="lead">
+        Add the following URL to your Day Z in-game profile to display the above information in-game <span class="small normal"><a data-toggle="modal" href="#help">(how do I do this?)</a></span>:
+        </p>
+        <div class="hero-unit well">
+            <div class="profile_info">
+                <h2><strong>http://www.dayz.be/profiles/profile/{{profile.name}}/squad.xml</strong></h2>
+            </div>
+        </div>
+{% endifequal %}
 {% endif %}
+
+
+<div class="modal hide" id="help">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>How to add your Day Z Log URL to your Day Z in-game profile</h3>
+  </div>
+
+  <div class="modal-body">
+
+ <p>Help goes here</p>
+
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    {# <a href="#" class="btn btn-primary">Save changes</a> #}
+  </div>
+
+</div>

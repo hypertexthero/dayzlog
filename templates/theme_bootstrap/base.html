@@ -42,12 +42,61 @@
                             {% block site_brand %}<a class="brand" href="{% url "home" %}">{{ SITE_NAME }}</a>{% endblock %}
                             <div class="nav-collapse">
                                 {% block nav %}
-                                    {% comment %}
+                             
+                             {# in templates/blog/base_my        #}
+                                        {# <ul class="nav"> #}
+                                        {#     <li> #}
+                                        {#         <a href="{% url blog_my_post_list %}">My posts</a> #}
+                                        {#     </li> #}
+                                        {#     <li> #}
+                                        {#         <a href="{% url blog_add %}">Write post</a> #}
+                                        {#     </li> #}
+                                        {# </ul> #}
+
+                                        {% if user.is_authenticated %}
+
                                         <ul class="nav">
-                                            <li><a href="#tab_one">One</a></li>
-                                            <li><a href="#tab_two">Two</a></li>
+
+                                            <li class="dropdown">
+                                                <a href="#"
+                                                    class="dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Logs
+                                                    <b class="caret"></b>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="/logs/">All Logs</a></li>
+                                                    <li><a href="/logs/u/{{user.username}}">My Log</a></li>
+                                                    <li><a href="/logs/mylog/">My Log Entries (live &amp; draft)</a></li>
+                                                    <li><a href="/logs/new/"><i class="icon-pencil"></i> Write new log entry</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="dropdown">
+                                                <a href="#"
+                                                    class="dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    Profiles
+                                                    <b class="caret"></b>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="/profiles/">All Day Z In-Game Profiles</a></li>
+                                                    <li><a href="/profiles/profile/{{user.username}}">My Day Z In-Game Profile</a></li>
+                                                    <li><a href="/profiles/edit/"><i class="icon-pencil"></i> Edit my Day Z in-game profile</a></li>
+                                                </ul>
+                                            </li>
                                         </ul>
-                                    {% endcomment %}
+
+                                {% else %}
+
+                                        <ul class="nav">
+                                            <li><a href="/logs/">Logs</a></li>
+                                            <li><a href="/profiles/">Profiles</a></li>
+                                        </ul> 
+
+                                {% endif %}
+                                         
+                                    
                                 {% endblock %}
                                 {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
                             </div>
@@ -60,12 +109,12 @@
         {% block body_base %}
             <div class="container">
                 
-                <ul class="breadcrumb">
-                  <li>
-                    <a href="/">Home</a> <span class="divider">/</span>
-                  </li>
-                  {% block breadcrumb %}{% endblock %}
-                </ul>
+                {# <ul class="breadcrumb"> #}
+                {#   <li> #}
+                {#     <a href="/">Home</a> <span class="divider">/</span> #}
+                {#   </li> #}
+                {#   {% block breadcrumb %}{% endblock %} #}
+                {# </ul> #}
                 
                 {% include "_messages.html" %}
                 {% block body %}
@@ -83,7 +132,7 @@
             </div>
         {% endblock %}
 
-        {% include "includes/markdown_cheatsheet.html" %}
+        {# {% include "includes/markdown_cheatsheet.html" %} #}
 
         {% block script_base %}
             <script src="{% block jquery_src %}{% static "pinax/js/jquery.js" %}{% endblock %}"></script>

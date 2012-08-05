@@ -1,0 +1,45 @@
+{% extends "site_base.html" %}
+
+{# {% block extra_head %} #}
+{#     <link href="{{ MEDIA_URL }}blog/blog.css" rel="stylesheet" type="text/css"> #}
+{# {% endblock %} #}
+
+{% block head_title %}Log - {% endblock %}
+
+{# {% block nav %} #}
+{#                <ul class="nav"> #}
+{#                    <li> #}
+{#                         <a href="{% url blog_post_list %}">All logs</a> #}
+{#                    </li> #}
+{#                     <li> #}
+{#                         <a href="{% url blog_my_post_list %}">My log</a> #}
+{#                     </li> #}
+{#                     <li> #}
+{#                         <a href="{% url blog_add %}">Write new log entry</a> #}
+{#                     </li> #}
+{#                 </ul> #}
+{# {% endblock %} #}
+
+{# {% block breadcrumb %} #}
+{#     {% if user.is_authenticated %} #}
+{#     <li> #}
+{#         <a href="{% url blog_my_post_list %}">Log</a>  #}
+{#         <span class="divider">/</span> #}
+{#     </li> #}
+{#     {% else %} #}
+{#     <li> #}
+{#         <a href="{% url blog_post_list %}">Log</a> #}
+{#         <span class="divider">/</span> #}
+{#     </li> #}
+{#     <li> #}
+{#         <a href="/log/u/{{ post.author.username}}">{{ post.author.username|capfirst }}</a>&rsquo; <span class="divider">/</span> #}
+{#     </li> #}
+{#     {% endif %} #}
+{#  #}
+{#     {% block breadcrumblog %} #}
+{#     {% endblock %} #}
+{# {% endblock %} #}
+
+{% block body %}
+    
+{% endblock %}

@@ -10,6 +10,14 @@ from pinax.apps.account.openid_consumer import PinaxConsumer
 
 handler500 = "pinax.views.server_error"
 
+
+from blog.feeds import BlogFeedAll, BlogFeedBlog, BlogFeedUser
+blogs_feed_dict = {"feed_dict": {
+'all': BlogFeedAll, 'blog' : BlogFeedBlog, 'only': BlogFeedUser,
+}}
+
+# =todo: vanity url: http://stackoverflow.com/questions/3333765/get-user-from-url-segment-with-django 
+
 urlpatterns = patterns("",
     url(r"^$", direct_to_template, {
         "template": "homepage.html",
@@ -19,10 +27,15 @@ urlpatterns = patterns("",
     url(r"^about/", include("about.urls")),
     url(r"^account/", include("pinax.apps.account.urls")),
     url(r"^openid/", include(PinaxConsumer().urls)),
-    url(r"^profiles/", include("idios.urls")),
+    url(r"^profiles/", include("idios.urls")), # NOTA BENE: that this is pointing to IDIOS and not profiles/urls.py...
+    # url(r"^up/", include("profiles.urls")),
     url(r"^notices/", include("notification.urls")),
     url(r"^announcements/", include("announcements.urls")),
-    url(r'^notes/', include('notes.urls')),
+    # url(r'^notes/', include('notes.urls')),
+    # url(r'^log/', include('blog.urls')),
+    url(r'^logs/', include('blog.urls')), 
+    # url(r'^b/', include('blogs.short_urls')), # For short urls, if you want 
+    url(r'^feeds/posts/(?P<url>w+)/', 'django.contrib.syndication.views.feed', blogs_feed_dict),
 )
 
 

@@ -1,0 +1,19 @@
+{% extends "blog/base.html" %}
+{% load i18n %}
+
+{% block head_title %}{{ user.username|capfirst }}'s Day Z Log{% endblock %}
+
+{% block extra_head %}
+    {{ block.super }}
+    {# =todo: feed format is breaking jquery and drop-down menus - =fixme #}
+    <link rel="alternate" type="application/atom+xml" title="Blog post feed for user {{ name }}" href="/feeds/posts/only/?username={{ current_user.username }}" />
+{% endblock %}
+
+{% block body %}
+    <h1>{{ user.username|capfirst }}'s Day Z Log: <span class="normal">Latest Entries</span></h1>
+    {% if post_list %}
+        {% include "blog/post_iterator.html" %}
+    {% else %}
+        <p>No posts yet.</p>
+    {% endif %}
+{% endblock %}

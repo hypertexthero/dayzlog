@@ -7,28 +7,7 @@
 {% block breadcrumb %}<li><a href="/notes/">Notes</a> <span class="divider">/</span></li><li class="active">{{ note.title }}</li>{% endblock %}
 
 {% block body %}
-
-{# {% block bodyid %} id="detail"{% endblock %} #}
-
-        {# <h1 class="first">{{ note.title }}</h1> #}
-        {# <p class="small">By {{ user.first_name }} {{ user.last_name }} on {{ note.created|date:"l, d F Y" }} at {{ note.modified|date:"H:m" }}.</p> #}
-        {# {% if user.is_authenticated %}  #}
-        {#     <p class="editing"><a class="edit" href="{% url notes_edit note.id %}">Edit</a> or <a class="warning" href="{% url notes_delete note.id %}">delete</a> this note.</p> #}
-        {# {% endif %} #}
-        {# {{ note.content_html|safe }} #}
-        {# {% if user.is_authenticated %}  #}
-        {#     <p class="floatright quiet"><a class="edit" href="{% url notes_edit note.id %}">Edit</a> or <a class="warning" href="{% url notes_delete note.id %}">delete</a> this note.</p> #}
-        {# {% endif %} #}
-        {#  #}
-        {#  #}
-
-        {% if note.kind == "A" %}
-        {# <pre class="articlebreak"> #}
-        {#      __|__ #}
-        {# -------O------- #}
-        {#     o´   `o #}
-        {# </pre> #}
-        <h1 class="first">
+        <h1>
         <a href="{% url notes_detail note.id %}">{{ note.title }}</a>
         {% if user.is_authenticated %} 
         <span class="small normal quiet"> · last edited {{ note.modified|timesince }} ago by {{ user|capfirst }}</span>
@@ -36,32 +15,6 @@
         {% endif %}
         </h1>
         {{ note.content_html|safe }}            
-        {# <pre class="articlebreak"> #}
-        {#      __|__ #}
-        {# -------O------- #}
-        {#     o´   `o #}
-        {# </pre> #}
-
-        {% else %}
-
-        <dl>
-            <dt>
-                <a href="{{ note.url }}">{{ note.title }}</a>
-                {# <a href="{% url notes_detail note.id %}" rel="permalink" title="Permanent link to {{ note.title }}.">#</a>  #}
-                {% if user.is_authenticated %} 
-                <span class="small normal quiet"> · last edited {{ note.modified|timesince }} ago by {{ user.first_name }} {{ user.last_name }}</span>
-                <span class="small normal"> <a class="edit" href="{% url notes_edit note.id %}">edit</a> <a class="warning" href="{% url notes_delete note.id %}">delete</a></span>
-                {% endif %}
-            </dt>
-            <dd>
-                {{ note.content_html|safe }}
-            </dd>
-            <dd>
-                <small class="quiet">{{ note.created|date:"l, d F Y" }}</small>
-            </dd>
-        </dl>
-        {% endif %} {# / if.note.kind == "A" #}        
-        
     
 <small>Last updated: {{ note.modified|date:"d F Y, H:m" }}</small>
 
