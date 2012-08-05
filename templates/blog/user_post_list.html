@@ -1,7 +1,11 @@
 {% extends "blog/base.html" %}
 {% load i18n %}
 
-{% block head_title %}{{ user.username|capfirst }}'s Day Z Log{% endblock %}
+{# {% block head_title %}{{ post.author.username|capfirst }}'s Day Z Log{% endblock %} #}
+
+{% block head_title %}
+    {% blocktrans with current_user.get_profile.display_name as name %}{{ name }}'s blog{% endblocktrans %}
+{% endblock %}
 
 {% block extra_head %}
     {{ block.super }}
@@ -10,8 +14,10 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ user.username|capfirst }}'s Day Z Log: <span class="normal">Latest Entries</span></h1>
+
     {% if post_list %}
+        {% load blog_tags %}
+        <p>{{ post.author.username|capfirst }}</p>
         {% include "blog/post_iterator.html" %}
     {% else %}
         <p>No posts yet.</p>

@@ -2,14 +2,17 @@
 
 {% load i18n %}
 
-{% block head_title %}My entries{% endblock %}
+{% block head_title %}My Entries ({{user}}){% endblock %}
 
 {% block content %}
     {% if post_list %}
+
+    <h1 class="pull-left">My Day Z Log Entries <a href="/logs/u/{{user.username}}">({{user}})</a></h1>
+    <p class="pull-right"><a class="btn btn-primary" href="/logs/new/"><i class="icon-pencil"></i> Write new log entry</a></p>
         {% regroup post_list|dictsort:"status" by status as posts_by_status %}
 
         {% for post_list in posts_by_status %}
-            <h2>{{ post_list.list.0.get_status_display }}</h2>
+            <h2 style="clear:both;">{{ post_list.list.0.get_status_display }}</h2>
             <table class="blog_list_my">
                 {% with post_list.list|dictsortreversed:"created_at" as posts %}
                     <thead>
@@ -29,6 +32,7 @@
                             <td>{{ post.updated_at|date:"d M Y, H:i" }}</td>
                             <td class="actions">
                                 [ <a href="{% url blog_edit post.id %}" class="inline_action">{% trans "Edit" %}</a> ]
+                                [ <a href="{% url blog_delete post.id %}" class="inline_action">{% trans "Delete" %}</a> ]
                                 {% if post.is_public %}
                                     [ <a href="{% url blog_change_status 'draft' post.id %}" class="inline_action">{% trans "To drafts" %}</a> ]
                                 {% else %}

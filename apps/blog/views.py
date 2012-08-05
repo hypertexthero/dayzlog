@@ -21,8 +21,7 @@ def blog_post_detail(request, *kargs, **kwargs):
     kwargs['template_object_name'] = 'post'
     kwargs['queryset'] = Post.objects.filter(blog = blog)
     if request.user.is_authenticated():
-        kwargs['queryset'] = kwargs['queryset'].filter(author=request.user) |\
-                             kwargs['queryset'].filter(status=IS_PUBLIC)
+        kwargs['queryset'] = kwargs['queryset'].filter(author=request.user) | kwargs['queryset'].filter(status=IS_PUBLIC)
     else:
         kwargs['queryset'] = kwargs['queryset'].filter(status=IS_PUBLIC)
     return list_detail.object_detail(request, *kargs, **kwargs)
@@ -90,3 +89,31 @@ def edit(request, id, form_class=PostForm, template_name="blog/post_edit.html"):
         request.user.message_set.create(message=_("Successfully updated post '%s'") % post.title)
         return redirect("blog_user_post_detail", username=request.user.username, slug=post.slug)
     return render_to_response(template_name, {"post_form": post_form, "post": post}, context_instance=RequestContext(request))
+
+# delete entry
+from django.views.generic.create_update import delete_object
+@login_required
+def delete(request, id):
+    """Delete a post based on id"""
+
+    return delete_object(request,
+        model=Post,
+        object_id=id,
+        template_object_name='post', # so I can write {{ note.title }} in templates/notes/delete.html (otherwise I would need to write {{ object.title }})
+        template_name='blog/post_delete.html',
+        post_delete_redirect=reverse("blog_my_post_list")
+    )
+
+# homepage
+from django.views.generic.date_based import archive_index
+# generic archive_index view to display notes ordered by date and not display ones saved with a future date - https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-date-based-archive-index
+def homepage(request): 
+    """Show all entries"""
+
+    return archive_index(request, 
+        queryset=Post.objects.all().order_by('-created_at', 'title'), # https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by
+        date_field='created_at', # don't forget to set {{ note.created|date:"d F Y" }} in notes/list.html
+        template_name='homepage.html',
+        # template_object_name='post',
+        allow_future = False # this is the default, but am keeping it here to remember that it can be set to true for other use cases, such as calendar of upcoming events
+    )

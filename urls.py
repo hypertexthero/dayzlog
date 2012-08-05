@@ -1,6 +1,9 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
+
 from django.views.generic.simple import direct_to_template
+from django.views.generic.date_based import archive_index
+from blog import views
 
 from django.contrib import admin
 admin.autodiscover()
@@ -19,9 +22,10 @@ blogs_feed_dict = {"feed_dict": {
 # =todo: vanity url: http://stackoverflow.com/questions/3333765/get-user-from-url-segment-with-django 
 
 urlpatterns = patterns("",
-    url(r"^$", direct_to_template, {
-        "template": "homepage.html",
-    }, name="home"),
+    # url(r"^$", direct_to_template, {
+    #     "template": "homepage.html",
+    # }, name="home"),
+    url(r"^$", "blog.views.homepage", name="home"), 
     url(r"^admin/invite_user/$", "pinax.apps.signup_codes.views.admin_invite_user", name="admin_invite_user"),
     url(r"^admin/", include(admin.site.urls)),
     url(r"^about/", include("about.urls")),

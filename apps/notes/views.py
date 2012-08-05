@@ -22,11 +22,11 @@ from forms import NoteForm
 
 
 # https://github.com/sunlightlabs/django-wordpress/blob/master/wordpress/views.py
-def author_list(request, username):
-    notes = Post.objects.published().filter(author__login=username)
-    return list_detail.object_list(request, queryset=notes,
-        paginate_by=PER_PAGE, template_name="notes/user_notes_list.html",
-        template_object_name="note", allow_empty=True)
+# def author_list(request, username):
+#     notes = Post.objects.published().filter(author__login=username)
+#     return list_detail.object_list(request, queryset=notes,
+#         paginate_by=PER_PAGE, template_name="notes/user_notes_list.html",
+#         template_object_name="note", allow_empty=True)
 
 # =todo: posts_by_author 
 # def user_post_list(request, *kargs, **kwargs):

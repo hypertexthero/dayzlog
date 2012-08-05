@@ -1,0 +1,31 @@
+{% extends "blog/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}Deleting {{post.title }} - {{ user.username|capfirst }}'s Day Z Log{% endblock %}
+
+{% block external_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{{ STATIC_URL }}redactor/css/editor.css" type="text/css" />
+{% endblock %}
+
+{% block external_js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}redactor/editor.js" language="JavaScript" type="text/javascript"></script>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}js/blog.js" language="JavaScript" type="text/javascript"></script>
+{% endblock %}
+
+{% block body %}
+
+{# {% url blog_edit post.id %} #}
+    <form method="POST" action="">
+        {% csrf_token %}
+        <p>Are you sure want to <strong class="warning">delete</strong> the note titled "<em>{{ post.title }}</em>"?</p>
+        
+        <p><input class="btn" type="submit" value="Yes, Delete" /> or <a href="javascript:history.go(-1)">Cancel</a></p>
+    </form>
+{% endblock %}

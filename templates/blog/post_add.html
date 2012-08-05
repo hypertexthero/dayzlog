@@ -22,11 +22,17 @@
 {% block add_tab_class %} ui-tabs-selected ui-state-active{% endblock %}
 
 {% block content %}
-    <form class="uniForm" id="add_post" method="POST" action="{% url blog_add %}">
-        {% csrf_token %}
-        <fieldset class="inlineLabels">
-            {{ post_form }}
-            <input type="submit" class="default" value="{% trans "Create" %}"/>
-        </fieldset>
-    </form>
+
+{% load bootstrap_tags %}
+<form class="customform" id="add_post" method="POST" action="{% url blog_add %}">
+    {% csrf_token %}
+  <fieldset>
+    <legend>New Log Entry</legend>  
+        {{ post_form|as_bootstrap }}
+        <br>
+        <button type="submit" class="btn btn-primary btn-large">Submit</button>
+  </fieldset>
+</form>
+
+
 {% endblock %}

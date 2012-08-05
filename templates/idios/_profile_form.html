@@ -3,9 +3,9 @@
 {% load url from future %}
 
 {% if profile_form.is_multipart %}
-    <form method="POST" enctype="multipart/form-data" action="{% url "profile_edit" %}">
+    <form class="customform" method="POST" enctype="multipart/form-data" action="{% url "profile_edit" %}">
 {% else %}
-    <form method="POST" action="{% url "profile_edit" %}">
+    <form class="customform" method="POST" action="{% url "profile_edit" %}">
 {% endif %}
     {% csrf_token %}
     {{ profile_form|as_bootstrap }}

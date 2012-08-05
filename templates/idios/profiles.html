@@ -7,11 +7,24 @@
 {% block head_title %}{% trans "All Profiles" %}{% endblock %}
 
 {% block body %}
+
+<p class="breadcrumb">
+    <a href="/">Home</a> / Profiles
+</p>
+
     <header class="jumbotron subhead" id="overview">
         <h1>{% trans "All Profiles" %}</h1>
-        <p class="lead">{% trans "Day Z player profiles on DayZ.be" %}</p>
+        <p class="lead">{% trans "Day Z player profiles on DayZLog.com" %}</p>
     </header>
-    
+
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+        <tr class="lead">
+            <td>Day Z profile name</td>
+            <td>Day Z Log URL</b></td>
+        </tr>
+        </thead>
+        <tbody>
     {% autopaginate profiles %}
     
     {% for profile in profiles %}
@@ -19,5 +32,6 @@
     {% endfor %}
     
     {% paginate %}
-    
+        </tbody>
+    </table>
 {% endblock %}

@@ -4,13 +4,12 @@ Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.
 
 ## Todo
 
-- Accounts
-    - signal to create user blog upon registration OR:
-    - blog/post creation form in public area?
+- Logo
 - Blog
     - URLs
         - /up/username/ - UserProfile
         - /log/username/ - UserBlog
+    - Delete entries ability
     - Markdown and HTML tables
     - Comments with Disqus
     - Feeds

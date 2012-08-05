@@ -1,0 +1,7 @@
+<div class="blog_post_meta">
+    <span class="avatarname with_popup">
+        {# <a href="{{ profile_detail_url }}"> #}
+        By {{ post.user.username|capfirst }}
+    </span>
+    {{ post.updated_at|date:"D, d M Y, H:i" }}
+</div>

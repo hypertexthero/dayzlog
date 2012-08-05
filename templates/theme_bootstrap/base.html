@@ -65,9 +65,9 @@
                                                     <b class="caret"></b>
                                                 </a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="/logs/">All Logs</a></li>
+                                                    <li><a href="/logs/">Latest Entries (All Logs)</a></li>
                                                     <li><a href="/logs/u/{{user.username}}">My Log</a></li>
-                                                    <li><a href="/logs/mylog/">My Log Entries (live &amp; draft)</a></li>
+                                                    <li><a href="/logs/mylog/">My Log Entries Dashboard</a></li>
                                                     <li><a href="/logs/new/"><i class="icon-pencil"></i> Write new log entry</a></li>
                                                 </ul>
                                             </li>
@@ -88,17 +88,16 @@
                                         </ul>
 
                                 {% else %}
-
                                         <ul class="nav">
-                                            <li><a href="/logs/">Logs</a></li>
-                                            <li><a href="/profiles/">Profiles</a></li>
-                                        </ul> 
+                                                <li><a href="/logs/">Logs</a></li>
+                                                <li><a href="/profiles/">Profiles</a></li>
+                                        </ul>
 
                                 {% endif %}
-                                         
-                                    
                                 {% endblock %}
-                                {% block account_bar %}{% include "_account_bar.html" %}{% endblock %}
+                                {% block account_bar %}
+                                    {% include "_account_bar.html" %}
+                                {% endblock %}
                             </div>
                         {% endblock %}
                     </div>

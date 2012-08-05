@@ -47,7 +47,7 @@ class Blog(models.Model):
 STATUS_CHOICES = (
     (IS_DRAFT, _("Draft")), 
     (IS_PUBLIC, _("Public")),
-    (IS_DELETED, _("Deleted"))
+    (IS_DELETED, _("Deleted")) # =todo: remove this
 )
 
 class Post(models.Model):
@@ -88,7 +88,7 @@ class Post(models.Model):
                 'username': self.author.username,
                 'slug': self.slug,
             })
-
+# =todo: add markdown and html dual db fields, show markdown when user is editing, html when page is displayed
     def save(self, force_insert=False, force_update=False, update_date=True):
         if update_date:
             self.updated_at = datetime.now()

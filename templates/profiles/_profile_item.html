@@ -1,17 +1,29 @@
 {% load account_tags %}
 
 <div class="profile-item">
-    <div class="name">
-        {% if profile.name %}
-            <a href="{% url profile_detail profile.user.username %}">{{ profile.name }} ({% user_display profile.user %})</a>
-        {% else %}
-            <a href="{% url profile_detail profile.user.username %}">{% user_display profile.user %}</a>
-        {% endif %}
-    </div>
-    <div class="details">
-        {% if profile.location %}{{ profile.location }}{% endif %}
-        {% if profile.location and profile.website %}&bull;{% endif %}
-        {% if profile.website %}<a href="{{ profile.website }}">{{ profile.website }}</a>{% endif %}
-    </div>
-    <div class="clear"></div>
+    {# <div class="name"> #}
+    {#     {% if profile.name %} #}
+    {#         <a href="{% url profile_detail profile.user.username %}">{{ profile.name }} ({% user_display profile.user %})</a> #}
+    {#     {% else %} #}
+    {#         <a href="{% url profile_detail profile.user.username %}">{% user_display profile.user %}</a> #}
+    {#     {% endif %} #}
+    {# </div> #}
+    {# <div class="details"> #}
+    {#     {% if profile.location %}{{ profile.location }}{% endif %} #}
+    {#     {% if profile.location and profile.website %}&bull;{% endif %} #}
+    {#     {% if profile.website %}<a href="{{ profile.website }}">{{ profile.website }}</a>{% endif %} #}
+    {# </div> #}
 </div>
+
+            <tr>
+                <td>
+                    {% if profile.name %}
+                        <a href="{% url profile_detail profile.user.username %}">{{ profile.name }} ({% user_display profile.user %})</a>
+                    {% else %}
+                        <a href="{% url profile_detail profile.user.username %}">{% user_display profile.user %}</a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/logs/u/{{profile.user.username}}">http://{{SITE_NAME}}/logs/u/{{profile.user.username}}</a>
+                </td>
+            </tr>

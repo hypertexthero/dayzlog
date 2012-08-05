@@ -13,7 +13,10 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Latest Day Z Log Entries</h1>
+<p class="breadcrumb">
+    <a href="/">Home</a> / Logs
+</p>
+    <p class="lead">Latest Day Z Log Entries</p>
     {% if post_list %}
         {% include "blog/post_iterator.html" %}
     {% else %}

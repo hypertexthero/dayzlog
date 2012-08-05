@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load blog_tags %}
 
-{% block head_title %}{{ post.title }} - {{ user.username|capfirst }}'s Day Z Log{% endblock %}
+{% block head_title %}{{ post.title }} - {{ post.author.username|capfirst }}'s Day Z Log{% endblock %}
 
 {% block external_css %}
     {{ block.super }}
@@ -25,8 +25,9 @@
 {#     {{ block.super }} #}
 {#     <script src="{{ STATIC_URL }}js/misc.js" language="JavaScript" type="text/javascript"></script> #}
 {#     <script src="{{ STATIC_URL }}js/comments.js" language="JavaScript" type="text/javascript"></script> #}
-{% endblock %} 
+{# {% endblock %}  #}
 
 {% block body %}
+
     {% show_full_blog_post post %} 
 {% endblock %}

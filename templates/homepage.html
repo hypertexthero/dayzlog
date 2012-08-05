@@ -1,165 +1,103 @@
 {% extends "banner_base.html" %}
 
 {% load i18n %}
-{% load ifsetting_tag %}
 
-{% block head_title %}{% trans "Welcome" %}{% endblock %}
+    {% block head_title %}Home{% endblock %}
 
-{% block body_class %}home{% endblock %}
+    {# {% block body_class %}home{% endblock %} #}
 
 {% block banner %}
+<div class="row">
+    <div class="span8">
     {% if user.is_authenticated %}
-    <h1><a href="/logs/mylog/">{{ user|capfirst }}&rsquo;s <span class="normal">Day Z Log</span></a></h1>
+        <h1><a href="/logs/mylog/">{{ user|capfirst }}&rsquo;s <span class="normal">Day Z Log</span></a></h1>
+        {% load url from future %}
 
-    {% else %}
-    <h1>Day Z Log</h1>
-        <h2>Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.</h2>
-        
-            <ol>
-                <li>Write your stories using <a data-toggle="modal" href="#markdownhelp">Markdown</a> format.</li>
-                <li>Generate a <a href="/help">squad.xml file and URL to add to your in-game profile</a> so other players can see who they&rsquo;re dealing with.</li>
-            </ol>
+                <p>
+                    <a href="/logs/new/" class="btn btn-primary"><i class="icon-pencil"></i> Write a new entry</a> or
+                    <a href="{% url "profile_detail" user.username %}" class="btn"><i class="icon-user"></i> edit your profile</a> to generate a URL you can add to your Day Z in-game profile.
+                    <br>
+                    <a class="btn btn-small" href="/logs/mylog/">Your Log Dashboard</a> 
+                    <a class="btn btn-small" href="/logs/u/{{user.username}}">Your Log Home</a> 
+                    <br>
+                    <a class="btn btn-small" href="/logs/">Latest log entries by all users</a>
+                </p>
+                    {# <p> #}
+                    {#   <a class="btn" href="/logs/mylog/">My Log Entries Dashboard</a> #}
+                    {#   <a class="btn" href="/logs/u/{{user.username}}">My Log</a>  #}
+                    {#   <a class="btn" href="/logs/">All Logs</a> #}
+                    {# </p> #}
+            {% else %}
+                <h1>Day Z Log</h1>
+                <h2>Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.</h2>        
+                <ol>
+                    <li>Write your stories using <a data-toggle="modal" href="#markdownhelp">Markdown</a> format.</li>
+                    <li>Generate a <a href="/help">squad.xml file and URL to add to your in-game profile</a> so other players can see who they&rsquo;re dealing with.</li>
+                </ol>
+                {% url acct_login as login_url %}
+                {% load ifsetting_tag %}
+                {% ifsetting ACCOUNT_OPEN_SIGNUP %}
+                    <p><a href="/account/login/" class="btn">Log In</a> or <a href="/account/signup/" class="btn btn-primary">Sign Up</a></p>
+                    {% else %}
+                    <p><a href="/account/login/" class="btn">Log In</a></p>
+                {% endifsetting %}
     {% endif %}
-    {# <h2>About Account Project</h2> #}
-    {# <p> #}
-    {#     {% blocktrans %} #}
-    {#     This project takes the zero_project and adds basic account management #}
-    {#     functionality such as sign up, log in, password change/reset and email #}
-    {#     confirmation. It is a foundation suitable for most sites that have user #}
-    {#     accounts. #}
-    {#     {% endblocktrans %} #}
-    {# </p> #}
-    
-    {% if user.is_authenticated %}
-    {% load url from future %}
-        <p>
-            <a href="/logs/new/" class="btn btn-primary"><i class="icon-pencil"></i> Write a new entry in your log</a> or
-            <a href="{% url "profile_detail" user.username %}" class="btn"><i class="icon-user"></i> edit your profile</a> to generate a <a href="/help">squad.xml file and URL you can add to your Day Z in-game profile</a> so other players can see who they&rsquo;re dealing with.
-            {# <a href="{% url acct_email %}" class="btn btn-primary" title="So you can receive notifications, reset your password and so people can find you more easily.">verify an email address</a> #}
-            {# <a href="{{ what_next_url }}" class="btn">more actions</a></p> #}
-    {% else %}
-        {% url acct_login as login_url %}
-        {% ifsetting ACCOUNT_OPEN_SIGNUP %}
-            <p><a href="/account/login/" class="btn">Log In</a> or <a href="/account/signup/" class="btn btn-primary">Sign Up</a></p>
-        {% else %}
-            <p><a href="/account/login/" class="btn">Log In</a></p>
-        {% endifsetting %}
-    {% endif %}
+    </div>
+</div>
 {% endblock %}
+
 
 {% block homepage %}
-    {% if user.is_authenticated %}
-    
-    {% for post in posts %}
-    <div class="entry">
-        <h2><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
-        <p>{{ post.content|truncatewords:"30" }} <a href="{{ post.get_absolute_url }}">Read more</a></p>
-    </div>
-    {% empty %}
-    <div class="entry">
-        <p>Sorry, no posts found.</p>
-    </div>
-    {% endfor %}
-    {#  #}
-    {# {% for post in posts %} #}
-    {# <div class="entry"> #}
-    {#     <h2><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2> #}
-    {#     <p>{{ post.content|truncatewords:"30" }} <a href="{{ post.get_absolute_url }}">Read more</a></p> #}
-    {# </div> #}
-    {# {% empty %} #}
-    {# <div class="entry"> #}
-    {#     <p>Sorry, no posts found.</p> #}
-    {# </div> #}
-    {# {% endfor %} #}
-    {#  #}
-    
-    
-    <div class="row">
-        <div class="span8">
-            <h2>Story Title</h2>
-            <small><strong>By <a href="#">User</a></strong></small>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed viverra dui. Aenean blandit faucibus tincidunt. Phasellus fermentum elit ut erat varius cursus. Nunc posuere mauris sit amet enim congue quis elementum lectus tincidunt. Cras vel tempus metus.</p>
-            <p><a class="btn" href="#">Read &raquo;</a></p>
-        </div>
-        <div class="span8">
-            <h2>Story Title</h2>
-            <small><strong>By <a href="#">User</a></strong></small>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed viverra dui. Aenean blandit faucibus tincidunt. Phasellus fermentum elit ut erat varius cursus. Nunc posuere mauris sit amet enim congue quis elementum lectus tincidunt. Cras vel tempus metus.</p>
-            <p><a class="btn" href="#">Read &raquo;</a></p>
-        </div>
-        <div class="span8">
-            <h2>Story Title</h2>
-            <small><strong>By <a href="#">User</a></strong></small>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed viverra dui. Aenean blandit faucibus tincidunt. Phasellus fermentum elit ut erat varius cursus. Nunc posuere mauris sit amet enim congue quis elementum lectus tincidunt. Cras vel tempus metus.</p>
-            <p><a class="btn" href="#">Read &raquo;</a></p>
-        </div>
-        <div class="span8">
-            <h2>Story Title</h2>
-            <small><strong>By <a href="#">User</a></strong></small>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed viverra dui. Aenean blandit faucibus tincidunt. Phasellus fermentum elit ut erat varius cursus. Nunc posuere mauris sit amet enim congue quis elementum lectus tincidunt. Cras vel tempus metus.</p>
-            <p><a class="btn" href="#">Read &raquo;</a></p>
-        </div>
-        <div class="span8">
-            <h2>Story Title</h2>
-            <small><strong>By <a href="#">User</a></strong></small>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed viverra dui. Aenean blandit faucibus tincidunt. Phasellus fermentum elit ut erat varius cursus. Nunc posuere mauris sit amet enim congue quis elementum lectus tincidunt. Cras vel tempus metus.</p>
-            <p><a class="btn" href="#">Read &raquo;</a></p>
-        </div>
-        <div class="span12">
-             <p class="lead"><a href="/blog/u/blog/archive/">Archive of {{user|capfirst}}&rsquo;s Day Z Stories</a></p>
-        </div>
-    </div>
-    
-     {% else %}
-     <div class="row">
-         <div class="span12">
-             <p class="lead">Latest Day Z Log Stories</p>
-             
-            
-             <ul>
-             {% for blog in blogs %}
-                 <li><a href="{% url list_posts blog.slug %}">{{ blog.title }}</a></li>
-             {% endfor %}
-             </ul>
-             
-             
-         </div>
-     </div>            
-     
-     {# https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#slice #}
-     {# {{ some_list|slice:":2" }} #}
-     
-     <div class="row">
-         <div class="span4">
-         {% block column-1 %}
-             <h2>Story Title</h2>
-             <small><strong>By <a href="#">User</a></strong></small>
-             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed viverra dui. Aenean blandit faucibus tincidunt. Phasellus fermentum elit ut erat varius cursus. Nunc posuere mauris sit amet enim congue quis elementum lectus tincidunt. Cras vel tempus metus.</p>
-             <p><a class="btn" href="#">Read &raquo;</a></p>
-         {% endblock %}
-         </div>
-
-         <div class="span4">
-         {% block column-2 %}
-             <h2>Another Story Title</h2>
-             <small><strong>By <a href="#">User</a></strong></small>
-             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed viverra dui. Aenean blandit faucibus tincidunt. Phasellus fermentum elit ut erat varius cursus. Nunc posuere mauris sit amet enim congue quis elementum lectus tincidunt. Cras vel tempus metus.</p>
-             <p><a class="btn" href="#">Read &raquo;</a></p>
-         {% endblock %}
-         </div>
-
-         <div class="span4">
-         {% block column-3 %}
-             <h2>And One More Story Title</h2>
-             <small><strong>By <a href="#">User</a></strong></small>
-             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed viverra dui. Aenean blandit faucibus tincidunt. Phasellus fermentum elit ut erat varius cursus. Nunc posuere mauris sit amet enim congue quis elementum lectus tincidunt. Cras vel tempus metus.</p>
-             <p><a class="btn" href="#">Read &raquo;</a></p>
-         {% endblock %}
-         </div>
-     </div>
-     
-     {# https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#slice #}
-     {# {{ some_list|slice:":2" }} #}
-{% endif %}
-
+    {# {% load blog_tags %} #}
+    {% if latest %} {# the 'latest' variable of the template context is assigned automatically by the django.views.generic.date_based.archive_index generic view - https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-date-based-archive-index #}
+        {% for post in latest %}
+                {# {% include "blog/post_iterator.html" %} #}
+            <div class="row">
+                <div class="span8">
+                    <h2><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
+                    <p><strong>By <a href="/logs/u/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/profile/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p>
+                    <p>{{ post.body|truncatewords:"30" }} <a class="btn" href="{{ post.get_absolute_url }}">Read &raquo;</a></p>
+                </div>
+            </div>
+        {% empty %}
+            <div class="entry">
+                <p>Sorry, no posts found.</p>
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
+
+ {# https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#slice #}
+ {# {{ some_list|slice:":2" }} #}
+ 
+ {# <div class="row"> #}
+ {#         <div class="span4"> #}
+ {#         {% block column-1 %} #}
+ {#             <h2>Story Title</h2> #}
+ {#             <small><strong>By <a href="#">User</a></strong></small> #}
+ {#             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed viverra dui. Aenean blandit faucibus tincidunt. Phasellus fermentum elit ut erat varius cursus. Nunc posuere mauris sit amet enim congue quis elementum lectus tincidunt. Cras vel tempus metus.</p> #}
+ {#             <p><a class="btn" href="#">Read &raquo;</a></p> #}
+ {#         {% endblock %} #}
+ {#         </div> #}
+ {#  #}
+ {#         <div class="span4"> #}
+ {#         {% block column-2 %} #}
+ {#             <h2>Another Story Title</h2> #}
+ {#             <small><strong>By <a href="#">User</a></strong></small> #}
+ {#             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed viverra dui. Aenean blandit faucibus tincidunt. Phasellus fermentum elit ut erat varius cursus. Nunc posuere mauris sit amet enim congue quis elementum lectus tincidunt. Cras vel tempus metus.</p> #}
+ {#             <p><a class="btn" href="#">Read &raquo;</a></p> #}
+ {#         {% endblock %} #}
+ {#         </div> #}
+ {#  #}
+ {#         <div class="span4"> #}
+ {#         {% block column-3 %} #}
+ {#             <h2>And One More Story Title</h2> #}
+ {#             <small><strong>By <a href="#">User</a></strong></small> #}
+ {#             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed viverra dui. Aenean blandit faucibus tincidunt. Phasellus fermentum elit ut erat varius cursus. Nunc posuere mauris sit amet enim congue quis elementum lectus tincidunt. Cras vel tempus metus.</p> #}
+ {#             <p><a class="btn" href="#">Read &raquo;</a></p> #}
+ {#         {% endblock %} #}
+ {#         </div> #}
+ {#     </div> #}
+ 
+ {# https://docs.djangoproject.com/en/dev/ref/templates/builtins/?from=olddocs#slice #}
+ {# {{ some_list|slice:":2" }} #}
