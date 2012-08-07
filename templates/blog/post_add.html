@@ -29,8 +29,9 @@
   <fieldset>
     <legend>New Log Entry</legend>  
         {{ post_form|as_bootstrap }}
+        {# {% include "post_form.html" %} #}
         <br>
-        <button type="submit" class="btn btn-primary btn-large">Submit</button>
+        <button type="submit" class="btn btn-primary btn-large">Submit</button> or <a href="javascript:history.go(-1)">Cancel</a>
   </fieldset>
 </form>
 

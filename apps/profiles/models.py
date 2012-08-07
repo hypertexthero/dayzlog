@@ -11,8 +11,8 @@ class Profile(ProfileBase):
     # website = models.URLField(_("website"), null=True, blank=True, verify_exists=False)
 
     # =todo: fields matching day z player profile
-    name = models.CharField(_("name"), max_length=50, null=True, blank=True, help_text="Required to make this information appear within Day Z. Make sure this matches your Day Z in-game profile username exactly.")
-    player_id = models.CharField(_("player_id"), max_length=20, null=True, blank=True, help_text="Required to make this information appear within Day Z. Make sure this matches your Day Z in-game profile player id exactly. <a data-toggle='modal' href='#help'>(where do i find my player id?)</a>")
+    name = models.CharField(_("name"), max_length=50, null=True, blank=True, help_text="Required to make your profile information appear within Day Z. Make sure this matches your Day Z in-game profile username exactly. <a data-toggle='modal' href='#help'>(where do i find my in-game profile username?)</a>")
+    player_id = models.CharField(_("player_id"), max_length=20, null=True, blank=True, help_text="Required to make your profile information appear within Day Z. Make sure this matches your Day Z in-game profile player id exactly. <a data-toggle='modal' href='#help'>(where do i find my player id?)</a>")
     email = models.EmailField(blank=True, verbose_name='Email')
     im = models.CharField(_("im"), max_length=50, null=True, blank=True)
     remark = models.TextField(_("remark"), null=True, blank=True)

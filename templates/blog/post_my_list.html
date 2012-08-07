@@ -25,7 +25,7 @@
                         <tr>
                             <td class="post_list">
                                 <a href="{{ post.blog.get_absolute_url }}" class="blog_link_small">{{ post.blog.name }}</a>
-                                <span class="blog_post_breaker_small">&rarr;</span>
+                                {# <span class="blog_post_breaker_small">&rarr;</span> #}
                                 <a href="{{ post.get_absolute_url }}" class="post_link_small">{{ post.title }}</a>
                             </td>
                             <td>{{ post.created_at|date:"d M Y, H:i" }}</td>
@@ -34,7 +34,7 @@
                                 [ <a href="{% url blog_edit post.id %}" class="inline_action">{% trans "Edit" %}</a> ]
                                 [ <a href="{% url blog_delete post.id %}" class="inline_action">{% trans "Delete" %}</a> ]
                                 {% if post.is_public %}
-                                    [ <a href="{% url blog_change_status 'draft' post.id %}" class="inline_action">{% trans "To drafts" %}</a> ]
+                                    [ <a href="{% url blog_change_status 'draft' post.id %}" class="inline_action">{% trans "To Drafts" %}</a> ]
                                 {% else %}
                                     [ <a href="{% url blog_change_status 'public' post.id %}" class="inline_action">{% trans "Publish" %}</a> ]
                                 {% endif %}

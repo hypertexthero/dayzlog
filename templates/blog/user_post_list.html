@@ -34,9 +34,11 @@
           {% for post in post_list %}
               <div class="row-fluid">
                   <div class="span6">
-                      <h2><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
+                      <h2 class="post-title"><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
                       <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p>
-                      <p>{{ post.body|truncatewords:"30" }} <a href="{{ post.get_absolute_url }}">Continue Reading &raquo;</a></p>
+                      {# <p>{{ post.body|truncatewords:"30" }} <a href="{{ post.get_absolute_url }}">Continue Reading &raquo;</a></p> #}
+                      <p>{{ post.content_html|safe|truncatewords:"30" }} <a href="{{ post.get_absolute_url }}">Continue Reading &raquo;</a></p>                      
+                      
                   </div>
               </div>
           {% empty %}

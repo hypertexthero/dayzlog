@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     url(r'^edit/(?P<id>\d+)/$', 'blog.views.edit', name='blog_edit'),
     url(r'^(?P<action>draft|public)/(?P<id>\d+)/$', 'blog.views.change_status', name='blog_change_status'),
     url(r'^delete/(?P<id>\d+)/$', 'blog.views.delete', name='blog_delete'), 
-    url(r'^post/(?P<username>[\w\._\-]+)/(?P<slug>[-\w]+)/$', 'blog.views.blog_user_post_detail', post_dict, name='blog_user_post_detail')
+    url(r'^(?P<username>[\w\._\-]+)/(?P<slug>[-\w]+)/$', 'blog.views.blog_user_post_detail', post_dict, name='blog_user_post_detail')
 )
 
 if ENABLE_USER_BLOG:

@@ -60,9 +60,9 @@ class Post(models.Model):
     author = models.ForeignKey(User, related_name="added_posts")
     creator_ip = models.CharField(_("IP Address of the Post Creator"), max_length=255, blank=True, null=True)
     tease = models.TextField(_('tease'), blank=True)
-    body = models.TextField(_('body'))
-    # content_markdown = models.TextField(blank=True, verbose_name='Note (markdown syntax)')
-    # content_html = models.TextField(editable=False)
+    # body = models.TextField(_('body'))
+    content_markdown = models.TextField(blank=True, verbose_name='Note (markdown syntax)')
+    content_html = models.TextField(editable=False)
     status = models.IntegerField(_('status'), choices=STATUS_CHOICES, default=IS_DRAFT)
     publish = models.DateTimeField(_('publish'), default=datetime.now)
     created_at = models.DateTimeField(_('created at'), default=datetime.now)
@@ -94,8 +94,8 @@ class Post(models.Model):
                 'slug': self.slug,
             })
 
-# =todo: add markdown and html dual db fields, show markdown when user is editing, html when page is displayed
-# # TODO: Combine django static generator in ~/django_projects/victoreskinazi.com with the functionality below so we are serving static files in HTML on server and Markdown and HTML columns in database. Also try to find a way to have static files in Markdown format on the server.
+# # =todo: add markdown and html dual db fields, show markdown when user is editing, html when page is displayed
+# # # TODO: Combine django static generator in ~/django_projects/victoreskinazi.com with the functionality below so we are serving static files in HTML on server and Markdown and HTML columns in database. Also try to find a way to have static files in Markdown format on the server.
 #     # https://code.djangoproject.com/wiki/UsingMarkup
 #     def save(self):
 #         # Also applying codehilite and footnotes markdown extensions: 
@@ -115,12 +115,14 @@ class Post(models.Model):
             if not self.id:
                 super(Post, self).save(force_insert, force_update)
             self.slug = '%d-%s' % (self.id, slugify(self.title))
-        if self.tease:
-            editor_cut = self.body.find('<hr class="editor_cut"/>')
-            if editor_cut != -1:
-                self.tease = self.body[:editor_cut]
+        # if self.tease:
+        #     editor_cut = self.body.find('<hr class="editor_cut"/>')
+        #     if editor_cut != -1:
+        #         self.tease = self.body[:editor_cut]
         # self.body = clear_html_code(self.body)
         # self.tease = clear_html_code(self.tease)
+        self.content_html = typogrify(markdown(self.content_markdown, ['footnotes', 'tables', 'nl2br', 'codehilite']))
+        
         super(Post, self).save(force_insert, force_update)
 
     def is_public(self):

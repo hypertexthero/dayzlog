@@ -10,19 +10,19 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         exclude = ('author', 'slug', 'creator_ip', 'created_at', 'updated_at', 'publish', 
-                    'comments_count', 'last_comment_datetime', 'tags', 'tease', 'rating', 'votes', 'blog')
+                    'comments_count', 'last_comment_datetime', 'tags', 'tease', 'rating', 'votes', 'blog', 'content_html')
     
     def __init__(self, request, *args, **kwargs):
         self.user = request.user
         super(PostForm, self).__init__(request.POST or None, *args, **kwargs)
 
-    def save(self, *args, **kwargs):
-        body = self.cleaned_data['body']
-        editor_cut = body.find('<hr class="editor_cut"')
-        tease = body[:editor_cut]
-        post = super(PostForm, self).save(*args, **kwargs)
-        if editor_cut == -1:
-            post.tease = ''
-        else:
-            post.tease = tease
-        return post
+    # def save(self, *args, **kwargs):
+    #     content_markdown = self.cleaned_data['body']
+    #     # editor_cut = body.find('<hr class="editor_cut"')
+    #     # tease = body[:editor_cut]
+    #     post = super(PostForm, self).save(*args, **kwargs)
+    #     # if editor_cut == -1:
+    #     #     post.tease = ''
+    #     # else:
+    #     #     post.tease = tease
+    #     return post

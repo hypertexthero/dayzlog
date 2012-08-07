@@ -10,7 +10,7 @@ class BlogAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'publish', 'status')
     list_filter = ('publish', 'status')
-    search_fields = ('title', 'body', 'tease')
+    search_fields = ('title', 'content_markdown')
 
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(Post, PostAdmin)
