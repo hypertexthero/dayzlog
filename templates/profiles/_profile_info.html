@@ -3,27 +3,32 @@
 <p class="breadcrumb"><a href="/">Home</a> / <a href="/profiles/">Profiles</a> / 
     {% ifequal request.user other_user %}{{ profile.name|capfirst }}{% else %}{{ profile.user.username|capfirst }}{% endifequal %}
 </p>
-<div class="hero-unit">
-        
 
+<div class="hero-unit">
+    {% if profile.name %}    
         {% ifequal request.user other_user %}
             <h1 style="margin-bottom:0.25em;">{{ profile.user.username|capfirst }}</h1>
         {% else %}
             <h1 style="margin-bottom:0.25em;">{{ profile.name|capfirst }}</h1>
         {% endifequal %}
-
+    {% else %}
+        <p>{% ifequal request.user other_user %}{{ profile.name|capfirst }} has{% else %}You have{% endifequal %} not entered profile information yet. <a href="/profiles/edit/{{profile.user.username}}">{% trans "Edit your profile" %}</a></p>
+    {% endif %}
     <div class="profile_info">
         {% if profile.name %}<p><b>{% trans "Day Z in-game Profile Name" %}</b>: {{ profile.name }}</p>{% endif %}
-        <p><b>Day Z Log URL</b>: <b><a href="/logs/u/{{profile.user.username}}">http://{{SITE_NAME}}/logs/u/{{profile.user.username}}</a></b></p>        
-        {% if profile.about %}<p><b>{% trans "About" %}</b>: {{ profile.about }}</p>{% endif %}
-        {% if profile.location %}<p><b>{% trans "Location" %}</b>: {{ profile.location }}</p>{% endif %}
+        <p><b>Day Z Log URL</b>: <b><a href="/logs/{{profile.user.username}}">http://{{SITE_NAME}}/logs/{{profile.user.username}}</a></b></p>        
+        {% if profile.player_id %}<p><b>{% trans "Player ID" %}</b>: {{ profile.player_id }}</p>{% endif %}
+        {% if profile.email %}<p><b>{% trans "Email" %}</b>: {{ profile.email }}</p>{% endif %}
+        {% if profile.im %}<p><b>{% trans "IM" %}</b>: {{ profile.im }}</p>{% endif %}
+        {% if profile.remark %}<p><b>{% trans "Remark" %}</b>: {{ profile.remark }}</p>{% endif %}
         {# {% if profile.website %}<p><b>{% trans "Website" %}</b>: <a href="{{ profile.website }}">{{ profile.website }}</a></p>{% endif %} #}
     </div>
 
     {% load account_tags %}
     {% load url from future %}
     {% if is_me %}
-        <p class="pull-right"><a class="btn btn-primary btn-large" href="{% url "profile_edit" %}" class="btn">{% trans "Edit my profile" %}</a></p>
+        {# <p class="pull-right"><a class="btn btn-primary btn-large" href="{% url "profile_edit" %}" class="btn">{% trans "Edit my profile" %}</a></p> #}
+        <p class="pull-right"><a class="btn btn-primary btn-large" href="/profiles/edit/{{profile.user.username}}" class="btn">{% trans "Edit my profile" %}</a></p>
     {% endif %}
 
 </div>
@@ -39,27 +44,11 @@
         <div class="hero-unit well">
             <div class="profile_info">
                 {# =todo: Find out if spaces in the URL profile name get resolved by Arma2/Day Z properly #}
-                <h2><strong>http://www.dayz.be/profiles/profile/{{profile.name}}/squad.xml</strong></h2>
+                <h2><strong>http://{{SITE_NAME}}/profiles/{{profile.user.username|lower|slugify}}/squad.xml</strong></h2>
             </div>
         </div>
 {% endifequal %}
 {% endif %}
 {% endif %}
 
-
-<div class="modal hide" id="help">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>How to add your Day Z Log URL to your Day Z in-game profile</h3>
-  </div>
-
-  <div class="modal-body">
-
- <p>Help goes here</p>
-
-  <div class="modal-footer">
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
-    {# <a href="#" class="btn btn-primary">Save changes</a> #}
-  </div>
-
-</div>
+{% include "profiles/help.html" %}

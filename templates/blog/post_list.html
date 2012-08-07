@@ -16,10 +16,33 @@
 <p class="breadcrumb">
     <a href="/">Home</a> / Logs
 </p>
-    <p class="lead">Latest Day Z Log Entries</p>
-    {% if post_list %}
-        {% include "blog/post_iterator.html" %}
-    {% else %}
-        <p>No posts yet.</p>
-    {% endif %}
+
+    {# {% if post_list %} #}
+    {#     {% include "blog/post_iterator.html" %} #}
+    {# {% else %} #}
+    {#     <p>No posts yet.</p> #}
+    {# {% endif %} #}
+    
+    {% if post_list %} {# the 'latest' variable of the template context is assigned automatically by the django.views.generic.date_based.archive_index generic view - https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-date-based-archive-index #}
+    <div class="row">
+        <div class="span12">
+            <h1>Latest <span class="normal">Day Z Log Entries</span></h1>
+        </div>
+    </div>
+          {% for post in post_list %}
+                  {# {% include "blog/post_iterator.html" %} #}
+              <div class="row pull-left">
+                  <div class="span6">
+                      <h2><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
+                      <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p>
+                      <p>{{ post.body|truncatewords:"30" }} <a href="{{ post.get_absolute_url }}">Continue Reading &raquo;</a></p>
+                  </div>
+              </div>
+          {% empty %}
+              <div class="entry">
+                  <p>Sorry, no posts found.</p>
+              </div>
+          {% endfor %}
+      {% endif %}
+
 {% endblock %}

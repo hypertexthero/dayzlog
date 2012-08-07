@@ -29,7 +29,7 @@ urlpatterns = patterns('',
 
 if ENABLE_USER_BLOG:
     urlpatterns += patterns('',
-        url(r'^u/(?P<username>[\w\._\-]+)/$', 'blog.views.user_post_list', dict(post_dict_public, template_name='blog/user_post_list.html'), name='blog_user_post_list'),
+        url(r'^(?P<username>[\w\._\-]+)/$', 'blog.views.user_post_list', dict(post_dict_public, template_name='blog/user_post_list.html'), name='blog_user_post_list'),
     )
 
 if ENABLE_BLOGS:

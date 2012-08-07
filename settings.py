@@ -206,7 +206,7 @@ EMAIL_PORT = 1025
 # EMAIL_USE_TLS
 
 ABSOLUTE_URL_OVERRIDES = {
-    "auth.user": lambda o: "/profiles/profile/%s/" % o.username,
+    "auth.user": lambda o: "/profiles/%s/" % o.username,
     # "auth.user": lambda o: "/up/%s/" % o.username,
 }
 

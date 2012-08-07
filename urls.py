@@ -31,7 +31,7 @@ urlpatterns = patterns("",
     url(r"^about/", include("about.urls")),
     url(r"^account/", include("pinax.apps.account.urls")),
     url(r"^openid/", include(PinaxConsumer().urls)),
-    url(r"^profiles/", include("idios.urls")), # NOTA BENE: that this is pointing to IDIOS and not profiles/urls.py...
+    url(r"^profiles/", include("profiles.urls")), # NOTA BENE: that this is pointing to profiles/urls.py and not IDIOS app...
     # url(r"^up/", include("profiles.urls")),
     url(r"^notices/", include("notification.urls")),
     url(r"^announcements/", include("announcements.urls")),

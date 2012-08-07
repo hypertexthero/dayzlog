@@ -8,7 +8,10 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save, post_delete
 
-IS_DELETED = 0
+from markdown import markdown
+from typogrify.templatetags.typogrify_tags import typogrify
+
+# IS_DELETED = 0
 IS_DRAFT = 1
 IS_PUBLIC = 2
 
@@ -47,7 +50,7 @@ class Blog(models.Model):
 STATUS_CHOICES = (
     (IS_DRAFT, _("Draft")), 
     (IS_PUBLIC, _("Public")),
-    (IS_DELETED, _("Deleted")) # =todo: remove this
+    # (IS_DELETED, _("Deleted")) # =todo: remove this
 )
 
 class Post(models.Model):
@@ -58,6 +61,8 @@ class Post(models.Model):
     creator_ip = models.CharField(_("IP Address of the Post Creator"), max_length=255, blank=True, null=True)
     tease = models.TextField(_('tease'), blank=True)
     body = models.TextField(_('body'))
+    # content_markdown = models.TextField(blank=True, verbose_name='Note (markdown syntax)')
+    # content_html = models.TextField(editable=False)
     status = models.IntegerField(_('status'), choices=STATUS_CHOICES, default=IS_DRAFT)
     publish = models.DateTimeField(_('publish'), default=datetime.now)
     created_at = models.DateTimeField(_('created at'), default=datetime.now)
@@ -88,7 +93,21 @@ class Post(models.Model):
                 'username': self.author.username,
                 'slug': self.slug,
             })
+
 # =todo: add markdown and html dual db fields, show markdown when user is editing, html when page is displayed
+# # TODO: Combine django static generator in ~/django_projects/victoreskinazi.com with the functionality below so we are serving static files in HTML on server and Markdown and HTML columns in database. Also try to find a way to have static files in Markdown format on the server.
+#     # https://code.djangoproject.com/wiki/UsingMarkup
+#     def save(self):
+#         # Also applying codehilite and footnotes markdown extensions: 
+#             # http://fi.am/entry/code-highlighting-in-django/
+#             # http://freewisdom.org/projects/python-markdown/CodeHilite
+#             # http://freewisdom.org/projects/python-markdown/Footnotes
+#             # typogrify - http://code.google.com/p/typogrify/ and http://djangosnippets.org/snippets/381/
+#         self.content_html = typogrify(markdown(self.content_markdown, ['footnotes', 'tables', 'nl2br', 'codehilite']))
+#         # self.content_html = markdown(self.content_markdown)
+#         self.modified = datetime.datetime.now()
+#         super(Note, self).save()
+
     def save(self, force_insert=False, force_update=False, update_date=True):
         if update_date:
             self.updated_at = datetime.now()
@@ -109,3 +128,7 @@ class Post(models.Model):
     
     def get_owners(self):
         return [self.author]
+
+
+
+

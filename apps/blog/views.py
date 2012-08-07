@@ -12,7 +12,7 @@ from django.conf import settings
 from django.db.models import Q
 
 from misc.json_encode import json_response
-from blog.models import Blog, Post, IS_DRAFT, IS_PUBLIC, IS_DELETED
+from blog.models import Blog, Post, IS_DRAFT, IS_PUBLIC
 from blog.forms import PostForm
 from blog.signals import post_published
 
@@ -37,12 +37,13 @@ def blog_user_post_detail(request, *kargs, **kwargs):
 def user_post_list(request, *kargs, **kwargs):
     user = get_object_or_404(User, username = kwargs.pop('username', ''))
     kwargs['queryset'] = kwargs['queryset'].filter(author=user)
-    kwargs['extra_context'] = {'current_user': user}
+    kwargs['extra_context'] = {'current_user': user, 'author': user}
     return list_detail.object_list(request, *kargs, **kwargs)
 
 @login_required
 def my_post_list(request, *kargs, **kwargs):
-    kwargs['queryset'] = Post.objects.filter(author = request.user).exclude(status = IS_DELETED)
+    # kwargs['queryset'] = Post.objects.filter(author = request.user).exclude(status = IS_DELETED)
+    kwargs['queryset'] = Post.objects.filter(author = request.user)
     return list_detail.object_list(request, *kargs, **kwargs)
 
 @login_required
@@ -111,7 +112,13 @@ def homepage(request):
     """Show all entries"""
 
     return archive_index(request, 
-        queryset=Post.objects.all().order_by('-created_at', 'title'), # https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by
+        queryset=Post.objects.filter(status=IS_PUBLIC).order_by('-created_at', 'title'), 
+        # https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by
+        
+        # =todo: pagination - https://docs.djangoproject.com/en/dev/topics/pagination/?from=olddocs/
+        # paginator = Paginator(queryset, 25)
+        # page = request.GET.get('page')
+        
         date_field='created_at', # don't forget to set {{ note.created|date:"d F Y" }} in notes/list.html
         template_name='homepage.html',
         # template_object_name='post',

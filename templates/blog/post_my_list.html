@@ -7,13 +7,13 @@
 {% block content %}
     {% if post_list %}
 
-    <h1 class="pull-left">My Day Z Log Entries <a href="/logs/u/{{user.username}}">({{user}})</a></h1>
+    <h1 class="pull-left">My Day Z Log Entries <a href="/logs/{{user.username}}">({{user}})</a></h1>
     <p class="pull-right"><a class="btn btn-primary" href="/logs/new/"><i class="icon-pencil"></i> Write new log entry</a></p>
         {% regroup post_list|dictsort:"status" by status as posts_by_status %}
 
         {% for post_list in posts_by_status %}
             <h2 style="clear:both;">{{ post_list.list.0.get_status_display }}</h2>
-            <table class="blog_list_my">
+            <table class="table table-striped table-bordered table-condensed">
                 {% with post_list.list|dictsortreversed:"created_at" as posts %}
                     <thead>
                         <td>{% trans "Title" %}</td>
@@ -45,6 +45,14 @@
             </table>
         {% endfor %}
     {% else %}
-        {% trans "No posts yet." %}
+        <h1>My Day Z Log Entries <a class="normal" href="/profiles/{{user.username}}">({{user}})</a></h1>
+        <p>No entries yet.</p>
+        
+        {% if user.is_authenticated %}
+                    <p>
+                        <a href="/logs/new/" class="btn btn-primary"><i class="icon-pencil"></i> Write a new entry</a>
+                    </p>
+        {% endif %}
+        
     {% endif %}
 {% endblock %}

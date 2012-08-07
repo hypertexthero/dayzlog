@@ -5,7 +5,9 @@
 {#     <span class="tail"> » {{ post.title }}</span> #}
 {# {% endblock %} #}
 
-    {# <p><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/u/{{ post.author.username }}" title="See all entries by {{ post.author.username|capfirst }}.">{{ post.author.username|capfirst }}</a> / <span class="normal">{{ post.title }}</span></p> #}
+    {# <p><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}" title="See all entries by {{ post.author.username|capfirst }}.">{{ post.author.username|capfirst }}</a> / <span class="normal">{{ post.title }}</span></p> #}
+
+    <p class="breadcrumb"><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}/">{{ post.author.username|capfirst }}</a> / {{ post.slug }}</p>
 
 {% block body %}
     
@@ -13,7 +15,7 @@
 {% if show_post %}
 
     <div class="row-fluid">
-        <div class="span8">
+        <div class="span6">
 
         <div class="post">
             {% if post.blog %}  
@@ -24,11 +26,11 @@
             <h2 class="post-title"><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.title }}</a></h2>
                     {# <a href="{{ profile_detail_url }}"> #}
             <p>
-                By <strong><a href="/logs/u/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong>
-                <span class="small quiet">(<a class="quiet" href="/profiles/profile/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> 
+                By <strong><a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong>
+                <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> 
                 <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i"}}</a>
             </p>
-          <p>{{ post.body|truncatewords:"30" }} <a class="btn" href="{{ post.get_absolute_url }}">Read &raquo;</a></p>  
+            <p>{{ post.body }}</p>  
             
             {% ifequal post.author request.user %}
                 [ <a href="{% url blog_edit post.id %}" class="icon_edit">Edit</a> ]

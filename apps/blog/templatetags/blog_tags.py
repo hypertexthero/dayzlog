@@ -8,7 +8,7 @@ from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
 from django.template import RequestContext
 
-from blog.models import Post, Blog, IS_DRAFT, IS_PUBLIC, IS_DELETED
+from blog.models import Post, Blog, IS_DRAFT, IS_PUBLIC
 
 register = template.Library()
 

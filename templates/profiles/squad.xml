@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE squad SYSTEM "squad.dtd">
 <?xml-stylesheet href="squad.xsl?" type="text/xsl"?>
-<squad nick="">
-	<name></name>
-	<email></email>
-	<web></web>
-	<picture></picture>
-	<title></title>
-	<member id="" nick="">
-		<name></name>
-		<email></email>
-		<icq></icq>
-		<remark></remark>
+<squad nick=" ">
+	<name> </name>
+	<email> </email>
+	<web> </web>
+	<picture> </picture>
+	<title> </title>
+	<member id="{% if profile.player_id %}{{ profile.player_id }}{% endif %}" nick="{% if profile.name %}{{ profile.name }}{% endif %}">
+		<name>{% if profile.name %}{{ profile.name }} - http://{{SITE_NAME}}/logs/{{profile.user.username}}{% endif %}</name>
+		<email>{% if profile.email %}{{ profile.email }}{% endif %}</email>
+		<icq>{% if profile.im %}{{ profile.im }}{% endif %}</icq>
+		<remark>{% if profile.remark %}{{ profile.remark }}{% endif %}</remark>
 	</member>
 </squad>

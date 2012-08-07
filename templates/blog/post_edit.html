@@ -28,7 +28,7 @@
     <legend>Editing entry titled</span> &ldquo;{{ post.title }}&rdquo;</legend>  
         {{ post_form|as_bootstrap }}
         <br>
-        <button type="submit" class="btn btn-primary btn-large">Submit</button> or <a class="warning" href="{% firstof request.META.HTTP_REFERER url notes_detail note.id %}">cancel</a>
+        <button type="submit" class="btn btn-primary btn-large">Update</button> or <a class="warning" href="{% firstof request.META.HTTP_REFERER url notes_detail note.id %}">cancel</a>
   </fieldset>
 </form>
 

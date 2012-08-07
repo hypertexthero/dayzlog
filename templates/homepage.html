@@ -10,21 +10,19 @@
 <div class="row">
     <div class="span8">
     {% if user.is_authenticated %}
-        <h1><a href="/logs/mylog/">{{ user|capfirst }}&rsquo;s <span class="normal">Day Z Log</span></a></h1>
+        <h1>{{ user|capfirst }}&rsquo;s <span class="normal">Day Z Log</span></h1>
+        
+        <p><a href="/logs/mylog/">Log dashboard</a> | <a href="/logs/{{user.username}}">Log main page</a> 
+        </p>
         {% load url from future %}
 
                 <p>
                     <a href="/logs/new/" class="btn btn-primary"><i class="icon-pencil"></i> Write a new entry</a> or
                     <a href="{% url "profile_detail" user.username %}" class="btn"><i class="icon-user"></i> edit your profile</a> to generate a URL you can add to your Day Z in-game profile.
-                    <br>
-                    <a class="btn btn-small" href="/logs/mylog/">Your Log Dashboard</a> 
-                    <a class="btn btn-small" href="/logs/u/{{user.username}}">Your Log Home</a> 
-                    <br>
-                    <a class="btn btn-small" href="/logs/">Latest log entries by all users</a>
                 </p>
                     {# <p> #}
                     {#   <a class="btn" href="/logs/mylog/">My Log Entries Dashboard</a> #}
-                    {#   <a class="btn" href="/logs/u/{{user.username}}">My Log</a>  #}
+                    {#   <a class="btn" href="/logs/{{user.username}}">My Log</a>  #}
                     {#   <a class="btn" href="/logs/">All Logs</a> #}
                     {# </p> #}
             {% else %}
@@ -33,6 +31,7 @@
                 <ol>
                     <li>Write your stories using <a data-toggle="modal" href="#markdownhelp">Markdown</a> format.</li>
                     <li>Generate a <a href="/help">squad.xml file and URL to add to your in-game profile</a> so other players can see who they&rsquo;re dealing with.</li>
+                    {# =todo: <li>Export all your stories in XML or JSON format at any time.</li> #}
                 </ol>
                 {% url acct_login as login_url %}
                 {% load ifsetting_tag %}
@@ -50,13 +49,15 @@
 {% block homepage %}
     {# {% load blog_tags %} #}
     {% if latest %} {# the 'latest' variable of the template context is assigned automatically by the django.views.generic.date_based.archive_index generic view - https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-date-based-archive-index #}
+        <p class="lead">Latest Day Z Log Entries</p>
+    
         {% for post in latest %}
                 {# {% include "blog/post_iterator.html" %} #}
-            <div class="row">
-                <div class="span8">
+            <div class="row pull-left">
+                <div class="span6">
                     <h2><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
-                    <p><strong>By <a href="/logs/u/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/profile/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p>
-                    <p>{{ post.body|truncatewords:"30" }} <a class="btn" href="{{ post.get_absolute_url }}">Read &raquo;</a></p>
+                    <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p>
+                    <p>{{ post.body|truncatewords:"30" }} <a href="{{ post.get_absolute_url }}">Read &raquo;</a></p>
                 </div>
             </div>
         {% empty %}
