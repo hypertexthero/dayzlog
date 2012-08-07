@@ -1,3 +1,4 @@
+{% extends "blog/base.html" %}
 {% load i18n %}
 {% load blog_tags %}
 
@@ -7,70 +8,46 @@
 
     {# <p><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}" title="See all entries by {{ post.author.username|capfirst }}.">{{ post.author.username|capfirst }}</a> / <span class="normal">{{ post.title }}</span></p> #}
 
-    <p class="breadcrumb"><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}/">{{ post.author.username|capfirst }}</a> / {{ post.slug }}</p>
+    
 
 {% block body %}
-    
+<p class="breadcrumb"><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}/">{{ post.author.username|capfirst }}</a> / {{ post.slug }}</p>
 {% check_post_status request.user post %}
 {% if show_post %}
-
-    <div class="row-fluid">
-        <div class="span6">
-
+<div class="row">
+    <div class="span8">
         <div class="post">
-            {% if post.blog %}  
-                <a href="{{ post.blog.get_absolute_url }}" class="blog_link">{{ post.blog.name }}</a>
-                <span class="blog_post_breaker">&rarr;</span>
-            {% endif %}
-            
-            <h2 class="post-title"><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.title }}</a></h2>
-                    {# <a href="{{ profile_detail_url }}"> #}
+            {# {% if post.blog %}   #}
+            {#     <a href="{{ post.blog.get_absolute_url }}" class="blog_link">{{ post.blog.name }}</a> #}
+            {#     <span class="blog_post_breaker">&rarr;</span> #}
+            {# {% endif %} #}
+            <h1>{{ post.title }}</h1>
             <p>
                 By <strong><a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong>
                 <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> 
                 <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i"}}</a>
             </p>
-
-            {# {{ post.body }} #}
-            {{ post.content_html|safe }}            
-            
+        {{ post.content_html|safe }}            
         </div>
-
-{# =todo: factor out post_teast - not necessary with django's built-in truncatewords filter - need to move individual post item to own template (post_detail.html) and latest posts logic remains in post_list.html template#}
-        {#  #}
-        {# <div class="blog_post_tease"> #}
-        {#     {% if post_undetailed and post.tease %} #}
-        {#         {{ post.tease|safe }} #}
-        {#     {% else %} #}
-        {#         {{ post.body|safe }} #}
-        {#     {% endif %} #}
-        {# </div> #}
-
-
-        </div>
-        
-           <div class="span6">
-        {% ifequal post.author request.user %}
-        <p class="meta pull-right">
-             <a href="{% url blog_edit post.id %}" class="icon_edit"><i class="icon-pencil"></i> Edit this entry</a> 
-            <br>
-            {% if post.status == 1 %}
-                <b>{% trans "Draft" %}</b>
-                 <a href="{% url blog_change_status 'public' post.id %}" class="inline_action">{% trans "Publish" %}</a> 
-            {% endif %}
-             <a href="{% url blog_delete post.id %}" class="inline_action"><i class="icon-remove"></i> {% trans "Delete this entry" %}</a> 
-            <br>
-             <a href="/logs/mylog/"><i class="icon-th-list"></i> Entries Dashboard</a>
-        </p>
-        {% endifequal %}
-            </div>
-            
     </div>
 
-
-
-
+   <div class="span4">
+        {% ifequal post.author request.user %}
+            <p class="meta">
+                <a href="{% url blog_edit post.id %}"><i class="icon-edit"></i> Edit this entry</a> 
+                <br>
+                {% if post.status == 1 %}
+                    <b>{% trans "Draft" %}</b>
+                     <a href="{% url blog_change_status 'public' post.id %}" class="inline_action">{% trans "Publish" %}</a> 
+                {% endif %}
+                <a href="{% url blog_delete post.id %}"><i class="icon-remove"></i> {% trans "Delete this entry" %}</a> 
+                <br>
+                <a href="/logs/mylog/"><i class="icon-th-list"></i> Entries Dashboard</a>
+                <br>
+                <a href="/logs/new/"><i class="icon-pencil"></i> Add new entry</a> 
+            </p>
+        {% endifequal %}
+    </div>
+</div>
 {% endif %}
-
-
 {% endblock %}

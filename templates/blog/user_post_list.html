@@ -14,42 +14,38 @@
 {% endblock %}
 
 {% block body %}
-
-    {# {% if post_list %} #}
-    {#     {% load blog_tags %} #}
-    {#     <p>{{ post.author.username|capfirst }}</p> #}
-    {#     {% include "blog/post_iterator.html" %} #}
-    {# {% else %} #}
-    {#     <p>No posts yet.</p> #}
-    {# {% endif %} #}
-
-    {% if post_list %} {# the 'latest' variable of the template context is assigned automatically by the django.views.generic.date_based.archive_index generic view - https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-date-based-archive-index #}
-
-    <p class="breadcrumb">
-        <a href="/">Home</a> / <a href="/logs/">Logs</a> / {{ author.username|capfirst }}
-    </p>
-        
-        <h1>{{ author.username|capfirst }}&rsquo;s <span class="normal">Day Z Log</span></h1>
-    
-          {% for post in post_list %}
-              <div class="row-fluid">
-                  <div class="span6">
-                      <h2 class="post-title"><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
-                      <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p>
-                      {# <p>{{ post.body|truncatewords:"30" }} <a href="{{ post.get_absolute_url }}">Continue Reading &raquo;</a></p> #}
-                      <p>{{ post.content_html|safe|truncatewords:"30" }} <a href="{{ post.get_absolute_url }}">Continue Reading &raquo;</a></p>                      
-                      
-                  </div>
-              </div>
-          {% empty %}
-              <div class="entry">
-                  <p>Sorry, no entries found.</p>
-              </div>
-          {% endfor %}
-          
-          {% else %}
+    {% if post_list %}
+        <header class="jumbotron subhead">
           <h1>{{ author.username|capfirst }}&rsquo;s <span class="normal">Day Z Log</span></h1>
-          <p>No entries yet.</p>
-      {% endif %}
-      
+          <p class="breadcrumb">
+              <a href="/">Home</a> / <a href="/logs/">Logs</a> / {{ author.username|capfirst }}
+          </p>
+        </header>
+
+        <div class="row">
+        {% for post in post_list %}
+            <div class="span8">
+                <div class="post">
+                    <h2 class="post-title"><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
+                    <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p>
+
+                    {{ post.content_html|safe|truncatewords_html:"30" }} <a href="{{ post.get_absolute_url }}">Continue Reading &raquo;</a>                            
+    
+                    {# {% empty %} #}
+                    {# <p>Sorry, no entries found.</p> #}
+                </div>
+            </div>
+        {% endfor %}
+
+    {% else %}
+          
+    <p class="breadcrumb">
+      <a href="/">Home</a> / <a href="/logs/">Logs</a> / {{ author.username|capfirst }}
+    </p>
+
+    <header class="jumbotron subhead" id="overview">
+    <h1>{{ author.username|capfirst }}&rsquo;s <span class="normal">Day Z Log</span> <small>No entries yet.</small></h1>
+    </header>
+          
+    {% endif %}      
 {% endblock %}

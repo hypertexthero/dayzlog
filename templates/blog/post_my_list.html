@@ -6,8 +6,13 @@
 
 {% block content %}
     {% if post_list %}
-
-    <h1 class="pull-left">My Day Z Log Entries <a href="/logs/{{user.username}}">({{user}})</a></h1>
+    
+    <!-- Masthead
+    ================================================== -->
+    <header class="jumbotron subhead" id="overview">
+      <h1>My Day Z Log Entries <small><a href="/logs/{{user.username}}" title="See my log homepage.">({{user}} - see your log homepage)</a></small></h1>
+    </header>
+    
     <p class="pull-right"><a class="btn btn-primary" href="/logs/new/"><i class="icon-pencil"></i> Write new log entry</a></p>
         {% regroup post_list|dictsort:"status" by status as posts_by_status %}
 
@@ -31,12 +36,12 @@
                             <td>{{ post.created_at|date:"d M Y, H:i" }}</td>
                             <td>{{ post.updated_at|date:"d M Y, H:i" }}</td>
                             <td class="actions">
-                                [ <a href="{% url blog_edit post.id %}" class="inline_action">{% trans "Edit" %}</a> ]
-                                [ <a href="{% url blog_delete post.id %}" class="inline_action">{% trans "Delete" %}</a> ]
+                                <a href="{% url blog_edit post.id %}"><i class="icon-edit"></i> {% trans "Edit" %}</a>
+                                <a href="{% url blog_delete post.id %}"><i class="icon-remove"></i>{% trans "Delete" %}</a>
                                 {% if post.is_public %}
-                                    [ <a href="{% url blog_change_status 'draft' post.id %}" class="inline_action">{% trans "To Drafts" %}</a> ]
+                                    <a href="{% url blog_change_status 'draft' post.id %}"><i class="icon-inbox"></i> {% trans "To Drafts" %}</a>
                                 {% else %}
-                                    [ <a href="{% url blog_change_status 'public' post.id %}" class="inline_action">{% trans "Publish" %}</a> ]
+                                    <a href="{% url blog_change_status 'public' post.id %}"><i class="icon-ok"></i> {% trans "Publish" %}</a>
                                 {% endif %}
                             </td>
                         </tr>

@@ -12,7 +12,7 @@
             <h1 style="margin-bottom:0.25em;">{{ profile.name|capfirst }}</h1>
         {% endifequal %}
     {% else %}
-        <p>{% ifequal request.user other_user %}{{ profile.name|capfirst }} has{% else %}You have{% endifequal %} not entered profile information yet. <a href="/profiles/edit/{{profile.user.username}}">{% trans "Edit your profile" %}</a></p>
+        <p>No profile information entered yet.</p>
     {% endif %}
     <div class="profile_info">
         {% if profile.name %}<p><b>{% trans "Day Z in-game Profile Name" %}</b>: {{ profile.name }}</p>{% endif %}

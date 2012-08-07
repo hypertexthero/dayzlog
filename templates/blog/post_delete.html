@@ -24,6 +24,7 @@
 {# {% url blog_edit post.id %} #}
     <form method="POST" action="">
         {% csrf_token %}
+        <legend>Deleting entry titled</span> &ldquo;{{ post.title }}&rdquo;</legend>  
         <p>Are you sure want to <strong class="warning">delete</strong> the note titled "<em>{{ post.title }}</em>"?</p>
         
         <p><input class="btn" type="submit" value="Yes, Delete" /> or <a href="javascript:history.go(-1)">Cancel</a></p>
