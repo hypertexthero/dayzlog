@@ -27,7 +27,11 @@
                 <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> 
                 <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i"}}</a>
             </p>
-        {{ post.content_html|safe }}            
+            {% load markup %}
+        {{ post.content_markdown|markdown:"safe" }}            
+        {# {{ post.content_html|safe }}             #}
+        {# =todo: find a way to strip unsafe content from content_html in models.py so we can use post.content_html|safe here instead #}
+        
         </div>
     </div>
 

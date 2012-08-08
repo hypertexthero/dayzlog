@@ -8,9 +8,6 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save, post_delete
 
-from markdown import markdown
-from typogrify.templatetags.typogrify_tags import typogrify
-
 # IS_DELETED = 0
 IS_DRAFT = 1
 IS_PUBLIC = 2
@@ -62,7 +59,7 @@ class Post(models.Model):
     tease = models.TextField(_('tease'), blank=True)
     # body = models.TextField(_('body'))
     content_markdown = models.TextField(blank=True, verbose_name='Note (markdown syntax)')
-    content_html = models.TextField(editable=False)
+    content_html = models.TextField(blank=True, null=True, editable=False)
     status = models.IntegerField(_('status'), choices=STATUS_CHOICES, default=IS_DRAFT)
     publish = models.DateTimeField(_('publish'), default=datetime.now)
     created_at = models.DateTimeField(_('created at'), default=datetime.now)
@@ -109,6 +106,11 @@ class Post(models.Model):
 #         super(Note, self).save()
 
     def save(self, force_insert=False, force_update=False, update_date=True):
+        
+        import markdown
+        # from django.contrib.markup.templatetags.markup import markdown
+        from typogrify.templatetags.typogrify_tags import typogrify
+        
         if update_date:
             self.updated_at = datetime.now()
         if (self.slug == None or self.slug == ''):
@@ -121,7 +123,8 @@ class Post(models.Model):
         #         self.tease = self.body[:editor_cut]
         # self.body = clear_html_code(self.body)
         # self.tease = clear_html_code(self.tease)
-        self.content_html = typogrify(markdown(self.content_markdown, ['footnotes', 'tables', 'nl2br', 'codehilite']))
+        # http://stackoverflow.com/questions/7035916/markdown-in-django-xss-safe
+        self.content_html = typogrify(markdown.markdown(self.content_markdown, ["safe", "footnotes", "tables", "nl2br", "codehilite"]))
         
         super(Post, self).save(force_insert, force_update)
 
