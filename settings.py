@@ -115,7 +115,7 @@ MIDDLEWARE_CLASSES = [
     "pinax.apps.account.middleware.LocaleMiddleware",
     "pagination.middleware.PaginationMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "dayzlog.urls"
@@ -162,7 +162,7 @@ INSTALLED_APPS = [
     "notification", # must be first
     "staticfiles",
     "compressor",
-    # "debug_toolbar",
+    "debug_toolbar",
     "mailer",
     "django_openid",
     "timezones",
@@ -179,8 +179,8 @@ INSTALLED_APPS = [
     # project
     "about",
     "profiles",
-    # "notes",
     "blog",
+    "voting",
 ]
 
 FIXTURE_DIRS = [
@@ -231,9 +231,9 @@ LOGOUT_REDIRECT_URLNAME = "home"
 EMAIL_CONFIRMATION_DAYS = 2
 EMAIL_DEBUG = DEBUG
 
-# DEBUG_TOOLBAR_CONFIG = {
-#     "INTERCEPT_REDIRECTS": False,
-# }
+DEBUG_TOOLBAR_CONFIG = {
+    "INTERCEPT_REDIRECTS": False,
+}
 
 # https://github.com/ilblackdragon/django-blogs
 BLOG_ENABLE_BLOGS = False

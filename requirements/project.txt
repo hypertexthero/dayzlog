@@ -27,3 +27,4 @@ django_forms_bootstrap
 
 # http://nomadblue.com/projects/django-nomadblog/
 # nomadblog
+django-voting
