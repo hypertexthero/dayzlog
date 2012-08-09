@@ -107,20 +107,28 @@ def delete(request, id):
 
 # homepage
 from django.views.generic.date_based import archive_index
+from django.views.generic.list_detail import object_list
+
 # generic archive_index view to display notes ordered by date and not display ones saved with a future date - https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-date-based-archive-index
 def homepage(request): 
     """Show all entries"""
 
-    return archive_index(request, 
-        queryset=Post.objects.filter(status=IS_PUBLIC).order_by('-created_at', 'title'), 
+    return object_list(request, 
+        # =todo: order by most votes
+        queryset=Post.objects.filter(status=IS_PUBLIC).order_by('-updated_at', 'title'), 
         # https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by
         
         # =todo: pagination - https://docs.djangoproject.com/en/dev/topics/pagination/?from=olddocs/
         # paginator = Paginator(queryset, 25)
         # page = request.GET.get('page')
         
-        date_field='created_at', # don't forget to set {{ note.created|date:"d F Y" }} in notes/list.html
+        # date_field='updated_at', # don't forget to set {{ note.created|date:"d F Y" }} in notes/list.html
         template_name='homepage.html',
-        # template_object_name='post',
-        allow_future = False # this is the default, but am keeping it here to remember that it can be set to true for other use cases, such as calendar of upcoming events
+        # paginate_by=15,
+        template_object_name='post',
+        #allow_future = False # this is the default, but am keeping it here to remember that it can be set to true for other use cases, such as calendar of upcoming events
     )
+
+# def post_voting(request, username):
+#     posts = Post.objects.filter(owner__username__exact=username)
+#     return object_list(request, queryset=posts)

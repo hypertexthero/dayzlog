@@ -78,32 +78,32 @@ msgstr ""
 "Vous pouvez <a href=\"%(login_url)s\">vous authentifier</a> pour essayer le "
 "site."
 
-#: templates/site_base.html:20
+#: templates/base.html:20
 msgid "Profile"
 msgstr "Profil"
 
-#: templates/site_base.html:21
+#: templates/base.html:21
 msgid "Notices"
 msgstr "Notifications"
 
-#: templates/site_base.html:28
+#: templates/base.html:28
 msgid "&copy; 2010 &lt;your company here&gt;"
 msgstr "&copy; 2010 &lt;votre raison sociale ici&gt;"
 
-#: templates/site_base.html:29
+#: templates/base.html:29
 msgid "About"
 msgstr "A propos"
 
-#: templates/site_base.html:30
+#: templates/base.html:30
 #, fuzzy
 msgid "Terms of Service"
 msgstr "Termes de service"
 
-#: templates/site_base.html:31
+#: templates/base.html:31
 msgid "Privacy Policy"
 msgstr "Politique de confidentialité"
 
-#: templates/site_base.html:32
+#: templates/base.html:32
 msgid "DMCA Notice"
 msgstr ""
 

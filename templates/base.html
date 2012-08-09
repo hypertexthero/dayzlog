@@ -39,7 +39,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </a>
-                            {% block site_brand %}<a class="brand" href="{% url "home" %}">{{ SITE_NAME }}</a>{% endblock %}
+                            {% block site_brand %}<a class="brand" href="{% url "home" %}" title="Day Z Log homepage."><img src="{% static "img/dayzmod-small.png" %}" alt="Day Z"><i style="font-size:0.9em; vertical-align:bottom;">LOG</i></a>{% endblock %}
                             <div class="nav-collapse">
                                 {% block nav %}
                              
@@ -65,9 +65,9 @@
                                                     <b class="caret"></b>
                                                 </a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="/logs/">Latest Entries (All Logs)</a></li>
+                                                    <li><a href="/logs/">Latest Entries (all logs)</a></li>
                                                     <li><a href="/logs/{{user.username}}">My Log</a></li>
-                                                    <li><a href="/logs/mylog/"><i class="icon-th-list"></i> My Log Entries Dashboard</a></li>
+                                                    <li><a href="/logs/mylog/"><i class="icon-th-list"></i> My Log Dashboard</a></li>
                                                     <li><a href="/logs/new/"><i class="icon-pencil"></i> Write new log entry</a></li>
                                                 </ul>
                                             </li>
@@ -105,7 +105,7 @@
             </div>
         {% endblock %}
 
-        {% block body_base %}
+        {# {% block body_base %} #}
             <div class="container">
                 {% include "_messages.html" %}
                 {% block body %}
@@ -113,17 +113,15 @@
                 {% block banner %}
                 {% endblock %}
             </div>
-        {% endblock %}
+        {# {% endblock %} #}
 
-        {% block footer_base %}
             <div id="footer">
                 <div class="inner">
                     <div class="container">
-                        {% block footer %}{% endblock %}
+                        {% block footer %}<p>Each story is © copyright by its author. Day Z logo © copyright by the <a href="http://dayzmod.com">DayZMod.com</a> crew. <a href="/">DayZLog.com</a> created by <a href="http://hypertexthero.com">Hypertexthero.</a></p>{% endblock %}
                     </div>
                 </div>
             </div>
-        {% endblock %}
 
         {# {% include "includes/markdown_cheatsheet.html" %} #}
 

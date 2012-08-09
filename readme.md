@@ -6,7 +6,8 @@ Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.
 
 - Logo
 - Blog
-    - [Reddit style voting](http://code.google.com/p/django-voting/wiki/RedditStyleVoting)
+    - [Reddit style voting](http://code.google.com/p/django-voting/wiki/RedditStyleVoting) - get this working
+    - Debug Markdown safe mode with footnote extension enabled
     - Comments with Disqus
     - Feeds & Content Export
         - Atom XML

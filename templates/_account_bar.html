@@ -10,7 +10,7 @@
     <div class="btn-group pull-right">
         {% if user.is_authenticated %}
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="icon-user"></i> {{ user|capfirst }}
+            {{ user|capfirst }}
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">

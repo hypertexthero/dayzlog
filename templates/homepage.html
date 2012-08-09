@@ -1,134 +1,238 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block head_title %}Home{% endblock %}
-{% block extra_head %}
-<script type="text/javascript" charset="utf-8">
-    function vote(slug, direction) {
-        $.ajaxSetup({
-          data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
-        });
-        $.post('/logs/'+username+'/'+slug+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'},
-               function(data) {
-                   if (data.success == true) {
-                       $('#score').text(data.score.score);
-                       $('#num_votes').text(data.score.num_votes);
-                   } else {
-                       alert('ERROR: ' + data.error_message);
-                   }
-               }, 'json'
-              )
-    }
-</script>
-{% endblock %}
 
 {% block banner %}
-<div class="hero-unit">
-<div class="row">
-    <div class="span8">
-    {% if user.is_authenticated %}
-        <h1>{{ user|capfirst }}&rsquo;s <span class="normal">Day Z Log</span></h1>
-        <p><a href="/logs/mylog/">Log dashboard</a> | <a href="/logs/{{user.username}}">Log main page</a></p>
-        {% load url from future %}
-        <p>
-            <a href="/logs/new/" class="btn btn-primary"><i class="icon-pencil"></i> Write a new entry</a> or
-            <a href="{% url "profile_detail" user.username %}" class="btn"><i class="icon-user"></i> edit your profile</a> to generate a URL you can add to your Day Z in-game profile.
-        </p>
-    {% else %}
-        <h1>Day Z Log</h1>
-        <h2>Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.</h2>        
-        <ol>
-            <li>Write your stories using <a data-toggle="modal" href="#markdownhelp">Markdown</a> format.</li>
-            <li>Generate a <a href="/help">squad.xml file and URL to add to your in-game profile</a> so other players can see who they&rsquo;re dealing with.</li>
-            {# =todo: <li>Export all your stories in XML or JSON format at any time.</li> #}
-        </ol>
-        {% url acct_login as login_url %}
-        {% load ifsetting_tag %}
-        {% ifsetting ACCOUNT_OPEN_SIGNUP %}
-            <p><a href="/account/login/" class="btn">Log In</a> or <a href="/account/signup/" class="btn btn-primary">Sign Up</a></p>
-            {% else %}
-            <p><a href="/account/login/" class="btn">Log In</a></p>
-        {% endifsetting %}
-    {% endif %}
-    </div>
-</div>
-</div>
+{# <div class="hero-unit"> #}
+    {# <div class="row"> #}
+    {#  #}
+    {# </div> #}
+{# </div> #}
 
-<p class="lead">Latest Entries | <a title="todo" href="/popular/">Most Popular Entries</a></p>  
+{# <p class="lead">Latest Entries | <a title="todo" href="/popular/">Most Popular Entries</a></p>   #}
 
 
 {# =todo: if user is logged-in show only his latest posts here. #}
 {# possible to make custom view with filter by author? #}
 {# {% include "blog/user_post_list.html" %} #}
 
-{% if latest %} 
+{% if post_list %} 
 
-        <div class="row">
-            {% for post in latest %}
-                    <div class="span4">
-                        <h2 class="post-title"><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
-                        <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p>
-                        <p>{# {{ post.content_html|safe|truncatewords_html:"30" }} #} 
-                            {% load markup %}
-                            {{ post.content_markdown|markdown:"safe"|truncatewords_html:"30" }} <a href="{{ post.get_absolute_url }}">Read &raquo;</a></p>                    
+    <div class="row">        
+        <div class="span9">
+        {# {% for post in latest %} #}
+                {# <div class="span4"> #}
+                {#     <h2 class="post-title"><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2> #}
+                {#     <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p> #}
+                {#     <p> #}
+                {#         {% load markup %} #}
+                {#         {{ post.content_markdown|markdown:"safe"|truncatewords_html:"30" }} <a href="{{ post.get_absolute_url }}">Read &raquo;</a></p>                     #}
+                    {# {{ post.content_html|safe|truncatewords_html:"30" }} #} 
+                    
+
+                    {# =todo: http://code.google.com/p/django-voting/wiki/RedditStyleVoting #}
+                    {# http://www.justinlilly.com/python/django_voting.html #}
+                    {# http://stackoverflow.com/a/1529544 #}
+        {% load pagination_tags %}
+        {% autopaginate post_list 2 %}                    
+        {# {% paginate %} #}
+        <table class="table table-striped table-bordered table-condensed">
+        <colgroup>
+            <col style="width:4em;"></col>
+            <col></col>
+            {# <col></col> #}
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Vote</th>
+            <th>Post</th>
+            {# <th>Vote</th> #}
+          </tr>
+        </thead>
+        <tbody>
+
+        {% load voting_tags %}
+        {% votes_by_user user on post_list as vote_dict %}
+        {% scores_for_objects post_list as score_dict %}
+
+
+          {% for post in post_list %}
+          
+              <tr class="{% cycle odd,even %}">
+                
+                <td class="vote">
+                    {% dict_entry_for_item post from vote_dict as vote %}
+                    {% dict_entry_for_item post from score_dict as score %}
+                    
+
+                    {# up #}
+                    <form class="postvote block nomp" id="postup{{ post.id }}" action="/logs/{{ post.id }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/" method="POST">
+                        {% csrf_token %}
+                        <input class="btn btn-small pull-left" type="button" id="postuparrow{{ post.id }}" value="{% if vote and vote.is_upvote %}voted &uarr;{% else %}&uarr;{% endif %}" onclick="vote('{{ post.slug }}', 'up');">
+                    </form>
+                    
+
+                    {# clear #}
+                        {# <form class="postvote block nomp" id="postclear{{ post.id }}" action="/logs/{{ post.id }}/{% if vote and vote.is_clearvote %}clear{% else %}clear{% endif %}vote/" method="POST"> #}
+                            {# {% csrf_token %} #}
+                            {# <input class="btn btn-small" type="button" id="postclear{{ post.id }}" value="clear" onclick="vote('{{ post.slug }}', 'clear');"> #}
+                        {# </form> #}
+
+                        <p class="clearboth nomp"><a href="#" onclick="vote('{{ post.slug }}', 'clear');">clear</a></p>
+
+                    {# down #}
+                    <form class="postvote block nomp" id="postdown{{ post.id }}" action="/logs/{{ post.id }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/" method="POST">
+                        {% csrf_token %}
+                        <input class="btn btn-small pull-left" type="button" id="postdownarrow{{ post.id }}" value="{% if vote and vote.is_downvote %}voted &darr;{% else %}&darr;{% endif %}" onclick="vote('{{ post.slug }}', 'down');">
+                    </form>
+                    
+                </td>
+                
+                <td class="post">
+                    <h2 class="nomp"><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title|capfirst }}</a></h2> 
+                    <div class="meta small">
+                    
+                    {# <span class="small clearboth" id="score{{ post.id }}" title="after {{ score.num_votes|default:0 }} vote{{score.num_votes|default:0|pluralize }}">{{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}</span> #}
                         
                         
 
-                        {# =todo: http://code.google.com/p/django-voting/wiki/RedditStyleVoting #}
-                        {# http://www.justinlilly.com/python/django_voting.html #}
+{# =todo: debug button clicking updating top post only, etc #}
+                        <span id="num_votes">
+                            {% if score.num_votes %}
+                                {{ score.num_votes }} vote{{ score.num_votes|pluralize }}
+                            {% endif %}    
+                        </span>
+                        <span id="score">
+                            {% if score.score %}
+                                {{ score.score }} point{{ score.score|pluralize }}
+                            {% endif %}
+                        </span>
                         
-        {# {% load voting_tags %} #}
-        {# {% votes_by_user user on post_list as vote_dict %} #}
-        {# {% scores_for_objects post_list as score_dict %} #}
-        {# <table> #}
-        {# <col width="1"></col> #}
-        {# <col></col> #}
-        {# <thead> #}
-        {#   <tr> #}
-        {#     <th>Vote</th> #}
-        {#     <th>Post</th> #}
-        {#   </tr> #}
-        {# </thead> #}
-        {# <tbody> #}
-        {#   {% for post in latest %} #}
-        {#       <tr class="{% cycle odd,even %}"> #}
-        {#         <td class="vote"> #}
-        {#             {% dict_entry_for_item post from vote_dict as vote %} #}
-        {#             {% dict_entry_for_item post from score_dict as score %} #}
-        {#             <form class="postvote" id="postup{{ post.id }}" action="{{ post.id }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/" method="POST"> #}
-        {#                 {% csrf_token %} #}
-        {#                 <input type="button" id="postuparrow{{ post.id }}" value="{% if vote and vote.is_upvote %}voted up{% else %}vote up{% endif %}"> #}
-        {#             </form> #}
-        {#             <form class="postvote" id="postdown{{ post.id }}" action="{{ post.id }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/" method="POST"> #}
-        {#                 {% csrf_token %} #}
-        {#                 <input type="button" id="postdownarrow{{ post.id }}" value="{% if vote and vote.is_downvote %}voted down{% else %}vote down{% endif %}"> #}
-        {#             </form> #}
-        {#         </td> #}
-        {#         <td class="item"> #}
-        {#            #}
-        {#             <h2 class="post-title"><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2> #}
-        {#             <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p> #}
-        {#             <p>{{ post.content_html|safe|truncatewords_html:"30" }} <a href="{{ post.get_absolute_url }}">Read &raquo;</a></p> #}
-        {#            #}
-        {#             <p class="details"> #}
-        {#                 <span class="score" id="postscore{{ post.id }}" #}
-        {#                       title="after {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }}"> #}
-        {#                  {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }} #}
-        {#                 </span> #}
-        {#             </p> #}
-        {#         </td> #}
-        {#       </tr> #}
-        {#   {% endfor %} #}
-        {# </tbody> #}
-        {# </table> #}
-                        
-                        
-                        
+
+
+
+
+                        {# <h5>Votes <span id="score">{{ score.score }}</span> point{{ score.score|pluralize }} #}
+                        {# <br /> #}
+                        {# after <span id="num_votes">{{ score.num_votes }}</span> vote{{ score.num_votes|pluralize }}</h5> #}
+
+                        <span class="author">
+                            By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span>
+                        </span>
+                    
+                        <span class="time">
+                            {{ post.updated_at|timesince }} ago
+                        </span>
                     </div>
-            {% empty %}
-                <div class="entry">
-                    <p>Sorry, no posts found.</p>
-                </div>
-            {% endfor %}
+
+                </td>
+
+                {# <td> #}
+                        {# <p><a href="#" onclick="vote('{{ post.slug }}', 'up');">Up</a></p> #}
+                        {# <p><a href="#" onclick="vote('{{ post.slug }}', 'down');">Down</a></p> #}
+                        {# <p><a href="#" onclick="vote('{{ post.slug }}', 'clear');">Clear</a></p> #}
+                {# </td>    #}
+
+              </tr>
+              {% empty %}
+                  <tr>
+                      <td>Sorry, no posts found.</td>
+                  </tr>
+              {% endfor %}
+              
+
+              
+        </tbody>
+        </table>
+        {% paginate %}
         </div>
+    
+        <div class="span3">
+            <div class="hero-unit">
+            {% if user.is_authenticated %}
+                <h2><a href="/logs/{{user.username}}">{{ user|capfirst }}</a></h2>
+                {# <ul class="nav nav-list unstyled"> #}
+                {#     <li><a href="/logs/{{user.username}}">My Log Homepage</a></li> #}
+                {#     <li><a href="/logs/mylog/"><i class="icon-th-list"></i> My Log Entries Dashboard</a></li> #}
+                {#     <li><a href="/logs/new/"><i class="icon-pencil"></i> Write new log entry</a></li> #}
+                {#     <li><a href="/profiles/{{user.username}}">My Day Z In-Game Profile</a></li> #}
+                {#     <li><a href="/profiles/edit/{{user.username}}"><i class="icon-user"></i> Edit my Day Z in-game profile</a></li> #}
+                {# </ul> #}
+                {% load url from future %}
+                <p>
+                    <a href="/logs/mylog/" class="btn"><i class="icon-th-list"></i> My Log Dashboard</a>
+                    <a href="/logs/new/" class="btn"><i class="icon-pencil"></i> Write New Entry</a>
+                    <a href="{% url "profile_detail" user.username %}" class="btn"><i class="icon-user"></i> Edit Profile</a> to generate a URL to add to my Day Z in-game profile
+                    {# <a href="/logs/{{user.username}}" class="btn">My Log Homepage</a> #}
+                </p>
+            {% else %}
+                <h2>Day Z Log</h2>
+                <h3>Share your <a href="http://dayzmod.com">Day Z</a> stories.</h3>        
+                <p>Write your stories using <a data-toggle="modal" href="#markdownhelp">Markdown</a> format. Generate a <a href="/help">squad.xml file and URL to add to your in-game profile</a> so other players can see who they&rsquo;re dealing with.</p>
+                    {# =todo: <li>Export all your stories in XML or JSON format at any time.</li> #}
+                {% url acct_login as login_url %}
+                {% load ifsetting_tag %}
+                {% ifsetting ACCOUNT_OPEN_SIGNUP %}
+                    <p><a href="/account/login/" class="btn">Log In</a> or <a href="/account/signup/" class="btn btn-primary">Sign Up</a></p>
+                    {% else %}
+                    <p><a href="/account/login/" class="btn">Log In</a></p>
+                {% endifsetting %}
+            {% endif %}</div>
+        </div>                              
+    </div>
+
+
+{# Help to find player id #}
+<div class="modal hide" id="thanks">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Thanks for voting</h3>
+  </div>
+<div class="modal-body">
+
+    <p>Click anywhere outside this box to close it.</p>
+
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+        {# <a href="#" class="btn btn-primary">Save changes</a> #}
+      </div>
+</div>
+
 {% endif %}
+
+{% block extrabody %}
+
+
+
+
+    <script type="text/javascript" charset="utf-8">
+        
+        function vote(slug, direction) {
+            $.ajaxSetup({
+                    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+                    });
+            $.post('/logs/'+slug+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'},
+                   function(data) {
+                       if (data.success == true) {
+                           $('#score').text(data.score.score);
+                           // $('#postuparrow{{ post.id }}').text(data.score.score);
+                           $('#num_votes').text(data.score.num_votes);
+                       } else {
+                           alert('ERROR: ' + data.error_message);
+                       }
+                   }, 'json'
+                  )
+        }
+
+    </script>
+
+
+
+
+
+
+
+
+{% endblock extrabody %}
+
 {% endblock %}

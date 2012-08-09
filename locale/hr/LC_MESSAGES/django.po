@@ -76,31 +76,31 @@ msgstr ""
 msgid "You can <a href=\"%(login_url)s\">Log in</a> to try out the site."
 msgstr ""
 
-#: templates/site_base.html:20
+#: templates/base.html:20
 msgid "Profile"
 msgstr ""
 
-#: templates/site_base.html:21
+#: templates/base.html:21
 msgid "Notices"
 msgstr ""
 
-#: templates/site_base.html:28
+#: templates/base.html:28
 msgid "&copy; 2010 &lt;your company here&gt;"
 msgstr ""
 
-#: templates/site_base.html:29
+#: templates/base.html:29
 msgid "About"
 msgstr ""
 
-#: templates/site_base.html:30
+#: templates/base.html:30
 msgid "Terms of Service"
 msgstr ""
 
-#: templates/site_base.html:31
+#: templates/base.html:31
 msgid "Privacy Policy"
 msgstr ""
 
-#: templates/site_base.html:32
+#: templates/base.html:32
 msgid "DMCA Notice"
 msgstr ""
 
