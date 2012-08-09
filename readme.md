@@ -6,15 +6,15 @@ Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.
 
 - Logo
 - Blog
-    - [Reddit style voting](http://code.google.com/p/django-voting/wiki/RedditStyleVoting) - get this working
-    - Debug Markdown safe mode with footnote extension enabled
+    - [Reddit style voting](http://code.google.com/p/django-voting/wiki/RedditStyleVoting) - debug jQuery not updating vote buttons issue
+    - Markdown markedit with preview
     - Comments with Disqus
-    - Feeds & Content Export
+- About / Help dedicated pages?
+    - Help <a href="http://community.bistudio.com/wiki/squad.xml">squad.xml</a>, finding player id, etc.
+- Feeds & Content Export
         - Atom XML
         - Json
         - Debug: <http://www.ashorlivs.fr/javascript-jquery/article/an-invalid-or-illegal-string-was>
-- About / Help dedicated pages?
-    - Help <a href="http://community.bistudio.com/wiki/squad.xml">squad.xml</a>, finding player id, etc.
 
 ### Future
 

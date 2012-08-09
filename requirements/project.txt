@@ -12,6 +12,7 @@
 Markdown
 # http://code.google.com/p/typogrify/
 typogrify
+html5lib
 
 # http://fi.am/entry/code-highlighting-in-django/
 # http://freewisdom.org/projects/python-markdown/CodeHilite

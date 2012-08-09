@@ -6,20 +6,20 @@
 
   <div class="modal-body">
 
-      <div class="row-fluid">
-        <div class="span12">
-          Level 1 of column
-          <div class="row-fluid">
-            <div class="span6">Level 2</div>
-            <div class="span6">Level 2</div>
-          </div>
-        </div>
-      </div>
+      {# <div class="row-fluid"> #}
+        {# <div class="span12"> #}
+          {# Level 1 of column #}
+          {# <div class="row-fluid"> #}
+            {# <div class="span6">Level 2</div> #}
+            {# <div class="span6">Level 2</div> #}
+          {# </div> #}
+        {# </div> #}
+      {# </div> #}
 
 
     
-      <div class="mod">
-          <div class="col">
+      
+      
             <h3>Format Text</h3>
             <p>Headers</p>
             <pre>
@@ -35,8 +35,8 @@
 
       *You **can** combine them*
       </pre>
-          </div>
-          <div class="col">
+      
+      
             <h3>Lists</h3>
             <p>Unordered</p>
             <pre>
@@ -51,59 +51,77 @@
       3. Item 3
          * Item 3a
          * Item 3b</pre>
-          </div>
-          <div class="col">
+      
             <h3>Miscellaneous</h3>
-            <p>Images</p>
-            <pre>
-      ![GitHub Logo](/images/logo.png)
-      Format: ![Alt Text](url)
-      </pre>
+       
            <p>Links</p>
            <pre>
-      http://github.com - automatic!
-      [GitHub](http://github.com)</pre>
+      <http://dayzlog.com>
+
+      or
+
+      [Linked word](http://dayzlog.com "Link tooltip title")
+      [DayZLog](http://dayzlog.com)
+      
+        or
+
+      [Linked word][1]
+      [1]: http://dayzlog.com "Link tooltip title"
+
+        or
+
+      [Linked word][dayzlog]
+      [dayzlog]: http://dayzlog.com "Link tooltip title"
+          </pre>
+
+<p>Images</p>
+            <pre>
+      ![My photo description](http://i.imgur.com/rYdOJ.jpg)
+      Format: ![Alt Text](url)
+      </pre>
+          
+
+<p>Footnotes</p>
+            <pre>
+      I saw[^1] it.
+      [^1]: Through the scope.
+      </pre>
+
       <p>Blockquotes</p>
            <pre>
-      As Kanye West said:
+      As a bad guy in No One Lives Forever said:
 
-      > We're living the future so
-      > the present is our past.
+      > Everybody down,
+      > hard rain is falling!
       </pre>
-          </div>
-        </div>
+      
         <div class="rule"></div>
 
-        <h3>Code Examples in Markdown</h3>
-        <div class="col">
-            <p>Syntax highlighting with <a href="http://github.github.com/github-flavored-markdown/" title="GitHub Flavored Markdown" target="_blank">GFM</a></p>
+        {# <h3>Code Examples in Markdown</h3> #}
+      
+            {# <p>Syntax highlighting with <a href="http://github.github.com/github-flavored-markdown/" title="GitHub Flavored Markdown" target="_blank">GFM</a></p> #}
+            {# <pre> #}
+      {# ```javascript #}
+      {# function fancyAlert(arg) { #}
+        {# if(arg) { #}
+          {# $.facebox({div:'#foo'}) #}
+        {# } #}
+      {# } #}
+      {# ```</pre> #}
+      
+            <p>Indent your code 4 spaces</p>
             <pre>
-      ```javascript
-      function fancyAlert(arg) {
-        if(arg) {
-          $.facebox({div:'#foo'})
-        }
-      }
-      ```</pre>
-          </div>
-          <div class="col">
-            <p>Or, indent your code 4 spaces</p>
-            <pre>
-      Here is a Python code example
-      without syntax highlighting:
+      Here is a Python code example:
 
           def foo:
             if not bar:
               return true</pre>
-          </div>
-          <div class="col">
+      
             <p>Inline code for comments</p>
             <pre>
       I think you should use an
-      `&lt;addr&gt;` element here instead.</pre>
-          </div>
-        </div>
-    
+      `&lt;strong&gt;` element here instead.</pre>
+      
   </div>
 
   <div class="modal-footer">
