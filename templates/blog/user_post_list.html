@@ -15,11 +15,11 @@
 
 {% block body %}
     {% if post_list %}
-        <header class="jumbotron subhead">
+        <header class="jumbotron subhead pull-right">
           <h1>{{ author.username|capfirst }}&rsquo;s <span class="normal">Day Z Log</span></h1>
-          <p class="breadcrumb">
-              <a href="/">Home</a> / <a href="/logs/">Logs</a> / {{ author.username|capfirst }}
-          </p>
+          {# <p class="breadcrumb"> #}
+          {#     <a href="/">Home</a> / <a href="/logs/">Logs</a> / {{ author.username|capfirst }} #}
+          {# </p> #}
         </header>
 
         <div class="row">
@@ -43,9 +43,9 @@
 
     {% else %}
           
-    <p class="breadcrumb">
-      <a href="/">Home</a> / <a href="/logs/">Logs</a> / {{ author.username|capfirst }}
-    </p>
+    {# <p class="breadcrumb"> #}
+    {#   <a href="/">Home</a> / <a href="/logs/">Logs</a> / {{ author.username|capfirst }} #}
+    {# </p> #}
 
     <header class="jumbotron subhead" id="overview">
     <h1>{{ author.username|capfirst }}&rsquo;s <span class="normal">Day Z Log</span> <small>No entries yet.</small></h1>

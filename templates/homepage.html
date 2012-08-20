@@ -3,12 +3,6 @@
 {% block head_title %}Home{% endblock %}
 
 {% block banner %}
-{# <div class="hero-unit"> #}
-    {# <div class="row"> #}
-    {#  #}
-    {# </div> #}
-{# </div> #}
-
 {# <p class="lead">Latest Entries | <a title="todo" href="/popular/">Most Popular Entries</a></p>   #}
 
 
@@ -17,137 +11,123 @@
 {# {% include "blog/user_post_list.html" %} #}
 
 {% if post_list %} 
-
     <div class="row">        
-        <div class="span9">
-        {# {% for post in latest %} #}
-                {# <div class="span4"> #}
-                {#     <h2 class="post-title"><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2> #}
-                {#     <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p> #}
-                {#     <p> #}
-                {#         {% load markup %} #}
-                {#         {{ post.content_markdown|markdown:"safe"|truncatewords_html:"30" }} <a href="{{ post.get_absolute_url }}">Read &raquo;</a></p>                     #}
-                    {# {{ post.content_html|safe|truncatewords_html:"30" }} #} 
-                    
-
-                    {# =todo: http://code.google.com/p/django-voting/wiki/RedditStyleVoting #}
-                    {# http://www.justinlilly.com/python/django_voting.html #}
-                    {# http://stackoverflow.com/a/1529544 #}
-        {% load pagination_tags %}
-        {% autopaginate post_list 2 %}                    
-        {# {% paginate %} #}
-        <table class="table table-striped table-bordered table-condensed">
-        <colgroup>
-            <col style="width:4em;"></col>
-            <col></col>
-            {# <col></col> #}
-        </colgroup>
-        <thead>
-          <tr>
-            <th>Vote</th>
-            <th>Post</th>
-            {# <th>Vote</th> #}
-          </tr>
-        </thead>
-        <tbody>
-
-        {% load voting_tags %}
-        {% votes_by_user user on post_list as vote_dict %}
-        {% scores_for_objects post_list as score_dict %}
-
-
-          {% for post in post_list %}
-          
-              <tr class="{% cycle odd,even %}">
-                
-                <td class="vote">
-                    {% dict_entry_for_item post from vote_dict as vote %}
-                    {% dict_entry_for_item post from score_dict as score %}
-                    
-
-                    {# up #}
-                    <form class="postvote block nomp" id="postup{{ post.id }}" action="/logs/{{ post.id }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/" method="POST">
-                        {% csrf_token %}
-                        <input class="btn btn-small pull-left" type="button" id="postuparrow{{ post.id }}" value="{% if vote and vote.is_upvote %}voted &uarr;{% else %}&uarr;{% endif %}" onclick="vote('{{ post.slug }}', 'up');">
-                    </form>
-                    
-
-                    {# clear #}
-                        {# <form class="postvote block nomp" id="postclear{{ post.id }}" action="/logs/{{ post.id }}/{% if vote and vote.is_clearvote %}clear{% else %}clear{% endif %}vote/" method="POST"> #}
-                            {# {% csrf_token %} #}
-                            {# <input class="btn btn-small" type="button" id="postclear{{ post.id }}" value="clear" onclick="vote('{{ post.slug }}', 'clear');"> #}
-                        {# </form> #}
-
-                        <p class="clearboth nomp"><a href="#" onclick="vote('{{ post.slug }}', 'clear');">clear</a></p>
-
-                    {# down #}
-                    <form class="postvote block nomp" id="postdown{{ post.id }}" action="/logs/{{ post.id }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/" method="POST">
-                        {% csrf_token %}
-                        <input class="btn btn-small pull-left" type="button" id="postdownarrow{{ post.id }}" value="{% if vote and vote.is_downvote %}voted &darr;{% else %}&darr;{% endif %}" onclick="vote('{{ post.slug }}', 'down');">
-                    </form>
-                    
-                </td>
-                
-                <td class="post">
-                    <h2 class="nomp"><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title|capfirst }}</a></h2> 
-                    <div class="meta small">
-                    
-                    {# <span class="small clearboth" id="score{{ post.id }}" title="after {{ score.num_votes|default:0 }} vote{{score.num_votes|default:0|pluralize }}">{{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}</span> #}
-                        
-                        
-
-{# =todo: debug button clicking updating top post only, etc #}
-                        <span id="num_votes">
-                            {% if score.num_votes %}
-                                {{ score.num_votes }} vote{{ score.num_votes|pluralize }}
-                            {% endif %}    
-                        </span>
-                        <span id="score">
-                            {% if score.score %}
-                                {{ score.score }} point{{ score.score|pluralize }}
-                            {% endif %}
-                        </span>
-                        
-
-
-
-
-                        {# <h5>Votes <span id="score">{{ score.score }}</span> point{{ score.score|pluralize }} #}
-                        {# <br /> #}
-                        {# after <span id="num_votes">{{ score.num_votes }}</span> vote{{ score.num_votes|pluralize }}</h5> #}
-
-                        <span class="author">
-                            By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span>
-                        </span>
-                    
-                        <span class="time">
-                            {{ post.updated_at|timesince }} ago
-                        </span>
-                    </div>
-
-                </td>
-
-                {# <td> #}
-                        {# <p><a href="#" onclick="vote('{{ post.slug }}', 'up');">Up</a></p> #}
-                        {# <p><a href="#" onclick="vote('{{ post.slug }}', 'down');">Down</a></p> #}
-                        {# <p><a href="#" onclick="vote('{{ post.slug }}', 'clear');">Clear</a></p> #}
-                {# </td>    #}
-
+        <div class="span8">
+            
+            {# =todo: http://code.google.com/p/django-voting/wiki/RedditStyleVoting #}
+            {# http://www.justinlilly.com/python/django_voting.html #}
+            {# http://stackoverflow.com/a/1529544 #}
+            
+            {% load pagination_tags %}
+            {% autopaginate post_list 2 %}                    
+            
+            <table class="table table-striped table-bordered table-condensed">
+            <colgroup>
+                <col style="width:4em;"></col>
+                <col></col>
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Vote</th>
+                <th>Post</th>
               </tr>
-              {% empty %}
-                  <tr>
-                      <td>Sorry, no posts found.</td>
+            </thead>
+            <tbody>
+            
+            {# get ready for voting #}
+            {% load voting_tags %}
+            {% votes_by_user user on post_list as vote_dict %}
+            {% scores_for_objects post_list as score_dict %}
+
+              {% for post in post_list %}
+          
+                  <tr class="{% cycle odd,even %}">
+                    <td class="vote">
+                        {# instantiating vote variables? #}
+                        {% dict_entry_for_item post from vote_dict as vote %}
+                        {% dict_entry_for_item post from score_dict as score %}
+                        
+                        {# up #}
+                        <form class="postvote" id="postup{{ post.slug }}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/" method="POST">
+                            {% csrf_token %}
+                            <input type="image" id="postuparrow{{ vote.id }}" src="/site_media/static/img/aup{% if vote and vote.is_upvote %}mod{% else %}grey{% endif %}.png" style="height:12px; width:12px;">
+                             {# onclick="vote('{{ post.slug }}', 'up');" #}
+                             
+                            {# =todo: http://stackoverflow.com/questions/8560665/django-template-variable-value-not-retrievable-in-javascript-jquery #}
+                            {# currently only with this javascript does voting work #}
+                        </form>
+
+                        {# clear #}
+                        {# <p class="clearboth nomp"><a href="#" onclick="vote('{{ post.slug }}', 'clear');">clear</a></p> #}
+
+                        {# down #}
+                        <form class="postvote" id="postdown{{ post.slug }}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/" method="POST">
+                            {% csrf_token %}
+                            <input type="image" id="postdownarrow{{ vote.id }}" src="/site_media/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" style="height:12px; width:12px;">
+                            {# onclick="vote('{{ post.slug }}', 'down');" #}
+                        </form>
+                    </td>
+                
+                    <td class="post">
+                        <h2 class="nomp">
+                            <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title|capfirst }}</a>
+                        </h2> 
+                        <div class="meta small">
+                    
+                        {# <span class="small clearboth" id="score{{ post.id }}" title="after {{ score.num_votes|default:0 }} vote{{score.num_votes|default:0|pluralize }}">{{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}</span> #}
+
+    {# =todo: debug button clicking updating top post only, etc #}
+                            <span id="num_votes">
+                                {% if score.num_votes %}
+                                    {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }}
+                                {% endif %}    
+                            </span>
+                            <span id="score">
+                                {% if score.score %}
+                                    {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}
+                                {% endif %}
+                            </span>
+                        
+
+
+
+
+                            {# <h5>Votes <span id="score">{{ score.score }}</span> point{{ score.score|pluralize }} #}
+                            {# <br /> #}
+                            {# after <span id="num_votes">{{ score.num_votes }}</span> vote{{ score.num_votes|pluralize }}</h5> #}
+
+                            <span class="author">
+                                By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span>
+                            </span>
+                    
+                            <span class="time">
+                                {{ post.updated_at|timesince }} ago
+                            </span>
+                        </div>
+
+                    </td>
+
+                    {# <td> #}
+                            {# <p><a href="#" onclick="vote('{{ post.slug }}', 'up');">Up</a></p> #}
+                            {# <p><a href="#" onclick="vote('{{ post.slug }}', 'down');">Down</a></p> #}
+                            {# <p><a href="#" onclick="vote('{{ post.slug }}', 'clear');">Clear</a></p> #}
+                    {# </td>    #}
+
                   </tr>
-              {% endfor %}
+                  {% empty %}
+                      <tr>
+                          <td>Sorry, no posts found.</td>
+                      </tr>
+                  {% endfor %}
               
 
               
-        </tbody>
-        </table>
-        {% paginate %}
+            </tbody>
+            </table>
+            {% paginate %}
         </div>
     
-        <div class="span3">
+        <div class="span4">
             <div class="hero-unit">
             {% if user.is_authenticated %}
                 <h2><a href="/logs/{{user.username}}">{{ user|capfirst }}</a></h2>
@@ -201,38 +181,73 @@
 {% endif %}
 
 {% block extrabody %}
+                                     
+{# <script type="text/javascript" charset="utf-8"> #}
+{#     $(document).ready(function() { #}
+{#  #}
+{#         $('div.postvote input.vote-up').click(function() { #}
+{#  #}
+{#             var id = {{ thread.id }}; #}
+{#             var vote_type = 'up'; #}
+{#  #}
+{#             if ($(this).hasClass('selected')) { #}
+{#                 var vote_action = 'recall-vote' #}
+{#                 $.post('/ajax/thread/vote', {id:id, type:vote_type, action:vote_action}, function(response) { #}
+{#                     if (isInt(response)) { #}
+{#                         $('img.vote-up').removeAttr('src') #}
+{#                             .attr('src', 'images/vote-up-off.png') #}
+{#                             .removeClass('selected'); #}
+{#                         $('div.vote-tally span.num').html(response); #}
+{#                     } #}
+{#                 }); #}
+{#             } else { #}
+{#  #}
+{#                 var vote_action = 'vote' #}
+{#                 $.post('/ajax/thread/vote', {id:id, type:vote_type, action:vote_action}, function(response) { #}
+{#                     if (isInt(response)) { #}
+{#                         $('img.vote-up').removeAttr('src') #}
+{#                             .attr('src', 'images/vote-up-on.png') #}
+{#                             .addClass('selected'); #}
+{#                         $('div.vote-tally span.num').html(response); #}
+{#                     } #}
+{#                 }); #}
+{#             } #}
+{#         }); #}
+{# </script> #}
 
 
 
+    {# <script src="/site_media/static/js/prototype.js"></script> #}
+    {# <script src="/site_media/static/js/votehijacker.js"></script> #}
+    {# <script type="text/javascript"> #}
+    {#     Event.observe(window, "load", function() #}
+    {#     { #}
+    {#         new VoteHijacker("post"); #}
+    {# }); #}
+    {# </script> #}
 
-    <script type="text/javascript" charset="utf-8">
-        
-        function vote(slug, direction) {
-            $.ajaxSetup({
-                    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
-                    });
-            $.post('/logs/'+slug+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'},
-                   function(data) {
-                       if (data.success == true) {
-                           $('#score').text(data.score.score);
-                           // $('#postuparrow{{ post.id }}').text(data.score.score);
-                           $('#num_votes').text(data.score.num_votes);
-                       } else {
-                           alert('ERROR: ' + data.error_message);
-                       }
-                   }, 'json'
-                  )
-        }
-
-    </script>
-
-
-
-
-
-
-
-
+{#                      vote('{{ post.slug }}', 'down');                     #}
+    {# <script type="text/javascript" charset="utf-8"> #}
+    {#      #}
+    {#     function vote(slug, direction) { #}
+    {#         $.ajaxSetup({ #}
+    {#                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' }, #}
+    {#                 }); #}
+    {#         $.post('/logs/'+slug+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'}, #}
+    {#                function(data) { #}
+    {#                    if (data.success == true) { #}
+    {#                        $('#score').text(data.score.score); #}
+    {#                        $('#num_votes').text(data.score.num_votes); #}
+    {#                        // $('#postuparrow').text(data.vote.vote); #}
+    {#                        // $('#postdownarrow').text(data.vote.vote); #}
+    {#                    } else { #}
+    {#                        alert('ERROR: ' + data.error_message); #}
+    {#                    } #}
+    {#                }, 'json' #}
+    {#               ) #}
+    {#     } #}
+    {#  #}
+    {# </script> #}
 {% endblock extrabody %}
 
 {% endblock %}

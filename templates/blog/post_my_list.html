@@ -36,12 +36,12 @@
                             <td>{{ post.created_at|date:"d M Y, H:i" }}</td>
                             <td>{{ post.updated_at|date:"d M Y, H:i" }}</td>
                             <td class="actions">
-                                <a href="{% url blog_edit post.id %}"><i class="icon-edit"></i> {% trans "Edit" %}</a>
+                                <a href="{% url blog_edit post.id %}"><i class="icon-edit"></i>{% trans "Edit" %}</a>
                                 <a href="{% url blog_delete post.id %}"><i class="icon-remove"></i>{% trans "Delete" %}</a>
                                 {% if post.is_public %}
-                                    <a href="{% url blog_change_status 'draft' post.id %}"><i class="icon-inbox"></i> {% trans "To Drafts" %}</a>
+                                    <a href="{% url blog_change_status 'draft' post.id %}"><i class="icon-inbox"></i>{% trans "To Drafts" %}</a>
                                 {% else %}
-                                    <a href="{% url blog_change_status 'public' post.id %}"><i class="icon-ok"></i> {% trans "Publish" %}</a>
+                                    <a href="{% url blog_change_status 'public' post.id %}"><i class="icon-ok"></i>{% trans "Publish" %}</a>
                                 {% endif %}
                             </td>
                         </tr>

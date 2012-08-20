@@ -38,7 +38,8 @@
 
         {# <p><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}" title="See all entries by {{ post.author.username|capfirst }}.">{{ post.author.username|capfirst }}</a> / <span class="normal">{{ post.title }}</span></p> #}
 
-    <p class="breadcrumb"><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}/">{{ post.author.username|capfirst }}</a> / {{ post.slug }}</p>
+    {# <p class="breadcrumb"><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}/">{{ post.author.username|capfirst }}</a> / {{ post.slug }}</p> #}
+
     {% check_post_status request.user post %}
     
     {% if show_post %}
@@ -59,8 +60,10 @@
             {# {{ post.content_markdown|markdown:"safe" }}             #}
             {{ post.content_html|safe }}            
             {# =todo: find a way to strip unsafe content from content_html in models.py so we can use post.content_html|safe here instead #}
-
             </div>
+            
+            {# =todo: links to previous, next, all #}
+            
         </div>
 
        <div class="span4">
@@ -111,6 +114,8 @@
             
             
         </div>
+        
+
     </div>
     {% endif %}
 {% endblock %}

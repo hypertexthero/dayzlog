@@ -1,8 +1,8 @@
 {% load i18n %}
 
-<p class="breadcrumb"><a href="/">Home</a> / <a href="/profiles/">Profiles</a> / 
-    {% ifequal request.user other_user %}{{ profile.name|capfirst }}{% else %}{{ profile.user.username|capfirst }}{% endifequal %}
-</p>
+{# <p class="breadcrumb"><a href="/">Home</a> / <a href="/profiles/">Profiles</a> /  #}
+{#     {% ifequal request.user other_user %}{{ profile.name|capfirst }}{% else %}{{ profile.user.username|capfirst }}{% endifequal %} #}
+{# </p> #}
 
 <div class="hero-unit">
     {% if profile.name %}    

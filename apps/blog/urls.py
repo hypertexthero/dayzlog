@@ -3,11 +3,6 @@ from django.conf import settings
 
 from blog.models import Post, Blog, IS_PUBLIC
 
-# =voting
-# http://code.google.com/p/django-voting/wiki/RedditStyleVoting
-from django.views.generic.list_detail import object_list
-from voting.views import vote_on_object
-
 ENABLE_USER_BLOG = getattr(settings, 'BLOG_ENABLE_USER_BLOG', True)
 ENABLE_BLOGS = getattr(settings, 'BLOG_ENABLE_BLOGS', True)
 
@@ -21,11 +16,16 @@ post_dict_public = {
     'template_object_name': 'post',
 }
 
+# =voting
+# http://code.google.com/p/django-voting/wiki/RedditStyleVoting
+from django.views.generic.list_detail import object_list
+from voting.views import vote_on_object
 post_dict_vote = {
     'model': Post,
     # 'queryset': Post.objects.filter(status=IS_PUBLIC),
     'template_object_name': 'post',
     'slug_field': 'slug',
+    'template_name': 'blog/post_confirm_vote.html',
     'allow_xmlhttprequest': 'true',
 }
 

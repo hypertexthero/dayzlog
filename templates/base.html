@@ -65,7 +65,7 @@
                                                     <b class="caret"></b>
                                                 </a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="/logs/">Latest Entries (all logs)</a></li>
+                                                    <li><a href="/logs/">Latest Log Entries, All Users</a></li>
                                                     <li><a href="/logs/{{user.username}}">My Log</a></li>
                                                     <li><a href="/logs/mylog/"><i class="icon-th-list"></i> My Log Dashboard</a></li>
                                                     <li><a href="/logs/new/"><i class="icon-pencil"></i> Write new log entry</a></li>
@@ -118,7 +118,11 @@
             <div id="footer">
                 <div class="inner">
                     <div class="container">
-                        {% block footer %}<p>Each story is © copyright by its author. Day Z logo © copyright by the <a href="http://dayzmod.com">DayZMod.com</a> crew. <a href="/">DayZLog.com</a> created by <a href="http://hypertexthero.com">Hypertexthero.</a></p>{% endblock %}
+                        {% block footer %}
+                        <p>Stories Copyright © by Authors. <a href="/">DayZLog.com</a> created by <a href="http://hypertexthero.com">Hypertexthero.</a>
+                        {# Day Z logo © Copyright by the <a href="http://dayzmod.com">DayZMod.com</a> crew. #}
+                        </p> 
+                        {% endblock %}
                     </div>
                 </div>
             </div>
