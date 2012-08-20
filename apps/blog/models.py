@@ -147,6 +147,16 @@ class Post(models.Model):
     def get_owners(self):
         return [self.author]
 
-
+    def get_next(self):
+        next = Post.objects.filter(id__gt=self.id)
+        if next:
+            return next[0]
+        return False
+      
+    def get_prev(self):
+        prev = Post.objects.filters(id__lt=self.id)
+        if prev:
+            return prev[0]
+        return False
 
 

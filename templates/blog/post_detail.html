@@ -62,7 +62,39 @@
             {# =todo: find a way to strip unsafe content from content_html in models.py so we can use post.content_html|safe here instead #}
             </div>
             
-            {# =todo: links to previous, next, all #}
+            {# =todo: links to previous, next, all - only from current user #}
+            {# https://docs.djangoproject.com/en/dev/topics/pagination/ #}
+            
+            {# {% for post in post_list %} #}
+            {# <div class="pagination"> #}
+            {# {% if post.get_prev %} #}
+            {#     <a href="../{{ post.get_prev.slug }}">before: {{post.get_prev.title }}</a> #}
+            {# {% endif %} #}
+            {# {% if post.get_next %} #}
+            {#     <a href="../{{ post.get_next.slug }}">after: {{post.get_next.title }}</a> #}
+            {# {% endif %} #}
+            {# </div> #}
+            
+            
+            {# {% endfor %} #}
+            
+            {# {% for post in post_list %}     #}
+            {#        <div class="pagination"> #}
+            {#            <span class="step-links"> #}
+            {#                {% if post_list.has_previous %} #}
+            {#                    <a href="?page={{ post_list.previous_page_number }}">previous</a> #}
+            {#                {% endif %} #}
+            {#  #}
+            {#                <span class="current"> #}
+            {#                    Page {{ post_list.number }} of {{ post_list.paginator.num_pages }}. #}
+            {#                </span> #}
+            {#  #}
+            {#                {% if posts.has_next %} #}
+            {#                    <a href="?page={{ post_list.next_page_number }}">next</a> #}
+            {#                {% endif %} #}
+            {#            </span> #}
+            {#        </div> #}
+            {#        {% endfor %} #}
             
         </div>
 

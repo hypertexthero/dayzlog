@@ -13,7 +13,7 @@
       <h1>My Day Z Log Entries <small><a href="/logs/{{user.username}}" title="See my log homepage.">({{user}} - see your log homepage)</a></small></h1>
     </header>
     
-    <p class="pull-right"><a class="btn btn-primary" href="/logs/new/"><i class="icon-pencil"></i> Write new log entry</a></p>
+    <p><a class="btn btn-primary" href="/logs/new/"><i class="icon-pencil"></i> Write new log entry</a></p>
         {% regroup post_list|dictsort:"status" by status as posts_by_status %}
 
         {% for post_list in posts_by_status %}
