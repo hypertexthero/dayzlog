@@ -237,8 +237,7 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 # https://github.com/ilblackdragon/django-blogs
-BLOG_ENABLE_BLOGS = False
-BLOG_ENABLE_USER_BLOG = True
+# BLOG_ENABLE_USER_BLOG = True
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

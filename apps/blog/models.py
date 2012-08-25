@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save, post_delete
 
+from voting.models import Vote
+from voting.managers import VoteManager
+
 import markdown
 # from django.contrib.markup.templatetags.markup import markdown
 from typogrify.templatetags.typogrify_tags import typogrify
@@ -21,47 +24,19 @@ def sanitize(value):
     p = html5lib.HTMLParser(tokenizer=sanitizer.HTMLSanitizer)
     return p.parseFragment(value).toxml()
 
-
 # IS_DELETED = 0
 IS_DRAFT = 1
 IS_PUBLIC = 2
-
-class Blog(models.Model):
-    name = models.CharField(_('name'), max_length=200)
-    slug = models.SlugField(_('slug'))
-    icon = models.ImageField(_('blog icon'), height_field=None, width_field=None, blank=True, upload_to="blog_icons/", default="blog_icons/default.jpg")
-    description = models.TextField(_('description'), max_length=256, blank=True)
-    
-    # TODO: Made moderators
-    # TODO: Made list of who can write to blog (empty - every one)
-    # TODO: Or just made gerenal access rights - who can view,write,comment on this blog
-    #moderators = models.ManyToMany()
-
-    class Meta:
-        verbose_name = _('Blog')
-        verbose_name_plural = _('Blogs')
-    
-    @models.permalink
-    def get_absolute_url(self):
-        return ('blog_blog_detail', None, {
-            'slug': self.slug
-            })
-
-    def __unicode__(self):
-        return self.name
-
-    def get_last_post(self):
-        post = self.post_list.filter(status=IS_PUBLIC)[:1]
-        if post:
-            return post[0]
-        return None
-
 
 STATUS_CHOICES = (
     (IS_DRAFT, _("Draft")), 
     (IS_PUBLIC, _("Public")),
     # (IS_DELETED, _("Deleted")) # =todo: remove this
 )
+
+class HotManager(VoteManager):
+    def get_top(self):
+        return self
 
 class Post(models.Model):
     """Post model."""
@@ -77,46 +52,29 @@ class Post(models.Model):
     publish = models.DateTimeField(_('publish'), default=datetime.now)
     created_at = models.DateTimeField(_('created at'), default=datetime.now)
     updated_at = models.DateTimeField(_('updated at'))
-    blog = models.ForeignKey(Blog, related_name='post_list', null=True, blank=True)
-    last_comment_datetime = models.DateTimeField(_('date of last comment'), default=datetime.now)
-    
-    # rating = RatingField()
-    
+
+    votes = models.ForeignKey(Vote, related_name='votes', null=True, blank=True)
+
+    objects = models.Manager()
+    hot = HotManager()
+
     class Meta:
         verbose_name = _('Post')
         verbose_name_plural = _('Posts')
-        ordering = ('-updated_at',)
-        get_latest_by = 'updated_at'
+        # =todo: order by highest score
+        # order_with_respect_to = 'votes'
+        # ordering = ('hot',)
+        # get_latest_by = 'updated_at'
 
     def __unicode__(self):
         return self.title
 
     @models.permalink
     def get_absolute_url(self):
-        if self.blog:
-            return ('blog_post_detail', None, {
-                'blog': self.blog.slug,
-                'slug': self.slug,
-            })
-        else:
-            return ('blog_user_post_detail', None, {
-                'username': self.author.username,
-                'slug': self.slug,
-            })
-
-# # =todo: add markdown and html dual db fields, show markdown when user is editing, html when page is displayed
-# # # TODO: Combine django static generator in ~/django_projects/victoreskinazi.com with the functionality below so we are serving static files in HTML on server and Markdown and HTML columns in database. Also try to find a way to have static files in Markdown format on the server.
-#     # https://code.djangoproject.com/wiki/UsingMarkup
-#     def save(self):
-#         # Also applying codehilite and footnotes markdown extensions: 
-#             # http://fi.am/entry/code-highlighting-in-django/
-#             # http://freewisdom.org/projects/python-markdown/CodeHilite
-#             # http://freewisdom.org/projects/python-markdown/Footnotes
-#             # typogrify - http://code.google.com/p/typogrify/ and http://djangosnippets.org/snippets/381/
-#         self.content_html = typogrify(markdown(self.content_markdown, ['footnotes', 'tables', 'nl2br', 'codehilite']))
-#         # self.content_html = markdown(self.content_markdown)
-#         self.modified = datetime.datetime.now()
-#         super(Note, self).save()
+        return ('blog_user_post_detail', None, {
+            'username': self.author.username,
+            'slug': self.slug,
+        })
 
     def save(self, force_insert=False, force_update=False, update_date=True):
         # http://www.freewisdom.org/projects/python-markdown/Extra
@@ -131,7 +89,6 @@ class Post(models.Model):
 
         super(Post, self).save(force_insert, force_update)
 
-
         # if self.tease:
         #     editor_cut = self.body.find('<hr class="editor_cut"/>')
         #     if editor_cut != -1:
@@ -139,7 +96,6 @@ class Post(models.Model):
         # self.body = clear_html_code(self.body)
         # self.tease = clear_html_code(self.tease)
         # http://stackoverflow.com/questions/7035916/markdown-in-django-xss-safe
-
 
     def is_public(self):
         return self.status == IS_PUBLIC
@@ -158,5 +114,3 @@ class Post(models.Model):
         if prev:
             return prev[0]
         return False
-
-

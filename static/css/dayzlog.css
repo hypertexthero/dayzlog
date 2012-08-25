@@ -1,4 +1,4 @@
-/* custom styles by @hypertexthero */
+ custom styles by @hypertexthero */
 
 h1 {text-align:left !important; color:#000 !important;}
 .quiet {color:#ccc;}
@@ -13,10 +13,14 @@ h1 {text-align:left !important; color:#000 !important;}
 div.post {margin-bottom:2em;}
 /*.post-title {border-bottom: 1px solid #E5E5E5;}*/
 .post-title a {color:#000; text-decoration:none;}
-.postvote {display:inline;}
+td.vote {font-size:1em; text-align:center; font-weight:bold;}
+form.postvote, form.postvote input {margin:0; padding:0;}
+.postvote input {height:12px; width:12px;}
+#postup {margin-bottom:0.25em !important;}
 .nomp {margin:0 !important; padding:0 !important;}
 .clearboth {clear:both;}
 .block {display:block;}
+
 /*p.meta {background:#eee; text-align:right;}*/
 /*.height8 {height:22em;}*/
-/*#markdownhelp {width:100%; padding:0 auto;}*/
+/*#markdownhelp {width:100%; padding:0 auto;}

@@ -34,7 +34,7 @@
                 </p>
             {% endif %}
             
-            <form method="POST" action="{% url "acct_login" %}" autocapitalize="off" class="form-horizontal">
+            <form method="POST" action="{% url "acct_login" %}" autocapitalize="off" class="form-vertical">
                 {% csrf_token %}
                 {{ form|as_bootstrap }}
                 {% if redirect_field_value %}
@@ -46,7 +46,7 @@
             </form>
             
             {% ifsetting ACCOUNT_USE_OPENID %}
-            <form action="/openid/register/" method="POST" autocapitalize="off" class="form-horizontal">
+            <form action="/openid/register/" method="POST" autocapitalize="off" class="form-vertical">
                 <fieldset>
                     <legend>{% trans "Or sign in with your OpenID" %}</legend>
                     {% csrf_token %}

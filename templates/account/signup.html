@@ -24,7 +24,7 @@
                 {% if form.is_multipart %}
                     <form id="signup_form" method="post" action="{% url "acct_signup" %}" enctype="multipart/form-data" autocapitalize="off" class="form-horizontal">
                 {% else %}
-                    <form id="signup_form" method="post" action="{% url "acct_signup" %}" autocapitalize="off" class="form-horizontal">
+                    <form id="signup_form" method="post" action="{% url "acct_signup" %}" autocapitalize="off" class="form-vertical">
                 {% endif %}
                     {% csrf_token %}
                     {{ form|as_bootstrap }}
@@ -37,7 +37,7 @@
                 </form>
                 
                 {% ifsetting ACCOUNT_USE_OPENID %}
-                <form action="/openid/register/" method="POST" autocapitalize="off" class="form-horizontal">
+                <form action="/openid/register/" method="POST" autocapitalize="off" class="form-vertical">
                     <legend>{% trans "Or sign in with your OpenID" %}</legend>
                     {% csrf_token %}
                     <div class="control-group">

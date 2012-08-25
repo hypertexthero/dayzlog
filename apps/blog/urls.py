@@ -1,20 +1,7 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 
-from blog.models import Post, Blog, IS_PUBLIC
-
-ENABLE_USER_BLOG = getattr(settings, 'BLOG_ENABLE_USER_BLOG', True)
-ENABLE_BLOGS = getattr(settings, 'BLOG_ENABLE_BLOGS', True)
-
-post_dict = {
-    'queryset': Post.objects.filter(),
-    'template_object_name': 'post',
-}
-
-post_dict_public = {
-    'queryset': Post.objects.filter(status=IS_PUBLIC),
-    'template_object_name': 'post',
-}
+from blog.models import Post, IS_PUBLIC
 
 # =voting
 # http://code.google.com/p/django-voting/wiki/RedditStyleVoting
@@ -29,6 +16,15 @@ post_dict_vote = {
     'allow_xmlhttprequest': 'true',
 }
 
+post_dict = {
+    'queryset': Post.objects.filter(),
+    'template_object_name': 'post',
+}
+post_dict_public = {
+    'queryset': Post.objects.filter(status=IS_PUBLIC),
+    'template_object_name': 'post',
+}
+
 urlpatterns = patterns('',
     url(r'^$', 'django.views.generic.list_detail.object_list', post_dict_public, name='blog_post_list'),
     url(r'^mylog/$', 'blog.views.my_post_list', dict(post_dict, template_name='blog/post_my_list.html'), name='blog_my_post_list'),
@@ -39,8 +35,10 @@ urlpatterns = patterns('',
     
     # =voting
     url(r'^(?P<slug>[-\w]+)/(?P<direction>up|down|clear)vote/?$', vote_on_object, post_dict_vote, name='post_voting'),
+    
     # needs to come after the above otherwise post detail url doesn't work
     url(r'^(?P<username>[\w\._\-]+)/(?P<slug>[-\w]+)/$', 'blog.views.blog_user_post_detail', post_dict, name='blog_user_post_detail'),
+    
     # =voting
     #     url(r"^(?P<username>[\w\._\-]+)/(?P<slug>[-\w]+)/(?P<direction>up|down|clear)vote/?$", vote_on_object, 
     #     # url(r"^logs/(?P<object_id>\d+)/(?P<direction>up|down|clear)vote/?$", vote_on_object, 
@@ -54,20 +52,7 @@ urlpatterns = patterns('',
    )
    
 
-if ENABLE_USER_BLOG:
-    urlpatterns += patterns('',
-        url(r'^(?P<username>[\w\._\-]+)/$', 'blog.views.user_post_list', dict(post_dict_public, template_name='blog/user_post_list.html'), name='blog_user_post_list'),
-    )
-
-if ENABLE_BLOGS:
-    blog_dict = {
-        'queryset': Blog.objects.all(),
-        'template_object_name': 'blog',
-    }
-    
-    urlpatterns += patterns('',
-        url(r'^blogs/$', 'django.views.generic.list_detail.object_list', blog_dict, name='blog_blog_list'),
-        url(r'^(?P<blog>[-\w]+)/(?P<slug>[-\w]+)/$', 'blog.views.blog_post_detail', name='blog_post_detail'),
-        url(r'^(?P<slug>[-\w]+)/$', 'django.views.generic.list_detail.object_detail', blog_dict, name='blog_blog_detail'),
-    )
+urlpatterns += patterns('',
+    url(r'^(?P<username>[\w\._\-]+)/$', 'blog.views.user_post_list', dict(post_dict_public, template_name='blog/user_post_list.html'), name='blog_user_post_list'),
+)
 

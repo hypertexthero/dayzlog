@@ -8,7 +8,7 @@ from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
 from django.template import RequestContext
 
-from blog.models import Post, Blog, IS_DRAFT, IS_PUBLIC
+from blog.models import Post, IS_DRAFT, IS_PUBLIC
 
 register = template.Library()
 
@@ -44,3 +44,24 @@ def show_full_blog_post(context, post):
     context['post'] = post
     context['post_undetailed'] = False
     return context
+
+
+
+# http://djangosnippets.org/snippets/2019/
+from django.db.models.loading import get_model
+from django.db.models.query import QuerySet
+
+@register.filter
+def call_manager(model_or_obj, method):
+    # load up the model if we were given a string
+    if isinstance(model_or_obj, basestring):
+        model_or_obj = get_model(*model_or_obj.split('.'))
+
+    # figure out the manager to query
+    if isinstance(model_or_obj, QuerySet):
+        manager = model_or_obj
+        model_or_obj = model_or_obj.model
+    else:
+        manager = model_or_obj._default_manager
+
+    return getattr(manager, method)()

@@ -1,41 +1,49 @@
 {% load i18n %}
 {% load ifsetting_tag %}
 {% load url from future %}
-
-
-    {# {% if user.is_authenticated %} #}
-    {#     <p class="navbar-text pull-left">{% trans "Logged in as:" %}</p> #}
-    {# {% endif %} #}
     
-    <div class="btn-group pull-right">
+
+    
+
         {% if user.is_authenticated %}
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            {{ user|capfirst }}
-            <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu">
-            {% block user_links %}
-            <li><a href="{% url "acct_email" %}"><i class="icon-wrench"></i> {% trans "Account" %}</a></li> 
-            {# <li><a href="{% url "profile_detail" user.username %}"><i class="icon-user"></i> {% trans "Profile" %}</a></li> #}
-            {% if user.is_staff %}
-            <li><a href="{% url "admin:index" %}"><i class="icon-cog"></i> {% trans "Admin" %}</a></li>
-            {% endif %}
-            <li class="divider"></li>
-            <li><a href="{% url "acct_logout" %}"><i class="icon-off"></i> {% trans "Log out" %}</a></li>
-            {% endblock %}
-        </ul>
+            <div class="btn-group pull-right">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                    {{ user|capfirst }}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    {% block user_links %}
+                    <li><a href="{% url "acct_email" %}"><i class="icon-wrench"></i> {% trans "Account" %}</a></li> 
+                    {# <li><a href="{% url "profile_detail" user.username %}"><i class="icon-user"></i> {% trans "Profile" %}</a></li> #}
+                    {% if user.is_staff %}
+                    <li><a href="{% url "admin:index" %}"><i class="icon-cog"></i> {% trans "Admin" %}</a></li>
+                    {% endif %}
+                    <li class="divider"></li>
+                    <li><a href="{% url "acct_logout" %}"><i class="icon-off"></i> {% trans "Log out" %}</a></li>
+                    {% endblock %}
+                </ul>
+            </div>
         {% else %}
-        <ul class="nav pull-right">
-            <li><a href="{% url "acct_login" %}">{% trans "Log in" %}</a></li>
-            {% ifsetting ACCOUNT_OPEN_SIGNUP %}
-            <li class="navbar-text">{% trans "or" %}</li>
-            <li><a href="{% url "acct_signup" %}">{% trans "Sign up" %}</a></li>
-            {% endifsetting %}
-        </ul>
+            <ul class="nav pull-right">
+                <li><a href="{% url "acct_login" %}">{% trans "Log in" %}</a></li>
+                {% ifsetting ACCOUNT_OPEN_SIGNUP %}
+                <li class="navbar-text">{% trans "or" %}</li>
+                <li><a href="{% url "acct_signup" %}">{% trans "Sign up" %}</a></li>
+                {% endifsetting %}
+            </ul>
         {% endif %}
         
-    </div>
-    
+ 
+
+    {% if user.is_authenticated %}
+        {# <p class="navbar-text pull-left">{% trans "Logged in as:" %}</p> #}
+            <ul class="nav pull-right">
+                <li><a href="/logs/{{user.username}}" title="Your log homepage.">My Log</a></li>
+                <li><a href="/logs/mylog/" title="Your entries, draft and public.">My Dashboard</a></li>
+                <li><a href="/profiles/{{user.username}}" title="Edit to generate a URL to add to your Day Z in-game profile">My Day Z In-Game Profile</a></li>
+            </ul>
+    {% endif %}
+
     {# <ul class="nav pull-right"> #}
     {#         {% if user.is_authenticated %} #}
     {#             <li class="dropdown"> #}

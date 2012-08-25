@@ -5,38 +5,7 @@
 
 {% block head_title %}{{ post.title }} - {{ post.author.username|capfirst }}'s Day Z Log{% endblock %}
 
-{% block external_css %}
-    {{ block.super }}
-    {# <link rel="stylesheet" href="{{ STATIC_URL }}wysiwyg-bbcode/editor.css" /> #}
-{% endblock %}
- 
-{% block extra_head %}
-    {{ block.super }}
-    {# <link rel="stylesheet" href="{{ MEDIA_URL }}css/comments.css" /> #}
-    {# <link rel="stylesheet" href="{{ MEDIA_URL }}css/pygments.css" /> #}
-{% endblock %}
-
-{# {% block external_js %} #}
-{#     {{ block.super }} #}
-{#     <script src="{{ STATIC_URL }}wysiwyg-bbcode/editor.js" language="JavaScript" type="text/javascript"></script> #}
-{# {% endblock %}  #}
-{#  #}
-{# {% block js %} #}
-{#     {{ block.super }} #}
-{#     <script src="{{ STATIC_URL }}js/misc.js" language="JavaScript" type="text/javascript"></script> #}
-{#     <script src="{{ STATIC_URL }}js/comments.js" language="JavaScript" type="text/javascript"></script> #}
-{# {% endblock %}  #}
-
 {% block body %}
-    {# {% show_full_blog_post post %}  #}
-    {% load i18n %}
-    {% load blog_tags %}
-
-    {# {% block breadcrumblog %} #}
-    {#     <span class="tail"> » {{ post.title }}</span> #}
-    {# {% endblock %} #}
-
-        {# <p><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}" title="See all entries by {{ post.author.username|capfirst }}.">{{ post.author.username|capfirst }}</a> / <span class="normal">{{ post.title }}</span></p> #}
 
     {# <p class="breadcrumb"><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}/">{{ post.author.username|capfirst }}</a> / {{ post.slug }}</p> #}
 
@@ -46,20 +15,13 @@
     <div class="row">
         <div class="span8">
             <div class="post">
-                {# {% if post.blog %}   #}
-                {#     <a href="{{ post.blog.get_absolute_url }}" class="blog_link">{{ post.blog.name }}</a> #}
-                {#     <span class="blog_post_breaker">&rarr;</span> #}
-                {# {% endif %} #}
                 <h1>{{ post.title }}</h1>
                 <p>
                     By <strong><a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong>
                     <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> 
                     <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i"}}</a>
                 </p>
-                {# {% load markup %} #}
-            {# {{ post.content_markdown|markdown:"safe" }}             #}
             {{ post.content_html|safe }}            
-            {# =todo: find a way to strip unsafe content from content_html in models.py so we can use post.content_html|safe here instead #}
             </div>
             
             {# =todo: links to previous, next, all - only from current user #}
@@ -116,59 +78,51 @@
                     <a href="/logs/new/"><i class="icon-pencil"></i> Add new entry</a> 
                 </p>
             {% endifequal %}
+
+
             
+                    {# get ready for voting #}
+                    {% load voting_tags %}
+                    {% vote_by_user user on post as vote %}
+                    {% score_for_object post as score %}
 
+                    <div class="vote">
+                        {# {% dict_entry_for_item post from vote as vote %} #}
+                        {# {% dict_entry_for_item post from score as score %} #}
 
+                        {# up ========================= #}
+                        <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="image" id="postuparrow{{ post.id }}" src="/site_media/static/img/aup{% if vote and vote.is_upvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_upvote %}clear your vote{% else %}upvote this story{% endif %}">
+                        </form>
 
-{# =voting #}
-        {# {% load voting_tags %} #}
-        {# {% votes_by_user user on post_list as vote_dict %} #}
-        {# {% scores_for_objects post_list as score_dict %} #}
+                        {# clear #}
+                        {# <p class="clearboth nomp"><a href="#" onclick="vote('{{ post.slug }}', 'clear');">clear</a></p> #}
 
-                {# <p> #}
-                {# {% dict_entry_for_item post from vote_dict as vote %} #}
-                {# {% dict_entry_for_item post from score_dict as score %} #}
-                {# <form class="postvote" id="postup{{ post.id }}" action="{{ post.id }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/" method="POST"> #}
-                    {# {% csrf_token %} #}
-                    {# <input class="btn btn-small pull-left" type="button" id="postuparrow{{ post.id }}" value="{% if vote and vote.is_upvote %}voted &uarr;{% else %}&uarr;{% endif %}" onclick="vote('{{ post.slug }}', 'up');"> #}
-                {# </form> #}
-                {# <form class="postvote" id="postdown{{ post.id }}" action="{{ post.id }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/" method="POST"> #}
-                    {# {% csrf_token %} #}
-                    {# <input class="btn btn-small pull-left" type="button" id="postdownarrow{{ post.id }}" value="{% if vote and vote.is_downvote %}voted &darr;{% else %}&darr;{% endif %}" onclick="vote('{{ post.slug }}', 'down');"> #}
-                {# </form> #}
-                {# </p> #}
-                {# <p><a href="#" onclick="vote('{{ post.slug }}', 'clear');">Clear</a></p> #}
+                        {# score ========================= #}
 
-                {# <p class="clearboth score small" id="postscore{{ post.id }}" #}
-                      {# title="after {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }}"> #}
-                 {# {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }} #}
-                {# </p> #}
-            
+                        {# <span id="num_votes"> #}
+                            {# {% if score.num_votes %} #}
+                                {# {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }} #}
+                            {# {% endif %}     #}
+                        {# </span> #}
+                        <span id="score">
+                            {% if score.score %}
+                                {# {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }} #}
+                                {{ score.score|default:0 }}
+                                {% else %}
+                                <span class="small quiet">0</span>
+                            {% endif %}
+                        </span>
+
+                        {# down ========================= #}
+                        <form class="postvote" id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="image" id="postdownarrow{{ post.id }}" src="/site_media/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_downvote %}clear your vote{% else %}downvote this story{% endif %}">
+                        </form>
+                    </div>
             
         </div>
-        
-
     </div>
     {% endif %}
 {% endblock %}
-
-
-{# =voting #}
-{# {% block extrabody %}
-    <script type="text/javascript" charset="utf-8">
-        
-        function vote(slug, direction) {
-            $.post('/logs/'+slug+'/'+direction+'vote/', {HTTP_X_REQUESTED:'XMLHttpRequest'},
-                   function(data) {
-                       if (data.success == true) {
-                           $('#score').text(data.score.score);
-                           $('#num_votes').text(data.score.num_votes);
-                       } else {
-                           alert('ERROR: ' + data.error_message);
-                       }
-                   }, 'json'
-                  )
-        }
-
-    </script>
-{% endblock extrabody %} #}

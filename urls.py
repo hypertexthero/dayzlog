@@ -9,12 +9,12 @@ from pinax.apps.account.openid_consumer import PinaxConsumer
 
 handler500 = "pinax.views.server_error"
 
-from blog.feeds import BlogFeedAll, BlogFeedBlog, BlogFeedUser
+from blog.feeds import BlogFeedUser
 blogs_feed_dict = {"feed_dict": {
-'all': BlogFeedAll, 'blog' : BlogFeedBlog, 'only': BlogFeedUser,
-}}
+    'only': BlogFeedUser,
+    }}
 
-from blog.models import Post, Blog, IS_PUBLIC
+from blog.models import Post, IS_PUBLIC
 post_dict_public = {
     'queryset': Post.objects.filter(status=IS_PUBLIC),
     'template_object_name': 'post',
@@ -25,7 +25,7 @@ post_dict_public = {
 urlpatterns = patterns("",
 
     url(r"^$", "blog.views.homepage", name="home"),
-    # url(r"^popular/$", "blog.views.popular", name="popular"),
+    url(r"^new/$", "blog.views.new", name="new"),
     url(r"^admin/invite_user/$", "pinax.apps.signup_codes.views.admin_invite_user", name="admin_invite_user"),
     url(r"^admin/", include(admin.site.urls)),
     url(r"^about/", include("about.urls")),

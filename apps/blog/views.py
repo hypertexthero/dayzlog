@@ -12,9 +12,18 @@ from django.conf import settings
 from django.db.models import Q
 
 from misc.json_encode import json_response
-from blog.models import Blog, Post, IS_DRAFT, IS_PUBLIC
+from blog.models import Post, IS_DRAFT, IS_PUBLIC
 from blog.forms import PostForm
 from blog.signals import post_published
+
+# homepage
+from django.views.generic.date_based import archive_index
+from django.views.generic.list_detail import object_list
+
+# =todo: order by highest score on homepage: http://stackoverflow.com/questions/2848777/using-django-and-django-voting-app-how-can-i-order-a-queryset-according-to-the
+from voting.models import Vote
+from voting.managers import VoteManager
+from voting.views import vote_on_object
 
 def blog_post_detail(request, *kargs, **kwargs):
     blog = get_object_or_404(Blog, slug = kwargs.pop('blog', ''))
@@ -28,10 +37,12 @@ def blog_post_detail(request, *kargs, **kwargs):
 
 def blog_user_post_detail(request, *kargs, **kwargs):
     user = get_object_or_404(User, username=kwargs.pop('username', ''))
+    # =todo: show vote on post detail page
+    # vote = get_object_or_404(Vote, int(0))
     if user==request.user:
         kwargs['queryset'] = kwargs['queryset'].filter(author=request.user)
     else:
-        kwargs['queryset'] = kwargs['queryset'].filter(author=user, status = IS_PUBLIC)
+        kwargs['queryset'] = kwargs['queryset'].filter(author=user, status=IS_PUBLIC)
     return list_detail.object_detail(request, *kargs, **kwargs)
 
 def user_post_list(request, *kargs, **kwargs):
@@ -105,17 +116,17 @@ def delete(request, id):
         post_delete_redirect=reverse("blog_my_post_list")
     )
 
-# homepage
-from django.views.generic.date_based import archive_index
-from django.views.generic.list_detail import object_list
-
 # generic archive_index view to display notes ordered by date and not display ones saved with a future date - https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-date-based-archive-index
+
+
 def homepage(request): 
-    """Show all entries"""
+    """Show top posts"""
 
     return object_list(request, 
-        # =todo: order by most votes
-        queryset=Post.objects.filter(status=IS_PUBLIC).order_by('-updated_at', 'title'), 
+        # =todo: order by most votes - http://stackoverflow.com/questions/11073698/how-do-you-join-two-tables-using-django-without-using-raw-sql/11233143#11233143
+        # http://python.6.n6.nabble.com/django-voting-How-to-get-objects-with-number-of-votes-td300128.html
+        # queryset=Post.best.get_top(10), 
+        queryset=Post.hot.all().order_by('-votes'), 
         # https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by
         
         # =todo: pagination - https://docs.djangoproject.com/en/dev/topics/pagination/?from=olddocs/
@@ -129,6 +140,25 @@ def homepage(request):
         #allow_future = False # this is the default, but am keeping it here to remember that it can be set to true for other use cases, such as calendar of upcoming events
     )
 
-# def post_voting(request, username):
-#     posts = Post.objects.filter(owner__username__exact=username)
-#     return object_list(request, queryset=posts)
+def new(request): 
+    """Show new posts"""
+
+    # topscores = sorted(Vote.objects.all(), key=get_top)
+
+    return object_list(request, 
+        # =todo: order by most votes - http://stackoverflow.com/questions/11073698/how-do-you-join-two-tables-using-django-without-using-raw-sql/11233143#11233143
+        # http://python.6.n6.nabble.com/django-voting-How-to-get-objects-with-number-of-votes-td300128.html
+        # queryset=Post.best.get_top(10), 
+        queryset=Post.objects.filter(status=IS_PUBLIC).order_by('-created_at'), 
+        # https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by
+        
+        # =todo: pagination - https://docs.djangoproject.com/en/dev/topics/pagination/?from=olddocs/
+        # paginator = Paginator(queryset, 25)
+        # page = request.GET.get('page')
+        
+        # date_field='updated_at', # don't forget to set {{ note.created|date:"d F Y" }} in notes/list.html
+        template_name='new.html',
+        # paginate_by=15,
+        template_object_name='post',
+        #allow_future = False # this is the default, but am keeping it here to remember that it can be set to true for other use cases, such as calendar of upcoming events
+    )

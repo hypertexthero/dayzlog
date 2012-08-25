@@ -10,7 +10,18 @@
     {% user_display email_address.user as user_display %}
         <header class="jumbotron subhead" id="overview">
             <h1>{% trans "Email Confirmed" %}</h1>
-            <p class="lead">{% blocktrans with email_address.email as email %}You have confirmed that {{ email }} is an email address for user '{{ user_display }}'.{% endblocktrans %}</p>
+            <p class="lead">{% blocktrans with email_address.email as email %}You have confirmed that {{ email }} is an email address for user '{{ user_display }}'.{% endblocktrans %}
+
+        {% if user.is_authenticated %}
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                {{ user|capfirst }} <a href="/account/email/"><i class="icon-wrench"></i> {% trans "Account" %}</a>
+                <span class="caret"></span>
+            </a>
+            <a href="/account/logout/"><i class="icon-off"></i> {% trans "Log out" %}</a>
+        {% else %}
+            <a class="btn" href="/account/login/">{% trans "Log in" %}</a>
+        {% endif %}
+            </p>
         </header>
         
     {% else %}

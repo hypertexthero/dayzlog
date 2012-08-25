@@ -9,7 +9,7 @@ from django.template.defaultfilters import linebreaks, escape, capfirst
 from django.utils.translation import ugettext_lazy as _
 from django.utils import feedgenerator
 
-from blog.models import Post, Blog, IS_PUBLIC
+from blog.models import Post, IS_PUBLIC
 
 ITEMS_PER_FEED = getattr(settings, 'BLOG_ITEMS_PER_FEED', 20)
 
@@ -35,29 +35,29 @@ class BasePostFeed(Feed):
         return linebreaks(escape(item.body))
 
 
-class BlogFeedAll(BasePostFeed):
-    title = "Escalibro all posts"
-    link = "http://%s/feeds/posts/all/" % settings.SITE_ID
+# class BlogFeedAll(BasePostFeed):
+#     title = "Escalibro all posts"
+#     link = "http://%s/feeds/posts/all/" % settings.SITE_ID
 
-    def items(self):
-        return Post.objects.filter(status=IS_PUBLIC).order_by("-updated_at")[:ITEMS_PER_FEED]
+#     def items(self):
+#         return Post.objects.filter(status=IS_PUBLIC).order_by("-updated_at")[:ITEMS_PER_FEED]
 
 
-class BlogFeedBlog(BasePostFeed):
-    def get_object(self, request, *args, **kwargs):
-        return get_object_or_404(Blog, slug=request.GET.get('slug'))
+# class BlogFeedBlog(BasePostFeed):
+#     def get_object(self, request, *args, **kwargs):
+#         return get_object_or_404(Blog, slug=request.GET.get('slug'))
 
-    def link(self, blog):
-        return 'http://%s/feeds/posts/blog/?slug=%s' % (
-            settings.SITE_ID,
-            blog.slug,
-        )
+#     def link(self, blog):
+#         return 'http://%s/feeds/posts/blog/?slug=%s' % (
+#             settings.SITE_ID,
+#             blog.slug,
+#         )
 
-    def title(self, blog):
-        return "Escalibro blog %s" % blog.name
+#     def title(self, blog):
+#         return "Escalibro blog %s" % blog.name
 
-    def items(self, blog):
-        return Post.objects.filter(blog=blog, status=IS_PUBLIC).order_by("-updated_at")[:ITEMS_PER_FEED]
+#     def items(self, blog):
+#         return Post.objects.filter(blog=blog, status=IS_PUBLIC).order_by("-updated_at")[:ITEMS_PER_FEED]
 
 
 class BlogFeedUser(BasePostFeed):

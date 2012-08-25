@@ -56,41 +56,19 @@
                                         {% if user.is_authenticated %}
 
                                         <ul class="nav">
-
-                                            <li class="dropdown">
-                                                <a href="#"
-                                                    class="dropdown-toggle"
-                                                    data-toggle="dropdown">
-                                                    Logs
-                                                    <b class="caret"></b>
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="/logs/">Latest Log Entries, All Users</a></li>
-                                                    <li><a href="/logs/{{user.username}}">My Log</a></li>
-                                                    <li><a href="/logs/mylog/"><i class="icon-th-list"></i> My Log Dashboard</a></li>
-                                                    <li><a href="/logs/new/"><i class="icon-pencil"></i> Write new log entry</a></li>
-                                                </ul>
-                                            </li>
-
-                                            <li class="dropdown">
-                                                <a href="#"
-                                                    class="dropdown-toggle"
-                                                    data-toggle="dropdown">
-                                                    Profiles
-                                                    <b class="caret"></b>
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="/profiles/">All Day Z In-Game Profiles</a></li>
-                                                    <li><a href="/profiles/{{user.username}}">My Day Z In-Game Profile</a></li>
-                                                    <li><a href="/profiles/edit/{{user.username}}"><i class="icon-user"></i> Edit my Day Z in-game profile</a></li>
-                                                </ul>
-                                            </li>
+                                            <li><a title="todo" href="/" title="Most Popular Entries - the Day Z Log Homepage">Hot</a></li>
+                                            <li><a href="/new/" title="Latest Entries">New</a></li>
+                                                    {# <li><a href="/logs/">Latest Log Entries, All Users</a></li> #}
+                                                    <li><a href="/profiles/">Profiles</a></li>
+                                                    <li><a href="/logs/new/">Write</a></li>
                                         </ul>
 
                                 {% else %}
                                         <ul class="nav">
-                                                <li><a href="/logs/">Logs</a></li>
-                                                <li><a href="/profiles/">Profiles</a></li>
+                                            <li><a title="todo" href="/" title="Most Popular Entries - the Day Z Log Homepage">Hot</a></li>
+                                            <li><a href="/new/" title="Latest Entries">New</a></li>
+                                            {# <li><a href="/logs/">Logs</a></li> #}
+                                            <li><a href="/profiles/">Profiles</a></li>
                                         </ul>
 
                                 {% endif %}
@@ -119,7 +97,7 @@
                 <div class="inner">
                     <div class="container">
                         {% block footer %}
-                        <p>Stories Copyright © by Authors. <a href="/">DayZLog.com</a> created by <a href="http://hypertexthero.com">Hypertexthero.</a>
+                        <p>Each story copyright © by its author.{#  <a href="/">dayzlog.com</a> by <a href="http://hypertexthero.com">hypertexthero.</a> #}
                         {# Day Z logo © Copyright by the <a href="http://dayzmod.com">DayZMod.com</a> crew. #}
                         </p> 
                         {% endblock %}
