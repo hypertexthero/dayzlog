@@ -26,11 +26,11 @@
 <div class="row">
     <div class="span8">
     {% if user.is_authenticated %}
-        <h1>{{ user|capfirst }}&rsquo;s <span class="normal">Day Z Log</span></h1>
-        <p><a href="/logs/mylog/">Log dashboard</a> | <a href="/logs/{{user.username}}">Log main page</a></p>
+        <h1>{{ user }}&rsquo;s <span class="normal">Day Z Log</span></h1>
+        <p><a href="/dashboard/">Log dashboard</a> | <a href="/logs/{{user.username}}">Log main page</a></p>
         {% load url from future %}
         <p>
-            <a href="/logs/new/" class="btn btn-primary"><i class="icon-pencil"></i> Write a new entry</a> or
+            <a href="/write/" class="btn btn-primary"><i class="icon-pencil"></i> Write a new entry</a> or
             <a href="{% url "profile_detail" user.username %}" class="btn"><i class="icon-user"></i> edit your profile</a> to generate a URL you can add to your Day Z in-game profile.
         </p>
     {% else %}
@@ -68,7 +68,7 @@
         {#     {% for post in latest %} #}
         {#             <div class="span4"> #}
         {#                 <h2 class="post-title"><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2> #}
-        {#                 <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p> #}
+        {#                 <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p> #}
         {#                 <p>{{ post.content_html|safe|truncatewords_html:"30" }} <a href="{{ post.get_absolute_url }}">Read &raquo;</a></p>    #}                 
                         
                         
@@ -104,7 +104,7 @@
                 <td class="item">
                   
                     <h2 class="post-title"><a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
-                    <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p>
+                    <p><strong>By <a href="/logs/{{ post.author.username }}/">{{post.author.username}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username }}&rsquo;s profile.">see profile</a>)</span> <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p>
                     <p>
                         {% load markup %}
                         {# {{ post.content_markdown|markdown:"safe"|truncatewords_html:"30" }} #}            

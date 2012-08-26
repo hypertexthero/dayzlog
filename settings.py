@@ -135,7 +135,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "staticfiles.context_processors.static",
     
     "pinax.core.context_processors.pinax_settings",
-    
+
     "pinax.apps.account.context_processors.account",
     
     "notification.context_processors.notification",
@@ -181,8 +181,8 @@ INSTALLED_APPS = [
     "about",
     "profiles",
     "blog",
-    "voting",
-    'generic_aggregation'
+    "voting"
+    # 'generic_aggregation'
 ]
 
 FIXTURE_DIRS = [

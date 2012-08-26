@@ -123,14 +123,20 @@ def delete(request, id):
 #     response["Content-Disposition"] = "attachment; filename=MyDayZLogPosts.txt"
 #     return response
 
+# https://docs.djangoproject.com/en/1.0/topics/generic-views/#adding-extra-context
+from profiles.models import Profile
+def get_profiles():
+    return Profile.objects.all()
+
 def homepage(request): 
     """Show top posts"""
+    
     return object_list(request, 
         # http://eflorenzano.com/blog/2008/05/24/managers-and-voting-and-subqueries-oh-my/
         queryset=Post.hot.most_loved().filter(status=IS_PUBLIC), # .annotate(num_votes=Count('score')) 
         template_name='homepage.html',
         template_object_name='post',
-        # extra_context={'profile': profile}
+        extra_context= {"profile": get_profiles}
     )
 
 def new(request): 
@@ -139,4 +145,5 @@ def new(request):
         queryset=Post.objects.filter(status=IS_PUBLIC).order_by('-created_at'), 
         template_name='new.html',
         template_object_name='post',
+        extra_context= {"profile": get_profiles}
     )

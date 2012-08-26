@@ -4,12 +4,12 @@
 {% load account_tags %}
 {% load url from future %}
 
-{% block head_title %}{{ profile.name|capfirst }} - Profile{% endblock %}
+{% block head_title %}{{ profile.name }} - Profile{% endblock %}
 
 {% block body %}
 {#     {% user_display page_user as page_user_display %} #}
 {# <div class="hero-unit well"> #}
-{#         <h1>{{ profile.name|capfirst }}</h1> #}
+{#         <h1>{{ profile.name }}</h1> #}
 {# </div> #}
     
     {% include "profiles/_profile_info.html" %}

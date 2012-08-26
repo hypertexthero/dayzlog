@@ -14,7 +14,7 @@
 
         {% if user.is_authenticated %}
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                {{ user|capfirst }} <a href="/account/email/"><i class="icon-wrench"></i> {% trans "Account" %}</a>
+                {{ user }} <a href="/account/email/"><i class="icon-wrench"></i> {% trans "Account" %}</a>
                 <span class="caret"></span>
             </a>
             <a href="/account/logout/"><i class="icon-off"></i> {% trans "Log out" %}</a>

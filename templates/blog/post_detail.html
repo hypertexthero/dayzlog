@@ -3,11 +3,11 @@
 {% load i18n %}
 {% load blog_tags %}
 
-{% block head_title %}{{ post.title }} - {{ post.author.username|capfirst }}'s Day Z Log{% endblock %}
+{% block head_title %}{{ post.title }} - {{ post.author.username }}'s Day Z Log{% endblock %}
 
 {% block body %}
 
-    {# <p class="breadcrumb"><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}/">{{ post.author.username|capfirst }}</a> / {{ post.slug }}</p> #}
+    {# <p class="breadcrumb"><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}/">{{ post.author.username }}</a> / {{ post.slug }}</p> #}
 
     {% check_post_status request.user post %}
     
@@ -17,12 +17,39 @@
             <div class="post">
                 <h1>{{ post.title }}</h1>
                 <p>
-                    By <strong><a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong>
-                    <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span> 
+                    By <strong><a href="/logs/{{ post.author.username }}/">
+                            {% if post.author.get_profile.name %}
+                                   {{ post.author.get_profile.name }}
+                                   {% else %}
+                                   {{post.author.username}}
+                            {% endif %}
+                        </a></strong>
+                    <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username }}&rsquo;s profile.">see profile</a>)</span> 
                     <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i"}}</a>
                 </p>
             {{ post.content_html|safe }}            
             </div>
+            
+            
+            
+            {# disqus #}
+            {# <div id="disqus_thread"></div> #}
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                //var disqus_shortname = 'dayzlog'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                //(function() {
+                //    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                //    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                //    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                //})();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            {# <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> #}
+            
+            
+            
             
             {# =todo: links to previous, next, all - only from current user #}
             {# https://docs.djangoproject.com/en/dev/topics/pagination/ #}
@@ -71,6 +98,8 @@
                     {% endif %}
                     <br>
                     <a href="{% url blog_delete post.id %}"><i class="icon-remove"></i> Delete</a> 
+                    <br>
+                    <a href="{% url blog_change_status 'draft' post.id %}"><i class="icon-inbox"></i> {% trans "Move to Drafts" %}</a>
                 </p>
             {% endifequal %}
 

@@ -7,7 +7,7 @@
         {% endif %}
                         
         {% load pagination_tags %}
-        {% autopaginate post_list 10 %}                    
+        {% autopaginate post_list 30 %}                    
             
             <table class="table table-striped table-bordered table-condensed">
                 <colgroup>
@@ -80,20 +80,18 @@
                 
                             <td class="post">
                                 <h2 class="nomp">
-                                    <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title|capfirst }}</a>
+                                    <a href="{{ post.get_absolute_url }}#disqus_thread" title="{{ post.title }}">{{ post.title|capfirst }}</a>
                                 </h2> 
                                 <div class="meta small">
                                     <span class="author">
-                                        By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">
-
-                                        {{ name }}
-                                        {# =todo: show profile name #}
-                                        {% if user.profile.name %}
-                                            {{ user.profile.name|capfirst }}
-                                        {% endif %}
-
-
-                                         - see profile</a>)</span>
+                                        By  <a href="/logs/{{ post.author.username }}/">
+                                               {# http://stackoverflow.com/a/9667189/412329 #}
+                                               {% if post.author.get_profile.name %}
+                                                   {{ post.author.get_profile.name }}
+                                                   {% else %}
+                                                   {{post.author.username}}
+                                               {% endif %} 
+                                            </a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/profile/{{ post.author.username }}" title="See profile.">see profile</a>)</span>
                                     </span>
                                     <span class="time">
                                         {{ post.updated_at|timesince }} ago
@@ -104,18 +102,20 @@
                     {% endfor %}
                 </tbody>
             </table>
-        {% paginate %}
+            <div class="span8">
+                {% paginate %}
+            </div>
     </div>
         
         {% if user.is_authenticated %}
         {% else %}
         <div class="span4">
             {# <div class="hero-unit"> #}
-                {# <h2><a href="/logs/{{user.username}}">{{ user|capfirst }}</a></h2> #}
+                {# <h2><a href="/logs/{{user.username}}">{{ user }}</a></h2> #}
                 {# {% load url from future %} #}
                     {# <p> #}
-                        {# <a href="/logs/mylog/" class="btn"><i class="icon-th-list"></i> My Log Dashboard</a> #}
-                        {# <a href="/logs/new/" class="btn"><i class="icon-pencil"></i> Write New Entry</a> #}
+                        {# <a href="/dashboard/" class="btn"><i class="icon-th-list"></i> My Log Dashboard</a> #}
+                        {# <a href="/write/" class="btn"><i class="icon-pencil"></i> Write New Entry</a> #}
                         {# <a href="{% url "profile_detail" user.username %}" class="btn"><i class="icon-user"></i> Edit Profile</a> to generate a URL to add to my Day Z in-game profile #}
                     {# </p> #}
                 <h2>Day Z Log</h2>
@@ -153,5 +153,19 @@
         //         alert("Thank you for your down vote!"); 
         //     }); 
         // }); 
+    </script>
+    
+    {# disqus comment count #}
+    <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          //var disqus_shortname = 'dayzlog'; // required: replace example with your forum shortname
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          //(function () {
+              //var s = document.createElement('script'); s.async = true;
+              //s.type = 'text/javascript';
+              //s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+              //(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          //}());
     </script>
 {% endblock extrabody %}

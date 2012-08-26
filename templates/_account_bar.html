@@ -1,14 +1,12 @@
 {% load i18n %}
 {% load ifsetting_tag %}
 {% load url from future %}
-    
-
-    
+{% load blog_tags %}
 
         {% if user.is_authenticated %}
             <div class="btn-group pull-right">
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                    {{ user|capfirst }}
+                    {{ user }}
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
@@ -38,10 +36,10 @@
     {% if user.is_authenticated %}
         {# <p class="navbar-text pull-left">{% trans "Logged in as:" %}</p> #}
             <ul class="nav pull-right">
-                <li><a href="/logs/new/" title="Write a log entry.">Write</a></li>
-                <li><a href="/logs/{{user.username}}" title="Your log homepage.">Log</a></li>
-                <li><a href="/logs/mylog/" title="Your entries, draft and public.">Dashboard</a></li>
-                <li><a href="/profiles/{{user.username}}" title="Edit to generate a URL to add to your Day Z in-game profile">In-Game Profile</a></li>
+                <li{% active request "^/write/$" %}><a href="/write/" title="Write a log entry.">Write</a></li>
+                <li{% active request "^/dashboard/$" %}><a href="/dashboard/" title="Your entries, draft and public.">Dashboard</a></li>
+                <li><a href="/logs/{{ user.username }}" title="Your log homepage.">Log</a></li>
+                <li><a href="/profiles/{{ user.username }}" title="Edit to generate a URL to add to your Day Z in-game profile.">In-Game Profile</a></li>
             </ul>
     {% endif %}
 

@@ -1,21 +1,22 @@
 {% load i18n %}
 
 {# <p class="breadcrumb"><a href="/">Home</a> / <a href="/profiles/">Profiles</a> /  #}
-{#     {% ifequal request.user other_user %}{{ profile.name|capfirst }}{% else %}{{ profile.user.username|capfirst }}{% endifequal %} #}
+{#     {% ifequal request.user other_user %}{{ profile.name }}{% else %}{{ profile.user.username }}{% endifequal %} #}
 {# </p> #}
 
 <div class="hero-unit">
     {% if profile.name %}    
         {% ifequal request.user other_user %}
-            <h1 style="margin-bottom:0.25em;">{{ profile.user.username|capfirst }}</h1>
+            <h1 style="margin-bottom:0.25em;">{{ profile.user.username }}</h1>
         {% else %}
-            <h1 style="margin-bottom:0.25em;">{{ profile.name|capfirst }}</h1>
+            <h1 style="margin-bottom:0.25em;">{{ profile.name }}</h1>
         {% endifequal %}
     {% else %}
-        <p>No profile information for user <b>{{ user|capfirst }}</b> entered yet. By <a href="/profiles/edit/{{profile.user.username}}">editing your profile</a> you can generate a URL to add to your Day Z in-game profile so your information appears inside Day Z.</p>
+        <p>No profile information for user <b>{{ user }}</b> entered yet. <a href="/profiles/edit/{{profile.user.username}}">Edit your profile</a> to generate a URL you can add to your Day Z in-game profile so your information appears inside Day Z.</p>
     {% endif %}
     <div class="profile_info">
-        {% if profile.name %}<p><b>{% trans "In-Game Profile Name" %}</b>: {{ profile.name }}</p>{% endif %}
+        {% if profile.name %}<p><b>{% trans "Day Z In-Game Profile Name" %}</b>: {{ profile.name }}</p>{% endif %}
+        <p><b>DayZLog.com Username</b>: {{profile.user.username}}</p>
         {% if profile.name %}<p><b>Log URL</b>: <a href="/logs/{{profile.user.username}}">http://{{SITE_NAME}}/logs/{{profile.user.username}}</a></p>{% endif %}        
         {% if profile.player_id %}<p><b>{% trans "Player ID" %}</b>: {{ profile.player_id }}</p>{% endif %}
         {% if profile.email %}<p><b>{% trans "Email" %}</b>: {{ profile.email }}</p>{% endif %}

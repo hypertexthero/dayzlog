@@ -31,7 +31,7 @@ IS_PUBLIC = 2
 
 STATUS_CHOICES = (
     (IS_DRAFT, _("Draft")), 
-    (IS_PUBLIC, _("Public")),
+    (IS_PUBLIC, _("Published")),
 )
 
 class VoteAwareManager(models.Manager):

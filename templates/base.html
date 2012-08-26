@@ -34,44 +34,22 @@
                 <div class="navbar-inner">
                     <div class="container">
                         {% block topbar %}
-                            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </a>
+                            {# <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> #}
+                            {#     <span class="icon-bar"></span> #}
+                            {#     <span class="icon-bar"></span> #}
+                            {#     <span class="icon-bar"></span> #}
+                            {# </a> #}
                             {% block site_brand %}<a class="brand" href="{% url "home" %}" title="Day Z Log homepage."><img src="{% static "img/dayzmod-small.png" %}" alt="Day Z"><i style="font-size:0.9em; vertical-align:bottom;">LOG</i></a>{% endblock %}
                             <div class="nav-collapse">
                                 {% block nav %}
-                             
-                             {# in templates/blog/base_my        #}
-                                        {# <ul class="nav"> #}
-                                        {#     <li> #}
-                                        {#         <a href="{% url blog_my_post_list %}">My posts</a> #}
-                                        {#     </li> #}
-                                        {#     <li> #}
-                                        {#         <a href="{% url blog_add %}">Write post</a> #}
-                                        {#     </li> #}
-                                        {# </ul> #}
-
-                                        {% if user.is_authenticated %}
-
+                                        {% load blog_tags %}
                                         <ul class="nav">
-                                            <li><a title="todo" href="/" title="Most Popular Entries - the Day Z Log Homepage">Hot</a></li>
-                                            <li><a href="/new/" title="Latest Entries">New</a></li>
-                                                    {# <li><a href="/logs/">Latest Log Entries, All Users</a></li> #}
-                                                    <li><a href="/profiles/">Profiles</a></li>
-                                                    {# <li><a href="/logs/new/">Write</a></li> #}
+                                            <li{% active request "^/$" %}><a href="/" title="Most Popular Entries - the Day Z Log Homepage">Hot</a></li>
+                                            <li{% active request "^/new/$" %}><a href="/new/" title="Latest Entries">New</a></li>
+                                            {# <li><a href="/logs/">Latest Log Entries, All Users</a></li> #}
+                                            {# <li{% active request "^/profiles/$" %}><a href="/profiles/">Profiles</a></li> #}
+                                            {# <li><a href="/logs/new/">Write</a></li> #}
                                         </ul>
-
-                                {% else %}
-                                        <ul class="nav">
-                                            <li><a title="todo" href="/" title="Most Popular Entries - the Day Z Log Homepage">Hot</a></li>
-                                            <li><a href="/new/" title="Latest Entries">New</a></li>
-                                            {# <li><a href="/logs/">Logs</a></li> #}
-                                            <li><a href="/profiles/">Profiles</a></li>
-                                        </ul>
-
-                                {% endif %}
                                 {% endblock %}
                                 {% block account_bar %}
                                     {% include "_account_bar.html" %}
@@ -97,11 +75,11 @@
                 <div class="inner">
                     <div class="container">
                         {% block footer %}
-                        <p class="small quiet">Each Story is Copyright © by its Author. 
+                        <p class="small quiet">Log Entries are Copyright © by their Authors. 
                             <br>
                             Thank you for visiting <a class="quiet" href="/">dayzlog.com</a>
                             <br>
-                            Beans for you.
+                            Beans are good for you.
                         {# Day Z logo © Copyright by the <a href="http://dayzmod.com">DayZMod.com</a> crew. #}
                         </p> 
                         {% endblock %}
