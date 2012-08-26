@@ -11,6 +11,9 @@ from django.db.models.signals import post_save, post_delete
 from voting.models import Vote
 from voting.managers import VoteManager
 
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
+
 import markdown
 # from django.contrib.markup.templatetags.markup import markdown
 from typogrify.templatetags.typogrify_tags import typogrify
@@ -34,9 +37,24 @@ STATUS_CHOICES = (
     # (IS_DELETED, _("Deleted")) # =todo: remove this
 )
 
-class HotManager(VoteManager):
-    def get_top(self):
-        return self
+# class HotManager(VoteManager):
+#     def get_top(self):
+#         return self
+
+class VoteAwareManager(models.Manager):
+    def _get_score_annotation(self):
+        model_type = ContentType.objects.get_for_model(self.model)
+        table_name = self.model._meta.db_table
+        return self.extra(select={
+            'score': 'SELECT COALESCE(SUM(vote),0) FROM %s WHERE content_type_id=%d AND object_id=%s.id' %
+                (Vote._meta.db_table, int(model_type.id), table_name)}
+        )
+
+    def most_hated(self):
+        return self._get_score_annotation().order_by('score')
+
+    def most_loved(self):
+        return self._get_score_annotation().order_by('-score')
 
 class Post(models.Model):
     """Post model."""
@@ -53,10 +71,10 @@ class Post(models.Model):
     created_at = models.DateTimeField(_('created at'), default=datetime.now)
     updated_at = models.DateTimeField(_('updated at'))
 
-    votes = models.ForeignKey(Vote, related_name='votes', null=True, blank=True)
+    # votes = generic.GenericRelation(Vote)
 
     objects = models.Manager()
-    hot = HotManager()
+    hot = VoteAwareManager()
 
     class Meta:
         verbose_name = _('Post')

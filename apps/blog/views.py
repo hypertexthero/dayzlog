@@ -20,11 +20,6 @@ from blog.signals import post_published
 from django.views.generic.date_based import archive_index
 from django.views.generic.list_detail import object_list
 
-# =todo: order by highest score on homepage: http://stackoverflow.com/questions/2848777/using-django-and-django-voting-app-how-can-i-order-a-queryset-according-to-the
-from voting.models import Vote
-from voting.managers import VoteManager
-from voting.views import vote_on_object
-
 def blog_post_detail(request, *kargs, **kwargs):
     blog = get_object_or_404(Blog, slug = kwargs.pop('blog', ''))
     kwargs['template_object_name'] = 'post'
@@ -116,49 +111,19 @@ def delete(request, id):
         post_delete_redirect=reverse("blog_my_post_list")
     )
 
-# generic archive_index view to display notes ordered by date and not display ones saved with a future date - https://docs.djangoproject.com/en/dev/ref/generic-views/#django-views-generic-date-based-archive-index
-
-
 def homepage(request): 
     """Show top posts"""
-
     return object_list(request, 
-        # =todo: order by most votes - http://stackoverflow.com/questions/11073698/how-do-you-join-two-tables-using-django-without-using-raw-sql/11233143#11233143
-        # http://python.6.n6.nabble.com/django-voting-How-to-get-objects-with-number-of-votes-td300128.html
-        # queryset=Post.best.get_top(10), 
-        queryset=Post.hot.all().order_by('-votes'), 
-        # https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by
-        
-        # =todo: pagination - https://docs.djangoproject.com/en/dev/topics/pagination/?from=olddocs/
-        # paginator = Paginator(queryset, 25)
-        # page = request.GET.get('page')
-        
-        # date_field='updated_at', # don't forget to set {{ note.created|date:"d F Y" }} in notes/list.html
+        # http://eflorenzano.com/blog/2008/05/24/managers-and-voting-and-subqueries-oh-my/
+        queryset=Post.hot.most_loved().filter(status=IS_PUBLIC), # .annotate(num_votes=Count('score')) 
         template_name='homepage.html',
-        # paginate_by=15,
         template_object_name='post',
-        #allow_future = False # this is the default, but am keeping it here to remember that it can be set to true for other use cases, such as calendar of upcoming events
     )
 
 def new(request): 
     """Show new posts"""
-
-    # topscores = sorted(Vote.objects.all(), key=get_top)
-
     return object_list(request, 
-        # =todo: order by most votes - http://stackoverflow.com/questions/11073698/how-do-you-join-two-tables-using-django-without-using-raw-sql/11233143#11233143
-        # http://python.6.n6.nabble.com/django-voting-How-to-get-objects-with-number-of-votes-td300128.html
-        # queryset=Post.best.get_top(10), 
         queryset=Post.objects.filter(status=IS_PUBLIC).order_by('-created_at'), 
-        # https://docs.djangoproject.com/en/dev/ref/models/querysets/#django.db.models.query.QuerySet.order_by
-        
-        # =todo: pagination - https://docs.djangoproject.com/en/dev/topics/pagination/?from=olddocs/
-        # paginator = Paginator(queryset, 25)
-        # page = request.GET.get('page')
-        
-        # date_field='updated_at', # don't forget to set {{ note.created|date:"d F Y" }} in notes/list.html
         template_name='new.html',
-        # paginate_by=15,
         template_object_name='post',
-        #allow_future = False # this is the default, but am keeping it here to remember that it can be set to true for other use cases, such as calendar of upcoming events
     )

@@ -182,6 +182,7 @@ INSTALLED_APPS = [
     "profiles",
     "blog",
     "voting",
+    'generic_aggregation'
 ]
 
 FIXTURE_DIRS = [
