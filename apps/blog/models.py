@@ -11,8 +11,6 @@ from django.db.models.signals import post_save, post_delete
 from voting.models import Vote
 from voting.managers import VoteManager
 
-from profiles.models import Profile
-
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
@@ -66,9 +64,6 @@ class Post(models.Model):
     updated_at = models.DateTimeField(_('updated at'))
 
     # votes = generic.GenericRelation(Vote)
-
-    # =todo: search for player names too
-    # playername = models.ForeignKey(Profile)
 
     objects = models.Manager()
     hot = VoteAwareManager()

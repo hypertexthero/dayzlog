@@ -5,17 +5,17 @@
 {% block body %}
 
 {# {% if player_results or title_results or results %}  #}
-{% if title_results or results %} 
+{% if player_results or title_results or results %} 
 
     <p>Search results for &ldquo;<strong>{{ query }}</strong>&rdquo;:</p> 
 {# =todo: search player names #}
-    {# {% if player_results %} #}
-        {# <ul> #}
-        {# {% for profile in profiles %} #}
-            {# <li><a href="{% url profile_detail profile.user.username %}">{{ profile.name }} ({% user_display profile.user %})</a></li> #}
-        {# {% endfor %}  #}
-        {# </ul> #}
-    {# {% endif %}  #}
+    {% if player_results %}
+        <ul>
+        {% for profile in player_results %}
+            <li><a href="{% url profile_detail profile.user.username %}">{{ profile.name }} </a></li>
+        {% endfor %} 
+        </ul>
+    {% endif %} 
 
     {% if title_results %}
         <ul>
@@ -35,7 +35,7 @@
 
 {% endif %} 
 
-{% if query and not title_results and not results %}
+{% if query and not title_results and not results and not player_results %}
     <p class="warning">No results found.</p> 
     {% else %}
     {# <p>Type a search query into the box below, and press "Submit" to search.</p> #}    

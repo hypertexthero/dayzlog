@@ -132,6 +132,9 @@ def backup(request):
 #     kwargs['extra_context'] = {'current_user': user, 'author': user}
 #     return list_detail.object_list(request, *kargs, **kwargs)
 
+# https://docs.djangoproject.com/en/1.0/topics/generic-views/#adding-extra-context
+def get_profiles():
+    return Profile.objects.all()
 
 from django.shortcuts import render_to_response
 from django.db.models import Q
@@ -139,28 +142,28 @@ def search(request):
     """ search """    
     query = request.GET.get('q', '') # both /search/ and /search/?q=query work
     results = []
-    # http://stackoverflow.com/a/4338108/412329 - passing the user variable into the context
-    user = request.user
+    player_results = []
+    user = request.user # http://stackoverflow.com/a/4338108/412329 - passing the user variable into the context
+
     if query:
         # INSTEAD OF THIS:
         # title_results = Post.objects.filter(title__icontains=query)
         # results = Post.objects.filter(content_html__icontains=query)
         # DO THIS avoid duplicate results when query word is both in title and content_html:
         # http://stackoverflow.com/questions/744424/django-models-how-to-filter-out-duplicate-values-by-pk-after-the-fact
-        results = Post.objects.filter(Q(title__icontains=query)|Q(content_html__icontains=query)).distinct()
+        # results = Post.objects.filter(Q(title__icontains=query)|Q(content_html__icontains=query)).distinct()
 
-        # =todo: search by playername: http://stackoverflow.com/questions/8625601/yourlabs-subscription-error-caught-variabledoesnotexist-while-rendering
-        # results = Post.objects.filter(Q(title__icontains=query)|Q(content_html__icontains=query)|Q(playername__icontains=query)).distinct()
+        # https://groups.google.com/forum/?fromgroups=#!msg/django-users/JKhf05HOezg/klz7A-vs_U0J
+        results = Post.objects.filter(Q(title__icontains=query)|Q(content_html__icontains=query)).distinct()
+        player_results = Profile.objects.filter(Q(name__icontains=query)).distinct()
     return render_to_response('search.html',
             {   'query': query, 
                 'results': results,
-                'user': user
+                'user': user,
+                'player_results': player_results
+                # 'profile': get_profiles
             },
             context_instance=RequestContext(request)) # http://stackoverflow.com/questions/8625601/yourlabs-subscription-error-caught-variabledoesnotexist-while-rendering
-
-# https://docs.djangoproject.com/en/1.0/topics/generic-views/#adding-extra-context
-def get_profiles():
-    return Profile.objects.all()
 
 def homepage(request): 
     """Show top posts"""   
