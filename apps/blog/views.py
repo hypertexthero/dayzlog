@@ -13,6 +13,7 @@ from django.db.models import Q
 
 from misc.json_encode import json_response
 from blog.models import Post, IS_DRAFT, IS_PUBLIC
+from profiles.models import Profile
 from blog.forms import PostForm
 from blog.signals import post_published
 
@@ -113,24 +114,56 @@ def delete(request, id):
 
 # =todo: export all posts to plain text in markdown format
 # https://docs.djangoproject.com/en/1.0/topics/generic-views/#performing-extra-work
-# def posts_plaintext(request):
-#     response = list_detail.object_list(
-#         request,
-#         queryset = Post.objects.all(),
-#         mimetype = "text/plain",
-#         template_name = "blog/posts_plaintext.txt"
-#     )
-#     response["Content-Disposition"] = "attachment; filename=MyDayZLogPosts.txt"
-#     return response
+@login_required
+def backup(request):
+    """ export all posts to plain text in markdown format """
+    return object_list(request,
+        queryset = Post.objects.all(),
+        # mimetype = "text/plain",
+        template_object_name='post',
+        template_name = "blog/backup.txt"
+    )
+    # response["Content-Disposition"] = "attachment; filename=MyDayZLogPosts.txt"
+    # return response
+# @login_required
+# def backup(request, *kargs, **kwargs):
+#     user = get_object_or_404(User, username = kwargs.pop('username', ''))
+#     kwargs['queryset'] = kwargs['queryset'].filter(author=user)
+#     kwargs['extra_context'] = {'current_user': user, 'author': user}
+#     return list_detail.object_list(request, *kargs, **kwargs)
+
+
+from django.shortcuts import render_to_response
+from django.db.models import Q
+def search(request):
+    """ search """    
+    query = request.GET.get('q', '') # both /search/ and /search/?q=query work
+    results = []
+    # http://stackoverflow.com/a/4338108/412329 - passing the user variable into the context
+    user = request.user
+    if query:
+        # INSTEAD OF THIS:
+        # title_results = Post.objects.filter(title__icontains=query)
+        # results = Post.objects.filter(content_html__icontains=query)
+        # DO THIS avoid duplicate results when query word is both in title and content_html:
+        # http://stackoverflow.com/questions/744424/django-models-how-to-filter-out-duplicate-values-by-pk-after-the-fact
+        results = Post.objects.filter(Q(title__icontains=query)|Q(content_html__icontains=query)).distinct()
+
+        # =todo: search by playername: http://stackoverflow.com/questions/8625601/yourlabs-subscription-error-caught-variabledoesnotexist-while-rendering
+        # results = Post.objects.filter(Q(title__icontains=query)|Q(content_html__icontains=query)|Q(playername__icontains=query)).distinct()
+    return render_to_response('search.html',
+            {   'query': query, 
+                'results': results,
+                'user': user
+            },
+            context_instance=RequestContext(request)) # http://stackoverflow.com/questions/8625601/yourlabs-subscription-error-caught-variabledoesnotexist-while-rendering
 
 # https://docs.djangoproject.com/en/1.0/topics/generic-views/#adding-extra-context
-from profiles.models import Profile
 def get_profiles():
     return Profile.objects.all()
 
 def homepage(request): 
-    """Show top posts"""
-    
+    """Show top posts"""   
     return object_list(request, 
         # http://eflorenzano.com/blog/2008/05/24/managers-and-voting-and-subqueries-oh-my/
         queryset=Post.hot.most_loved().filter(status=IS_PUBLIC), # .annotate(num_votes=Count('score')) 

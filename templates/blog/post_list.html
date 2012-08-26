@@ -91,7 +91,7 @@
                                                    {% else %}
                                                    {{post.author.username}}
                                                {% endif %} 
-                                            </a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/profile/{{ post.author.username }}" title="See profile.">see profile</a>)</span>
+                                            </a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See profile.">see profile</a>)</span>
                                     </span>
                                     <span class="time">
                                         {{ post.updated_at|timesince }} ago

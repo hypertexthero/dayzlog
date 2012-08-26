@@ -2,24 +2,22 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Write a Blog Post" %}{% endblock %}
+{% block head_title %}{% trans "New Log Entry" %}{% endblock %}
 
 {% block external_css %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{{ STATIC_URL }}redactor/css/editor.css" type="text/css" />
+    {# {{ block.super }} #}
+    {# <link rel="stylesheet" href="{{ STATIC_URL }}redactor/css/editor.css" type="text/css" /> #}
 {% endblock %}
 
 {% block external_js %}
-    {{ block.super }}
-    <script src="{{ STATIC_URL }}redactor/editor.js" language="JavaScript" type="text/javascript"></script>
+    {# {{ block.super }} #}
+    // <script src="{{ STATIC_URL }}redactor/editor.js" language="JavaScript" type="text/javascript"></script>
 {% endblock %}
 
 {% block js %}
-    {{ block.super }}
-    <script src="{{ STATIC_URL }}js/blog.js" language="JavaScript" type="text/javascript"></script>
+    {# {{ block.super }} #}
+    // <script src="{{ STATIC_URL }}js/blog.js" language="JavaScript" type="text/javascript"></script>
 {% endblock %}
-
-{% block add_tab_class %} ui-tabs-selected ui-state-active{% endblock %}
 
 {% block content %}
 

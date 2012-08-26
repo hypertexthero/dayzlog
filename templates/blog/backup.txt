@@ -1,0 +1,6 @@
+{% load i18n %}
+	{% for post in post_list %}
+	[{{ post.title }}]({{ post.get_absolute_url }})
+	By  {% if post.author.get_profile.name %}{{ post.author.get_profile.name }}{% else %}{{ post.author.username }}{% endif %} - {{ post.updated_at|date:"D, d M Y, H:i"}}
+	{{ post.content_markdown }}
+{% endfor %}

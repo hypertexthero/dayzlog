@@ -13,7 +13,7 @@ Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.
     - Help <a href="http://community.bistudio.com/wiki/squad.xml">squad.xml</a>, finding player id, etc.
 - Feeds & Content Export
         - Atom XML and JSON
-- Search, also for player names
+- Search for player names
 - [Cacheing](https://docs.djangoproject.com/en/dev/topics/cache/) for homepage view
 
 ### Future
