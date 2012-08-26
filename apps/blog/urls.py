@@ -2,6 +2,7 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 
 from blog.models import Post, IS_PUBLIC
+from profiles.models import Profile
 
 # =voting
 # http://code.google.com/p/django-voting/wiki/RedditStyleVoting
@@ -20,9 +21,11 @@ post_dict = {
     'queryset': Post.objects.filter(),
     'template_object_name': 'post',
 }
+
 post_dict_public = {
     'queryset': Post.objects.filter(status=IS_PUBLIC),
     'template_object_name': 'post',
+    # 'extra_context': {"user": user},
 }
 
 urlpatterns = patterns('',

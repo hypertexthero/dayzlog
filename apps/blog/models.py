@@ -15,7 +15,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
 import markdown
-# from django.contrib.markup.templatetags.markup import markdown
 from typogrify.templatetags.typogrify_tags import typogrify
 
 # defining html sanitizer to subsequently use in content_markdown to content_html conversion of user content at post save
@@ -27,22 +26,17 @@ def sanitize(value):
     p = html5lib.HTMLParser(tokenizer=sanitizer.HTMLSanitizer)
     return p.parseFragment(value).toxml()
 
-# IS_DELETED = 0
 IS_DRAFT = 1
 IS_PUBLIC = 2
 
 STATUS_CHOICES = (
     (IS_DRAFT, _("Draft")), 
     (IS_PUBLIC, _("Public")),
-    # (IS_DELETED, _("Deleted")) # =todo: remove this
 )
 
-# class HotManager(VoteManager):
-#     def get_top(self):
-#         return self
-
 class VoteAwareManager(models.Manager):
-    def _get_score_annotation(self):
+    """ Get top votes. hot = VoteAwareManager() """
+    def _get_score_annotation(self): # http://stackoverflow.com/questions/1301346/the-meaning-of-a-single-and-a-double-underscore-before-an-object-name-in-python
         model_type = ContentType.objects.get_for_model(self.model)
         table_name = self.model._meta.db_table
         return self.extra(select={
@@ -62,8 +56,6 @@ class Post(models.Model):
     slug = models.SlugField(_('slug'), blank=True)
     author = models.ForeignKey(User, related_name="added_posts")
     creator_ip = models.CharField(_("IP Address of the Post Creator"), max_length=255, blank=True, null=True)
-    tease = models.TextField(_('tease'), blank=True)
-    # body = models.TextField(_('body'))
     content_markdown = models.TextField(blank=True, verbose_name='Entry', help_text="<a data-toggle='modal' href='#markdownhelp'>markdown syntax</a>")
     content_html = models.TextField(blank=True, null=True, editable=False)
     status = models.IntegerField(_('status'), choices=STATUS_CHOICES, default=IS_DRAFT)
@@ -79,10 +71,6 @@ class Post(models.Model):
     class Meta:
         verbose_name = _('Post')
         verbose_name_plural = _('Posts')
-        # =todo: order by highest score
-        # order_with_respect_to = 'votes'
-        # ordering = ('hot',)
-        # get_latest_by = 'updated_at'
 
     def __unicode__(self):
         return self.title
@@ -107,20 +95,13 @@ class Post(models.Model):
 
         super(Post, self).save(force_insert, force_update)
 
-        # if self.tease:
-        #     editor_cut = self.body.find('<hr class="editor_cut"/>')
-        #     if editor_cut != -1:
-        #         self.tease = self.body[:editor_cut]
-        # self.body = clear_html_code(self.body)
-        # self.tease = clear_html_code(self.tease)
-        # http://stackoverflow.com/questions/7035916/markdown-in-django-xss-safe
-
     def is_public(self):
         return self.status == IS_PUBLIC
     
     def get_owners(self):
         return [self.author]
 
+    # =todo: next/prev links
     def get_next(self):
         next = Post.objects.filter(id__gt=self.id)
         if next:

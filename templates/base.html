@@ -60,7 +60,7 @@
                                             <li><a href="/new/" title="Latest Entries">New</a></li>
                                                     {# <li><a href="/logs/">Latest Log Entries, All Users</a></li> #}
                                                     <li><a href="/profiles/">Profiles</a></li>
-                                                    <li><a href="/logs/new/">Write</a></li>
+                                                    {# <li><a href="/logs/new/">Write</a></li> #}
                                         </ul>
 
                                 {% else %}
@@ -97,7 +97,11 @@
                 <div class="inner">
                     <div class="container">
                         {% block footer %}
-                        <p>Each story copyright © by its author.{#  <a href="/">dayzlog.com</a> by <a href="http://hypertexthero.com">hypertexthero.</a> #}
+                        <p class="small quiet">Each Story is Copyright © by its Author. 
+                            <br>
+                            Thank you for visiting <a class="quiet" href="/">dayzlog.com</a>
+                            <br>
+                            Beans for you.
                         {# Day Z logo © Copyright by the <a href="http://dayzmod.com">DayZMod.com</a> crew. #}
                         </p> 
                         {% endblock %}

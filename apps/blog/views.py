@@ -111,6 +111,18 @@ def delete(request, id):
         post_delete_redirect=reverse("blog_my_post_list")
     )
 
+# =todo: export all posts to plain text in markdown format
+# https://docs.djangoproject.com/en/1.0/topics/generic-views/#performing-extra-work
+# def posts_plaintext(request):
+#     response = list_detail.object_list(
+#         request,
+#         queryset = Post.objects.all(),
+#         mimetype = "text/plain",
+#         template_name = "blog/posts_plaintext.txt"
+#     )
+#     response["Content-Disposition"] = "attachment; filename=MyDayZLogPosts.txt"
+#     return response
+
 def homepage(request): 
     """Show top posts"""
     return object_list(request, 
@@ -118,6 +130,7 @@ def homepage(request):
         queryset=Post.hot.most_loved().filter(status=IS_PUBLIC), # .annotate(num_votes=Count('score')) 
         template_name='homepage.html',
         template_object_name='post',
+        # extra_context={'profile': profile}
     )
 
 def new(request): 

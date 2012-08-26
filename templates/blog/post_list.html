@@ -1,112 +1,116 @@
 {% if post_list %} 
     <div class="row">
-    {% if user.is_authenticated %}        
-        <div class="span12">
-    {% else %}
-        <div class="span8">
-    {% endif %}
+        {% if user.is_authenticated %}        
+            <div class="span12">
+        {% else %}
+            <div class="span8">
+        {% endif %}
                         
-            {% load pagination_tags %}
-            {% autopaginate post_list 10 %}                    
+        {% load pagination_tags %}
+        {% autopaginate post_list 10 %}                    
             
             <table class="table table-striped table-bordered table-condensed">
-            <colgroup>
-                <col style="width:2em;"></col>
-                <col style="width:4em;"></col>
-                <col></col>
-            </colgroup>
-            {# <thead> #}
-              {# <tr> #}
+                <colgroup>
+                    <col style="width:2em;"></col>
+                    <col style="width:4em;"></col>
+                    <col></col>
+                </colgroup>
+                {# <thead> #}
+                  {# <tr> #}
 
-                {# <th>Vote</th> #}
-                {# <th>Entry Title</th> #}
-              {# </tr> #}
-            {# </thead> #}
-            <tbody>
+                    {# <th>Vote</th> #}
+                    {# <th>Entry Title</th> #}
+                  {# </tr> #}
+                {# </thead> #}
+                <tbody>
             
-                        {# get ready for voting #}            
-                        {% load voting_tags %}
-                        {% votes_by_user user on post_list as vote_dict %}
-                        {% scores_for_objects post_list as score_dict %}
+                    {# get ready for voting #}            
+                    {% load voting_tags %}
+                    {% votes_by_user user on post_list as vote_dict %}
+                    {% scores_for_objects post_list as score_dict %}
 
-                {# http://djangosnippets.org/snippets/2019/ #}
-                {# {% load blog_tags %} #}
-                {# {% for post in post_list|call_manager:"get_top"|slice:"10" %} #}
-             
-              {% for post in post_list %}
+                    {# http://djangosnippets.org/snippets/2019/ #}
+                    {# {% load blog_tags %} #}
+                    {# {% for post in post_list|call_manager:"get_top"|slice:"10" %} #}
+                 
+                    {% for post in post_list %}
 
-                  <tr class="{% cycle odd,even %}">
-                    <td class="number">
-                        {{ forloop.counter }}
-                    </td>
-                    <td class="vote">
+                        <tr class="{% cycle odd,even %}">
+                            <td class="number">
+                                {{ forloop.counter }}
+                            </td>
+                            <td class="vote">
 
-                        {% dict_entry_for_item post from vote_dict as vote %}
-                        {% dict_entry_for_item post from score_dict as score %}
+                                {% dict_entry_for_item post from vote_dict as vote %}
+                                {% dict_entry_for_item post from score_dict as score %}
 
-                        {# up ========================= #}
-                        <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
-                            {% csrf_token %}
-                            <input type="image" id="postuparrow{{ post.id }}" src="/site_media/static/img/aup{% if vote and vote.is_upvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_upvote %}clear your vote{% else %}upvote this story{% endif %}">
-                             {# onclick="vote('{{ post.slug }}', 'up');" #}
-                        </form>
+                                {# up ========================= #}
+                                <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="image" id="postuparrow{{ post.id }}" src="/site_media/static/img/aup{% if vote and vote.is_upvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_upvote %}clear your vote{% else %}upvote this story{% endif %}">
+                                     {# onclick="vote('{{ post.slug }}', 'up');" #}
+                                </form>
 
-                        {# clear #}
-                        {# <p class="clearboth nomp"><a href="#" onclick="vote('{{ post.slug }}', 'clear');">clear</a></p> #}
+                                {# clear #}
+                                {# <p class="clearboth nomp"><a href="#" onclick="vote('{{ post.slug }}', 'clear');">clear</a></p> #}
 
-                        {# score ========================= #}
+                                {# score ========================= #}
 
-                        {# <span id="num_votes"> #}
-                            {# {% if score.num_votes %} #}
-                                {# {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }} #}
-                            {# {% endif %}     #}
-                        {# </span> #}
-                        <span id="score">
-                            {% if score.score %}
-                                {# {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }} #}
-                                {{ score.score|default:0 }}
-                                {% else %}
-                                <span class="small quiet">0</span>
-                            {% endif %}
-                        </span>
+                                {# <span id="num_votes"> #}
+                                    {# {% if score.num_votes %} #}
+                                        {# {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }} #}
+                                    {# {% endif %}     #}
+                                {# </span> #}
+                                <span id="score">
+                                    {% if score.score %}
+                                        {# {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }} #}
+                                        {{ score.score|default:0 }}
+                                        {% else %}
+                                        <span class="small quiet">0</span>
+                                    {% endif %}
+                                </span>
 
-                        {# down ========================= #}
-                        <form class="postvote" id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
-                            {% csrf_token %}
-                            <input type="image" id="postdownarrow{{ post.id }}" src="/site_media/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_downvote %}clear your vote{% else %}downvote this story{% endif %}">
-                            {# onclick="vote('{{ post.slug }}', 'down');" #}
-                        </form>
-                    </td>
-            
-                    <td class="post">
-                        <h2 class="nomp">
-                            <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title|capfirst }}</a>
-                        </h2> 
-                        <div class="meta small">
-                            <span class="author">
-                                By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">see profile</a>)</span>
-                            </span>
-                            <span class="time">
-                                {{ post.updated_at|timesince }} ago
-                            </span>
-                        </div>
-                    </td>
-                  </tr>
-                  {% empty %}
-                      <tr>
-                          <td>Sorry, no posts found.</td>
-                      </tr>
-                  {% endfor %}
-            </tbody>
+                                {# down ========================= #}
+                                <form class="postvote" id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="image" id="postdownarrow{{ post.id }}" src="/site_media/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_downvote %}clear your vote{% else %}downvote this story{% endif %}">
+                                    {# onclick="vote('{{ post.slug }}', 'down');" #}
+                                </form>
+                            </td>
+                
+                            <td class="post">
+                                <h2 class="nomp">
+                                    <a href="{{ post.get_absolute_url }}" title="{{ post.title }}">{{ post.title|capfirst }}</a>
+                                </h2> 
+                                <div class="meta small">
+                                    <span class="author">
+                                        By <a href="/logs/{{ post.author.username }}/">{{post.author.username|capfirst}}</a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username|capfirst }}&rsquo;s profile.">
+
+                                        {{ name }}
+                                        {# =todo: show profile name #}
+                                        {% if user.profile.name %}
+                                            {{ user.profile.name|capfirst }}
+                                        {% endif %}
+
+
+                                         - see profile</a>)</span>
+                                    </span>
+                                    <span class="time">
+                                        {{ post.updated_at|timesince }} ago
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
-            {% paginate %}
-        </div>
+        {% paginate %}
+    </div>
         
         {% if user.is_authenticated %}
         {% else %}
         <div class="span4">
             {# <div class="hero-unit"> #}
-            
                 {# <h2><a href="/logs/{{user.username}}">{{ user|capfirst }}</a></h2> #}
                 {# {% load url from future %} #}
                     {# <p> #}
@@ -114,7 +118,6 @@
                         {# <a href="/logs/new/" class="btn"><i class="icon-pencil"></i> Write New Entry</a> #}
                         {# <a href="{% url "profile_detail" user.username %}" class="btn"><i class="icon-user"></i> Edit Profile</a> to generate a URL to add to my Day Z in-game profile #}
                     {# </p> #}
-            
                 <h2>Day Z Log</h2>
                 <h3>Share your <a href="http://dayzmod.com">Day Z</a> stories.</h3>        
                 <p>Write your stories using <a data-toggle="modal" href="#markdownhelp">Markdown</a> format. Generate a <a href="/help">squad.xml file and URL to add to your in-game profile</a> so other players can see who they&rsquo;re dealing with.
@@ -126,12 +129,13 @@
                     <a href="/account/login/">Log In</a>
                 {% endifsetting %}
                 </p>
-                    {# =todo: <li>Export all your stories in XML or JSON format at any time.</li> #}
-            
+            {# =todo: <li>Export all your stories in XML or JSON format at any time.</li> #}
         {# </div> #}
         </div>                              
         {% endif %}
     </div>
+{% else %}
+<p>There are no Day Z Log entries yet.</p>
 {% endif %}
 
 {% block extrabody %}
