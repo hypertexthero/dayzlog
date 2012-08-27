@@ -4,13 +4,13 @@
 {# {% block head_title %}{{ post.author.username }}'s Day Z Log{% endblock %} #}
 
 {% block head_title %}
-    {% blocktrans with current_user.get_profile.display_name as name %}{{ name }}'s blog{% endblocktrans %}
+    {% blocktrans with current_user.get_profile.name as name %}{{ name }}'s Day Z Log{% endblocktrans %}
 {% endblock %}
 
 {% block extra_head %}
     {{ block.super }}
     {# =todo: feed format is breaking jquery and drop-down menus - =fixme #}
-    <link rel="alternate" type="application/atom+xml" title="Blog post feed for user {{ name }}" href="/feeds/posts/only/?username={{ current_user.username }}" />
+    <link rel="alternate" type="application/atom+xml" title="Log post feed for user {{ name }}" href="/feeds/posts/only/?username={{ current_user.username }}" />
 {% endblock %}
 
 {% block body_id %}log{% endblock %}

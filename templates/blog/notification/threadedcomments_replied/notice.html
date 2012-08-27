@@ -3,8 +3,8 @@
 {% url poetry_user_works comment.user.username as poetry_user_works_url %}
 {% set comment.content_object.title post_title %}
 {% set comment.content_object.get_absolute_url post_url %}
-{% set comment.user.get_profile.display_name display_name %}
+{% set comment.user.get_profile.name name %}
 {% blocktrans %}
     You have received the reply in post "<a href="{{ post_url }}">{{ post_title }}</a>"
-    from user <a href="{{ poetry_user_works_url }}">{{ display_name }}</a>.
+    from user <a href="{{ poetry_user_works_url }}">{{ name }}</a>.
 {% endblocktrans %}

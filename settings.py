@@ -181,7 +181,8 @@ INSTALLED_APPS = [
     "about",
     "profiles",
     "blog",
-    "voting"
+    "voting",
+    "relationships"
     # 'generic_aggregation'
 ]
 
