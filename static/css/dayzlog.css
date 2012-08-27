@@ -1,3 +1,8 @@
+/* fix dumb old bootstrap defaults */
+body {padding-top: 0;}
+div.navbar, div.navbar-fixed-top {position:relative !important;}
+
+/* custom styles */
 h1 {text-align:left !important; color:#000 !important;}
 form.customform textarea, form.customform div.input input {width:100% !important;}
 div.post {margin-bottom:2em;}
@@ -18,3 +23,11 @@ form.postvote, form.postvote input {margin:0; padding:0;}
 .help-block {font-size:0.9em; color:#999; margin-bottom:1.5em;}
 .error {color:#c00;}
 .small {font-size:0.9em;}
+
+body#log li#nav-log a,
+body#profile li#nav-profile a
+{
+  color: white; 
+  text-decoration: none;
+  background-color: #222;
+}

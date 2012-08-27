@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block body_id %}home{% endblock %}
+{% block head_title %}Search results for: {{ query }}  - {% endblock %}
+
+{% block body %}
+
+{# {% if player_results or title_results or results %}  #}
+{% if player_results or title_results or results %} 
+
+    <p>Search results for &ldquo;<strong>{{ query }}</strong>&rdquo;:</p> 
+{# =todo: search player names #}
+    {% if player_results %}
+        <ul>
+        {% for profile in player_results %}
+            <li><a href="{% url profile_detail profile.user.username %}">{{ profile.name }} </a></li>
+        {% endfor %} 
+        </ul>
+    {% endif %} 
+
+    {% if title_results %}
+        <ul>
+        {% for post in title_results %} 
+            <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+        {% endfor %} 
+        </ul>
+    {% endif %} 
+
+    {% if results %}
+        <ul>
+        {% for post in results %} 
+            <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+        {% endfor %} 
+        </ul>
+    {% endif %} 
+
+{% endif %} 
+
+{% if query and not title_results and not results and not player_results %}
+    <p class="warning">No results found.</p> 
+    {% else %}
+    {# <p>Type a search query into the box below, and press "Submit" to search.</p> #}    
+{% endif %}
+
+{% endblock %}

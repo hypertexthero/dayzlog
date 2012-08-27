@@ -5,7 +5,7 @@ Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.
 ## Todo
 
 - Blog
-    - jQuery/AJAX for voting
+    - jQuery/AJAX for voting (use http://vanilla-js.com/ :)
     - Previous/Next entry by user
     - Markdown preview with Markedit, imgur for image hosting
     - Comments with Disqus
@@ -15,7 +15,6 @@ Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.
     - Help <a href="http://community.bistudio.com/wiki/squad.xml">squad.xml</a>, finding player id, etc.
 - Feeds & Content Export
         - Atom XML and JSON
-- Search, also for player names
 - [Cacheing](https://docs.djangoproject.com/en/dev/topics/cache/) for homepage view
 
 ### Future

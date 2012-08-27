@@ -13,6 +13,8 @@
     <link rel="alternate" type="application/atom+xml" title="Blog post feed for user {{ name }}" href="/feeds/posts/only/?username={{ current_user.username }}" />
 {% endblock %}
 
+{% block body_id %}log{% endblock %}
+
 {% block body %}
 
 {% load pagination_tags %}

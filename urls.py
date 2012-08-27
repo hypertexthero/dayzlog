@@ -23,6 +23,7 @@ post_dict = {
     'queryset': Post.objects.filter(),
     'template_object_name': 'post',
 }
+
 # =todo: vanity url: http://stackoverflow.com/questions/3333765/get-user-from-url-segment-with-django 
 
 urlpatterns = patterns("",
@@ -40,12 +41,12 @@ urlpatterns = patterns("",
     url(r"^announcements/", include("announcements.urls")),
     # url(r'^log/', include('blog.urls')),
     url(r'^logs/', include('blog.urls')),
-    url(r'^relationships/', include('relationships.urls')),
+    url(r'^backup/$', 'blog.views.backup', name='backup'),
     url(r'^dashboard/$', 'blog.views.my_post_list', dict(post_dict, template_name='blog/post_my_list.html'), name='blog_my_post_list'),
     url(r'^write/$', 'blog.views.add', name='blog_add'),
     # url(r'^b/', include('blogs.short_urls')), # For short urls, if you want
     url(r'^feeds/posts/(?P<url>w+)/', 'django.contrib.syndication.views.feed', blogs_feed_dict),
-
+    url(r'^search/$', 'blog.views.search', name="search"),
     )
 
 if settings.SERVE_MEDIA:
