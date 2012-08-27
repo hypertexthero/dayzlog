@@ -35,6 +35,44 @@
 
 </div>
 
+
+
+
+
+{# http://django-relationships.readthedocs.org/en/latest/getting_started.html #}
+{% load relationship_tags %}
+            
+            
+            {% ifequal request.user other_user %}
+
+
+              <p>This is you!</p>
+            {% else %}
+
+                
+                          {# decide whether or not the current user is following this user #}
+
+                          {% if_relationship request.user profile.user "following" %}
+
+                                {# they are following them, so show a "remove" url #}
+                                <a class="btn btn-smaller" href="{{ profile.user|remove_relationship_url:"following" }}">Unfollow</a>
+                                {% else %}
+
+                                {# they are not following them, so show a link to start following #}
+                                <a class="btn btn-smaller" href="{{ profile.user|add_relationship_url:"following" }}">Follow</a>
+
+                          {% endif_relationship %}
+
+            {% endifequal %}
+
+
+
+
+
+
+
+
+
 {# show only to authenticated user who is also the owner of the profile #}
 {% if user.is_authenticated %}
 {% if profile.name %}

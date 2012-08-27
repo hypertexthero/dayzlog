@@ -1,0 +1,41 @@
+{% extends "relationships/relationships_base.html" %}
+{% block head_title %}
+{# https://docs.djangoproject.com/en/dev/topics/auth/#django.contrib.auth.models.User.get_profile #}
+    {{ user.get_profile.name }}'s Relationships 
+{% endblock %}
+
+{% block body %}
+
+{# http://django-relationships.readthedocs.org/en/latest/getting_started.html #}
+{% load relationship_tags %}
+
+<h2>Your Relations</h2>
+<ul>
+    {% for user in relationship_list %}
+        <li>
+            <a href="/profiles/{{ user.username }}">{{ user.username }}</a>
+            
+            {% if request.user != user %}
+
+              {# decide whether or not the current user is following this user #}
+
+              {% if_relationship request.user user "following" %}
+
+                {# they are following them, so show a "remove" url #}
+                <a class="btn btn-smaller" href="{{ user|remove_relationship_url:"following" }}">Unfollow</a>
+
+              {% else %}
+
+                {# they are not following them, so show a link to start following #}
+                <a class="btn btn-smaller" href="{{ user|add_relationship_url:"following" }}">Follow</a>
+
+              {% endif_relationship %}
+
+            {% else %}
+              <p>This is you!</p>
+            {% endif %}
+            
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
