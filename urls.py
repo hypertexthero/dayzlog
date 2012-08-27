@@ -40,6 +40,7 @@ urlpatterns = patterns("",
     url(r"^announcements/", include("announcements.urls")),
     # url(r'^log/', include('blog.urls')),
     url(r'^logs/', include('blog.urls')),
+    url(r'^relationships/', include('relationships.urls')),
     url(r'^dashboard/$', 'blog.views.my_post_list', dict(post_dict, template_name='blog/post_my_list.html'), name='blog_my_post_list'),
     url(r'^write/$', 'blog.views.add', name='blog_add'),
     # url(r'^b/', include('blogs.short_urls')), # For short urls, if you want
