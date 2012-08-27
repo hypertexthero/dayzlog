@@ -5,7 +5,7 @@ Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.
 ## Todo
 
 - Blog
-    - jQuery/AJAX for voting
+    - jQuery/AJAX for voting (use http://vanilla-js.com/ :)
     - Previous/Next entry by user
     - Markdown preview with Markedit, imgur for image hosting
     - Comments with Disqus
