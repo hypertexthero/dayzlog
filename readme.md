@@ -1,6 +1,6 @@
 # Day Z Log
 
-Share your <a href="http://dayzmod.com">Day Z</a> stories on the web.
+Application to share and follow <a href="http://dayzmod.com">Day Z</a> stories on the web. Hacked together using a variety of Python/Django stuff.
 
 ## Todo
 

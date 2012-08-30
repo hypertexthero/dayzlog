@@ -9,11 +9,13 @@
     {% if profile.name %}    
         {% ifequal request.user other_user %}
             <h1 style="margin-bottom:0.25em;">{{ profile.user.username }}</h1>
+            <p>No profile information entered yet.</p>
         {% else %}
             <h1 style="margin-bottom:0.25em;">{{ profile.name }}</h1>
         {% endifequal %}
     {% else %}
-        <p>No profile information for user <b>{{ user }}</b> entered yet. <a href="/profiles/edit/{{profile.user.username}}">Edit your profile</a> to generate a URL you can add to your Day Z in-game profile so your information appears inside Day Z.</p>
+        <p>No profile information entered yet. {% if is_me %}<a href="/profiles/edit/{{profile.user.username}}">Edit your profile</a> to generate a URL you can add to your Day Z in-game profile so your information appears inside Day Z.{% endif %}</p>
+        {# <p>No profile information entered yet. <a href="/profiles/edit/{{profile.user.username}}">Edit your profile</a> to generate a URL you can add to your Day Z in-game profile so your information appears inside Day Z.</p> #}
     {% endif %}
     <div class="profile_info">
         {% if profile.name %}<p><b>{% trans "Day Z In-Game Profile Name" %}</b>: {{ profile.name }}</p>{% endif %}
@@ -43,27 +45,21 @@
 {% load relationship_tags %}
             
             
-            {% ifequal request.user other_user %}
+{% if is_me %}
+
+    {% else %}
+
+    {# decide whether or not the current user is following this user #}
+    {% if_relationship request.user profile.user "following" %}
+    {# they are following them, so show a "remove" url #}
+    <a class="btn btn-smaller" href="{{ profile.user|remove_relationship_url:"following" }}">Unfollow</a>
+    {% else %}
+    {# they are not following them, so show a link to start following #}
+    <a class="btn btn-smaller" href="{{ profile.user|add_relationship_url:"following" }}">Follow</a>
+    {% endif_relationship %}
 
 
-              <p>This is you!</p>
-            {% else %}
-
-                
-                          {# decide whether or not the current user is following this user #}
-
-                          {% if_relationship request.user profile.user "following" %}
-
-                                {# they are following them, so show a "remove" url #}
-                                <a class="btn btn-smaller" href="{{ profile.user|remove_relationship_url:"following" }}">Unfollow</a>
-                                {% else %}
-
-                                {# they are not following them, so show a link to start following #}
-                                <a class="btn btn-smaller" href="{{ profile.user|add_relationship_url:"following" }}">Follow</a>
-
-                          {% endif_relationship %}
-
-            {% endifequal %}
+{% endif %}
 
 
 
