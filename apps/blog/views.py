@@ -41,14 +41,8 @@ def blog_user_post_detail(request, *kargs, **kwargs):
         kwargs['queryset'] = kwargs['queryset'].filter(author=user, status=IS_PUBLIC)
     return list_detail.object_detail(request, *kargs, **kwargs)
 
-def user_post_list(request, *kargs, **kwargs):
-    user = get_object_or_404(User, username = kwargs.pop('username', ''))
-    kwargs['queryset'] = kwargs['queryset'].filter(author=user)
-    kwargs['extra_context'] = {'current_user': user, 'author': user}
-    return list_detail.object_list(request, *kargs, **kwargs)
-
 @login_required
-def my_post_list(request, *kargs, **kwargs):
+def dashboard(request, *kargs, **kwargs):
     # kwargs['queryset'] = Post.objects.filter(author = request.user).exclude(status = IS_DELETED)
     kwargs['queryset'] = Post.objects.filter(author = request.user)
     return list_detail.object_list(request, *kargs, **kwargs)
@@ -66,7 +60,7 @@ def change_status(request, action, id):
             post_published.send(sender=Post, post=post)
         post.save()
         request.user.message_set.create(message=_("Successfully change status for post '%s'") % post.title)
-    return redirect("blog_my_post_list")
+    return redirect("dashboard")
 
 @login_required
 def add(request, form_class=PostForm, template_name="blog/post_add.html"):
@@ -88,7 +82,7 @@ def edit(request, id, form_class=PostForm, template_name="blog/post_edit.html"):
     post = get_object_or_404(Post, id=id)
     if post.author != request.user:
         request.user.message_set.create(message="You can't edit posts that aren't yours")
-        return redirect("blog_my_post_list")
+        return redirect("dashboard")
     post_form = form_class(request, instance=post)
     if request.method == "POST" and post_form.is_valid():
         post = post_form.save(commit=False)
@@ -109,7 +103,7 @@ def delete(request, id):
         object_id=id,
         template_object_name='post', # so I can write {{ note.title }} in templates/notes/delete.html (otherwise I would need to write {{ object.title }})
         template_name='blog/post_delete.html',
-        post_delete_redirect=reverse("blog_my_post_list")
+        post_delete_redirect=reverse("dashboard")
     )
 
 # =todo: export all posts to plain text in markdown format
@@ -165,6 +159,16 @@ def search(request):
             },
             context_instance=RequestContext(request)) # http://stackoverflow.com/questions/8625601/yourlabs-subscription-error-caught-variabledoesnotexist-while-rendering
 
+def stalking(request): 
+    """Show stalking posts"""   
+    return object_list(request, 
+        # http://eflorenzano.com/blog/2008/05/24/managers-and-voting-and-subqueries-oh-my/
+        queryset=Post.objects.all().filter(status=IS_PUBLIC), # .annotate(num_votes=Count('score')) 
+        template_name='stalking.html',
+        template_object_name='post',
+        extra_context= {'author': request.user}
+    )
+
 def homepage(request): 
     """Show top posts"""   
     return object_list(request, 
@@ -172,7 +176,7 @@ def homepage(request):
         queryset=Post.hot.most_loved().filter(status=IS_PUBLIC), # .annotate(num_votes=Count('score')) 
         template_name='homepage.html',
         template_object_name='post',
-        extra_context= {"profile": get_profiles}
+        extra_context= {'profile': get_profiles}
     )
 
 def new(request): 
@@ -183,3 +187,11 @@ def new(request):
         template_object_name='post',
         extra_context= {"profile": get_profiles}
     )
+
+def user_post_list(request, *kargs, **kwargs):
+    user = get_object_or_404(User, username = kwargs.pop('username', ''))
+    kwargs['queryset'] = kwargs['queryset'].filter(author=user)
+    kwargs['extra_context'] = {'current_user': user, 'author': user, 'profile': get_profiles}
+    return list_detail.object_list(request, *kargs, **kwargs)
+
+

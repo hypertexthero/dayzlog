@@ -104,41 +104,37 @@
     </div>
     <div class="row">
         <div class="span4">
-        {% if user.is_authenticated %}
-        
-        {% load relationship_tags %}
+ 
+            {% if user.is_authenticated %}
+{# =todo: show posts by followed users #}
 
-        {# <h3>Friends' photos</h3> #}
-        {# {% for photo in object_list|friend_content:request.user %} #}
-        {#   ... only stuff from my friends ... #}
-        {# {% endfor %} #}
+{% comment %}
 
-        <h3>Entries by players you are following</h3>
-        {% for post in post_list|following_content:request.user %}
-            <h2 class="nomp">
-                <a href="{{ post.get_absolute_url }}#disqus_thread" title="{{ post.title }}">{{ post.title|capfirst }}</a>
-            </h2> 
-            <div class="meta small">
-                <span class="author">
-                    By  <a href="/logs/{{ post.author.username }}/">
-                           {# http://stackoverflow.com/a/9667189/412329 #}
-                           {% if post.author.get_profile.name %}
-                               {{ post.author.get_profile.name }}
-                               {% else %}
-                               {{post.author.username}}
-                           {% endif %} 
-                        </a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See profile.">see profile</a>)</span>
-                </span>
-                <span class="time">
-                    {{ post.updated_at|timesince }} ago
-                </span>
-            </div>
-        {% endfor %}
+            {# http://django-relationships.readthedocs.org/en/latest/getting_started.html #}
+            {% load relationship_tags %}
+                <h3>Entries by players you are following</h3>
+                {% for post in post_list|following_content:request.user %}
+                    <h2 class="nomp">
+                        <a href="{{ post.get_absolute_url }}#disqus_thread" title="{{ post.title }}">{{ post.title|capfirst }}</a>
+                    </h2> 
+                    <div class="meta small">
+                        <span class="author">
+                            By  <a href="/logs/{{ post.author.username }}/">
+                                   {# http://stackoverflow.com/a/9667189/412329 #}
+                                   {% if post.author.get_profile.name %}
+                                       {{ post.author.get_profile.name }}
+                                       {% else %}
+                                       {{post.author.username}}
+                                   {% endif %} 
+                                </a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See profile.">see profile</a>)</span>
+                        </span>
+                        <span class="time">
+                            {{ post.updated_at|timesince }} ago
+                        </span>
+                    </div>
+                {% endfor %}
+{% endcomment %}
 
-        {# <h3>Follower's photos</h3> #}
-        {# {% for photo in object_list|followers_content:request.user %} #}
-        {#   ... only stuff from people who follow me ... #}
-        {# {% endfor %} #}
         
         {% else %}
 
