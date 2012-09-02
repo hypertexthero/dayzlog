@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+      Entries by players you are following - {{ user.get_profile.name }}'s's Day Z Log
+{% endblock %}
+
+{% block body_id %}log{% endblock %}
+
+{% block body %}
+
+{# http://django-relationships.readthedocs.org/en/latest/getting_started.html #}
+{% load relationship_tags %}         
+
+{% if user.is_authenticated %}
+    
+    <h2 class="normal">Entries by players you are following on Day Z Log</h2>
+    <p><a href="/relationships/">Manage your user relationships</a></p>
+    {% for post in post_list|following_content:request.user %}
+        <h2 class="nomp">
+            <a href="{{ post.get_absolute_url }}#disqus_thread" title="{{ post.title }}">{{ post.title|capfirst }}</a>
+        </h2> 
+        <div class="meta small">
+            <span class="author">
+                By  <a href="/logs/{{ post.author.username }}/">
+                       {# http://stackoverflow.com/a/9667189/412329 #}
+                       {% if post.author.get_profile.name %}
+                           {{ post.author.get_profile.name }}
+                           {% else %}
+                           {{post.author.username}}
+                       {% endif %} 
+                    </a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See profile.">see profile</a>)</span>
+            </span>
+            <span class="time">
+                {{ post.updated_at|timesince }} ago
+            </span>
+        </div>
+        {% empty %}
+        <p>You are not following anyone.</p>
+    {% endfor %}
+
+{% endif %}      
+{% endblock %}

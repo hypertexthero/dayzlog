@@ -115,7 +115,7 @@ MIDDLEWARE_CLASSES = [
     "pinax.apps.account.middleware.LocaleMiddleware",
     "pagination.middleware.PaginationMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "dayzlog.urls"
@@ -126,7 +126,7 @@ TEMPLATE_DIRS = [
 
 TEMPLATE_CONTEXT_PROCESSORS = [
     "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
+    # "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.request",
@@ -163,7 +163,7 @@ INSTALLED_APPS = [
     "notification", # must be first
     "staticfiles",
     "compressor",
-    "debug_toolbar",
+    # "debug_toolbar",
     "mailer",
     "django_openid",
     "timezones",

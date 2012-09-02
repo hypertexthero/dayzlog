@@ -13,9 +13,9 @@ class Profile(ProfileBase):
     # =todo: fields matching day z player profile
     name = models.CharField(_("In-Game Name"), max_length=50, null=True, blank=True, help_text="<b>Must match your Day Z in-game profile name exactly</b> <a data-toggle='modal' href='#help'>(what is my profile name?)</a>. Required to make your profile information appear within Day Z.")
     player_id = models.CharField(_("Player ID"), max_length=20, null=True, blank=True, help_text="<b>Must match your Day Z in-game profile player id exactly</b> <a data-toggle='modal' href='#help'>(what is my player id?)</a>. Required to make your profile information appear within Day Z.")
-    email = models.EmailField(blank=True, verbose_name='Email')
-    im = models.CharField(_("im"), max_length=50, null=True, blank=True)
-    remark = models.TextField(_("remark"), null=True, blank=True)
+    email = models.EmailField(blank=True, verbose_name='Email', help_text="An email address you want other users to see, if any.")
+    im = models.CharField(_("im"), max_length=50, null=True, blank=True, help_text="An instant messaging address you want other users to see, if any.")
+    remark = models.TextField(_("remark"), null=True, blank=True, help_text="Any remarks you would like others to see.")
 
 
 

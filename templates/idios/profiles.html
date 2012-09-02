@@ -1,10 +1,9 @@
 {% extends "idios/base.html" %}
 
-{% load i18n %}
 {% load account_tags %}
 {% load pagination_tags %}
 
-{% block head_title %}{% trans "All Profiles" %}{% endblock %}
+{% block head_title %}All Profiles{% endblock %}
 
 {% block body %}
 
@@ -13,11 +12,11 @@
 {# </p> #}
 
     <header class="jumbotron subhead" id="overview">
-        <h1>{% trans "All Profiles" %}</h1>
-        <p class="lead">{% trans "Day Z player profiles on DayZLog.com" %}</p>
+        <h1>All Profiles</h1>
+        <p class="lead">Day Z player profiles on DayZLog.com</p>
     </header>
 
-    <table class="table table-striped table-bordered table-condensed">
+    <table class="table table-striped table-condensed">
         <thead>
         <tr>
             <td>Day Z Profile Name</td>

@@ -1,8 +1,6 @@
 {% extends "blog/base_my.html" %}
 
-{% load i18n %}
-
-{% block head_title %}{% trans "New Log Entry" %}{% endblock %}
+{% block head_title %}New Log Entry - {{user.username}}{% endblock %}
 
 {% block external_css %}
     {# {{ block.super }} #}

@@ -2,13 +2,31 @@
 body {padding-top: 0;}
 div.navbar, div.navbar-fixed-top {position:relative !important;}
 
+/*body {background:#222; color:#bbb;}
+div.hero-unit {background:#222; color:#bbb;}
+div.well {border:0;}
+legend {color:#bbb; border-color:#444;}
+a:link {color:#f00;}
+a:visited {color:#c00;}
+a:hover {color:#fc0;}
+a:active {color:#fcc;}
+tr, td {background:#222 !important; border-color:#444;}*/
+
 /* custom styles */
-h1 {text-align:left !important; color:#000 !important;}
+.big-modal{
+   width:90% !important;
+   /*height:80% !important;*/
+   margin-left:-45%;
+   /*margin-top:-45%;*/
+}
+tr, td {border-top:0 !important;}
+h1 {text-align:left !important;}
 form.customform textarea, form.customform div.input input {width:100% !important;}
 div.post {margin-bottom:2em;}
 .post-title a {color:#000; text-decoration:none;}
-td.number {vertical-align:middle; font-size:1.5em; font-weight:bold; color:#ccc;}
+td.number {vertical-align:middle; font-size:1.5em; font-weight:bold; color:#ccc; text-align:center;}
 td.vote {font-size:1em; text-align:center; font-weight:bold;}
+td.entry {vertical-align:middle;}
 form.postvote, form.postvote input {margin:0; padding:0;}
 .postvote input {height:12px; width:12px;}
 .nomp {margin:0 !important; padding:0 !important;}

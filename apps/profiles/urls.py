@@ -28,6 +28,7 @@ urlpatterns = patterns("idios.views",
     
     # disabling ability to view list of all user profiles
     # url(r"^$", ProfileListView.as_view(all_profiles=True), name="profile_list_all"),
+    
     # url(r"^(?P<profile_slug>[\w\._-]+)/", include("idios.urls_base")),
     # url(r"^(?P<profile_slug>[\w\._-]+)/(?P<profile_pk>\d+)/$", ProfileDetailView.as_view(), name="profile_detail"),
     # url(r"", include("idios.urls_base")),

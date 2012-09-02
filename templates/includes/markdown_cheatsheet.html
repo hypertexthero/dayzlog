@@ -1,4 +1,4 @@
-<div class="modal hide" id="markdownhelp">
+<div class="modal keyboard big-modal hide" id="markdownhelp">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>Markdown Cheat Sheet</h3>
@@ -6,27 +6,47 @@
 
   <div class="modal-body">
 
-      {# <div class="row-fluid"> #}
-        {# <div class="span12"> #}
-          {# Level 1 of column #}
-          {# <div class="row-fluid"> #}
-            {# <div class="span6">Level 2</div> #}
-            {# <div class="span6">Level 2</div> #}
-          {# </div> #}
-        {# </div> #}
-      {# </div> #}
+<h3>Complete Example <span class="normal small quiet">(see further down for more details)</span></h3>
 
+<pre>
+# Heading Level One
+
+A paragraph with *emphasized* and **bold** text and a footnote[^1] referenced in the bottom of the page. 
+
+A [link](http://www.dayzlog.com "Link hover title.") to a webpage. You can also do a reference-style [links][markdowndocs], with the reference in the bottom of the page.
+
+- List item
+- List item
+    - Nested list item indented 4 spaces
+        - Nested list item indented 8 spaces
+
+## Heading Level Two
+
+1. Ordered List item
+2. Ordered List item
+    1. Nested ordered list item indented 4 spaces
+    2. Note that list style is controlled by the stylesheet (your numbers will be converted)
+        3. Indented by 8 spaces
+3. Ordered List item
+
+> A blockquotation, followed by an image:
+
+![image description](http://www.dayzlog.com/site_media/static/img/dayzmod-small.png)
+
+[^1]: The footnote
+[markdowndocs]: http://daringfireball.com/projects/markdown "Link hover title."
+</pre>
 
     
       
       
-            <h3>Format Text</h3>
-            <p>Headers</p>
+            <h3>Headers</h3>
             <pre>
       # This is an &lt;h1&gt; tag
       ## This is an &lt;h2&gt; tag
       ###### This is an &lt;h6&gt; tag</pre>
-           <p>Text styles</p>
+           
+           <h3>Text styles</h3>
            <pre>
       *This text will be italic*
       _This will also be italic_
@@ -40,26 +60,24 @@
             <h3>Lists</h3>
             <p>Unordered</p>
             <pre>
-      * Item 1
-      * Item 2
-        * Item 2a
-        * Item 2b</pre>
+      - Item 1
+      - Item 2
+            - Item 2a
+            - Item 2b</pre>
            <p>Ordered</p>
            <pre>
       1. Item 1
       2. Item 2
       3. Item 3
-         * Item 3a
-         * Item 3b</pre>
-      
-            <h3>Miscellaneous</h3>
+            - Item 3a
+            - Item 3b</pre>
        
-           <p>Links</p>
+           <h3>Links</h3>
            <pre>
                
       &lt;http://dayzlog.com&gt;
 
-      or
+        or
 
       [Linked word](http://dayzlog.com "Link tooltip title")
       [DayZLog](http://dayzlog.com)
@@ -75,20 +93,14 @@
       [dayzlog]: http://dayzlog.com "Link tooltip title"
           </pre>
 
-<p>Images</p>
+<h3>Images <span class="small normal quiet">(upload to a free hosting service such as <a href="http://imgur.com/">imgur</a> first, then copy and paste the URL.</span></h3>
             <pre>
       ![My photo description](http://i.imgur.com/rYdOJ.jpg)
       Format: ![Alt Text](url)
       </pre>
           
 
-<p>Footnotes</p>
-            <pre>
-      I saw[^1] it.
-      [^1]: Through the scope.
-      </pre>
-
-      <p>Blockquotes</p>
+      <h3>Blockquotes</h3>
            <pre>
       As a bad guy in No One Lives Forever said:
 
@@ -96,32 +108,13 @@
       > hard rain is falling!
       </pre>
       
-        <div class="rule"></div>
 
-        {# <h3>Code Examples in Markdown</h3> #}
-      
-            {# <p>Syntax highlighting with <a href="http://github.github.com/github-flavored-markdown/" title="GitHub Flavored Markdown" target="_blank">GFM</a></p> #}
-            {# <pre> #}
-      {# ```javascript #}
-      {# function fancyAlert(arg) { #}
-        {# if(arg) { #}
-          {# $.facebox({div:'#foo'}) #}
-        {# } #}
-      {# } #}
-      {# ```</pre> #}
-      
-            <p>Indent your code 4 spaces</p>
-            <pre>
-      Here is a Python code example:
 
-          def foo:
-            if not bar:
-              return true</pre>
-      
-            <p>Inline code for comments</p>
+<h3>Footnotes</h3>
             <pre>
-      I think you should use an
-      `&lt;strong&gt;` element here instead.</pre>
+      I saw[^1] it.
+      [^1]: Through the scope.
+      </pre>
       
   </div>
 

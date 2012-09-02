@@ -159,12 +159,24 @@ def search(request):
             },
             context_instance=RequestContext(request)) # http://stackoverflow.com/questions/8625601/yourlabs-subscription-error-caught-variabledoesnotexist-while-rendering
 
-def stalking(request): 
-    """Show stalking posts"""   
+@login_required
+def following(request): 
+    """Show following posts"""   
     return object_list(request, 
         # http://eflorenzano.com/blog/2008/05/24/managers-and-voting-and-subqueries-oh-my/
         queryset=Post.objects.all().filter(status=IS_PUBLIC), # .annotate(num_votes=Count('score')) 
-        template_name='stalking.html',
+        template_name='following.html',
+        template_object_name='post',
+        extra_context= {'author': request.user}
+    )
+
+@login_required
+def followers(request): 
+    """Show following posts"""   
+    return object_list(request, 
+        # http://eflorenzano.com/blog/2008/05/24/managers-and-voting-and-subqueries-oh-my/
+        queryset=Post.objects.all().filter(status=IS_PUBLIC), # .annotate(num_votes=Count('score')) 
+        template_name='followers.html',
         template_object_name='post',
         extra_context= {'author': request.user}
     )

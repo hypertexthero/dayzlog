@@ -9,8 +9,8 @@
 {# http://django-relationships.readthedocs.org/en/latest/getting_started.html #}
 {% load relationship_tags %}
 
-<h2>Your Relations</h2>
-<ul>
+<h2 class="normal">Manage your Day Z Log user relationships</h2>
+<ul class="unstyled">
     {% for user in relationship_list %}
         <li>
             <a href="/profiles/{{ user.username }}">{{ user.username }}</a>

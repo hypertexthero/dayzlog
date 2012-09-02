@@ -1,13 +1,16 @@
 {% if post_list %} 
     <div class="row">
+        {% if user.is_authenticated %}
+            <div class="span12">
+            {% else %}
             <div class="span8">
-                        
+        {% endif %}  
         {% load pagination_tags %}
         {% autopaginate post_list 30 %}                    
             
-            <table class="table table-striped table-bordered table-condensed">
+            <table class="table table-striped table-condensed">
                 <colgroup>
-                    <col style="width:2em;"></col>
+                    <col style="width:3em;"></col>
                     <col style="width:4em;"></col>
                     <col></col>
                 </colgroup>
@@ -74,10 +77,8 @@
                                 </form>
                             </td>
                 
-                            <td class="post">
-                                <h2 class="nomp">
-                                    <a href="{{ post.get_absolute_url }}#disqus_thread" title="{{ post.title }}">{{ post.title|capfirst }}</a>
-                                </h2> 
+                            <td class="entry">
+                                    <b><a href="{{ post.get_absolute_url }}#disqus_thread" title="{{ post.title }}">{{ post.title|capfirst }}</a></b>
                                 <div class="meta small">
                                     <span class="author">
                                         By  <a href="/logs/{{ post.author.username }}/">
@@ -166,6 +167,11 @@
 <p>There are no Day Z Log entries yet.</p>
 {% endif %}
 
+{% include "includes/markdown_cheatsheet.html" %}
+
+{% comment %}
+    
+
 {% block extrabody %}
         {# =todo alternative ajax voting: http://lethain.com/two-faced-django-part-5-jquery-ajax/ #}
         {# http://malsup.com/jquery/form/ #}
@@ -197,3 +203,4 @@
           //}());
     </script>
 {% endblock extrabody %}
+{% endcomment %}
