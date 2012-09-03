@@ -17,7 +17,7 @@
 {% block body %}
 
 {% load pagination_tags %}
-{% autopaginate post_list 1 %}                    
+{% autopaginate post_list 10 %}                    
 
     {% if post_list %}
         <header class="pull-right" style="max-width:30%;">
@@ -62,7 +62,7 @@
             
                 <div class="post">
                     <h2><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.title }}</h2>
-                    <p><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a></p>
+                    <p><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a> · <a href="{{ post.get_absolute_url }}#disqus_thread"></a></p>
 
                     {# {{ post.content_html|safe|truncatewords_html:"30" }} #}
                     {{ post.content_html|safe }}
@@ -80,4 +80,21 @@
     </header>
           
     {% endif %}      
-{% endblock %}
+
+{% block extrabody %}
+    {# disqus comment count #}
+    <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'dayzlog'; // required: replace example with your forum shortname
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function () {
+              var s = document.createElement('script'); s.async = true;
+              s.type = 'text/javascript';
+              s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+              (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          }());
+    </script>
+{% endblock extrabody %}
+{% endblock body %}
+

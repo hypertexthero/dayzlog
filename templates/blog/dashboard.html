@@ -33,10 +33,10 @@
                             <td class="post_list">
                                 {# <a href="{{ post.blog.get_absolute_url }}" class="blog_link_small">{{ post.blog.name }}</a> #}
                                 {# <span class="blog_post_breaker_small">&rarr;</span> #}
-                                <a href="{{ post.get_absolute_url }}#disqus_thread" class="post_link_small">{{ post.title }}</a>
+                                <b><a href="{{ post.get_absolute_url }}" class="post_link_small">{{ post.title }}</a></b> · <a href="{{ post.get_absolute_url }}#disqus_thread"></a>
                             </td>
-                            <td>{{ post.created_at|date:"d M Y, H:i" }}</td>
-                            <td>{{ post.updated_at|date:"d M Y, H:i" }}</td>
+                            <td>{{ post.created_at|date:"D, d M Y, H:i"}}</td>
+                            <td>{{ post.updated_at|date:"D, d M Y, H:i"}}</td>
                             <td class="actions">
                                 <a href="{% url blog_edit post.id %}"><i class="icon-edit"></i> {% trans "Edit" %}</a>
                                 <a href="{% url blog_delete post.id %}"><i class="icon-remove"></i> {% trans "Delete" %}</a>
@@ -108,21 +108,20 @@
 
 
 
-
-{% endblock %}
-
 {% block extrabody %}
     {# disqus comment count #}
     <script type="text/javascript">
           /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-          //var disqus_shortname = 'dayzlog'; // required: replace example with your forum shortname
+          var disqus_shortname = 'dayzlog'; // required: replace example with your forum shortname
 
           /* * * DON'T EDIT BELOW THIS LINE * * */
-          //(function () {
-              //var s = document.createElement('script'); s.async = true;
-              //s.type = 'text/javascript';
-              //s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-              //(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-          //}());
+          (function () {
+              var s = document.createElement('script'); s.async = true;
+              s.type = 'text/javascript';
+              s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+              (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          }());
     </script>
+{% endblock extrabody %}
 {% endblock %}
+
