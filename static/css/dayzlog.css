@@ -26,11 +26,11 @@ div.post {margin-bottom:2em;}
 .post-title a {color:#000; text-decoration:none;}
 td.number {vertical-align:middle; font-size:1.5em; font-weight:bold; color:#ccc; text-align:center;}
 td.vote {text-align:center; font-weight:bold;}
-div.vote {font-weight:bold;}
+div.vote {font-weight:bold; vertical-align:middle;}
+p.votes {text-align:center; line-height:13px; margin:0.45em 0 0 !important; padding:0 !important;}
+body#postdetail p.votes {text-align:left;}
 td.entry {vertical-align:middle;}
-span.score {text-align:center;}
-form.postvote, form.postvote input {margin:0; padding:0;}
-form.extrabottom {margin-bottom:0.3em;}
+form.postvote, form.postvote input {margin:0 !important; padding:0 !important;}
 .postvote input {border:0; background:none; font-size:1.5em; color:#c00;}
 .postvote input.quiet {color:#ccc;}
 .nomp {margin:0 !important; padding:0 !important;}
@@ -38,6 +38,7 @@ form.extrabottom {margin-bottom:0.3em;}
 .block {display:block;}
 .alignright {text-align:right !important;}
 .quiet {color:#ccc;}
+.subdued {color:#aaa;}
 .normal {font-weight:normal;}
 .tip {background:#ffc;}
 .breadcrumb {color:#999;}

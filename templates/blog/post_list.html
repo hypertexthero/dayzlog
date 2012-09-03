@@ -47,7 +47,7 @@
                                 {% dict_entry_for_item post from score_dict as score %}
 
                                 {# up ========================= #}
-                                <form class="postvote extrabottom" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                                <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
                                     {% csrf_token %}
                                     {% if vote and vote.is_upvote %}
                                        <input type="submit" value="&and;" id="postuparrow{{ post.id }}" title="clear your vote">
@@ -60,19 +60,13 @@
                                 </form>
 
                                 {# score ========================= #}
-                                {# <span id="num_votes"> #}
-                                    {# {% if score.num_votes %} #}
-                                        {# {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }} #}
-                                    {# {% endif %}     #}
-                                {# </span> #}
-                                <span class="score">
-                                    {% if score.score %}
-                                        {# {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }} #}
-                                        {{ score.score|default:0 }}
+                                <p class="votes">
+                                    {% if score.num_votes %}
+                                        {{ score.num_votes|default:0 }} {# vote{{ score.num_votes|default:0|pluralize }} #}
                                         {% else %}
                                         <span class="small quiet">0</span>
-                                    {% endif %}
-                                </span>
+                                    {% endif %} 
+                                </p>
 
                                 {# down ========================= #}
                                 <form class="postvote" id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
@@ -90,9 +84,14 @@
                 
                             <td class="entry">
                                     <b><a href="{{ post.get_absolute_url }}" title="Read entry.">{{ post.title|capfirst }}</a></b>
-                                <div class="meta small">
+                                <div class="meta small subdued">
                                     <span class="author">
-                                        By  <a href="/logs/{{ post.author.username }}/" title="See this authors's Day Z Log">
+                                        {% if score.score %}
+                                            {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}
+                                        {# {{ score.score|default:0 }} #}
+                                        {% else %}
+                                        {% endif %}
+                                        by <a class="subdued" href="/logs/{{ post.author.username }}/" title="See this authors's Day Z Log">
                                                {# http://stackoverflow.com/a/9667189/412329 #}
                                                {% if post.author.get_profile.name %}
                                                    {{ post.author.get_profile.name }}
@@ -166,7 +165,7 @@
                 <ol>
                     <li>Write on your log using <a data-toggle="modal" href="#markdownhelp">Markdown</a> format.</li>
                     <li>Display <a href="/faq/#profileingame">your dayzlog.com profile information in-game</a> so other survivors can see who they&rsquo;re dealing with.</li> 
-                    <li>Follow other survivor&rsquo;s logs&rsquo; and vote on their entries. The homepage shows the top 30.</li>
+                    <li>Follow other survivor&rsquo;s logs&rsquo; and vote their entries <span class="subdued">&and;</span>up or <span class="subdued">&or;</span>down. The homepage shows the top 30.</li>
                 </ol>
 
                 <p>{% url acct_login as login_url %}

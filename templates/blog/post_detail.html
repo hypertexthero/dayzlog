@@ -5,6 +5,8 @@
 
 {% block head_title %}{{ post.title }} - {{ post.author.username }}'s Day Z Log{% endblock %}
 
+{% block body_id %}postdetail{% endblock body_id %}
+
 {% block body %}
 
     {# <p class="breadcrumb"><a href="/">Home</a> / <a href="/logs/">Logs</a> / <a href="/logs/{{ post.author.username }}/">{{ post.author.username }}</a> / {{ post.slug }}</p> #}
@@ -122,7 +124,7 @@
                         </form>
                         {% endcomment %}
 
-                            <form class="postvote extrabottom" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                            <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
                                 {% csrf_token %}
                                 {% if vote and vote.is_upvote %}
                                    <input type="submit" value="&and;" id="postuparrow{{ post.id }}" title="clear your vote">
@@ -140,14 +142,19 @@
                                 {# {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }} #}
                             {# {% endif %}     #}
                         {# </span> #}
-                        <span class="score">
-                            {% if score.score %}
-                                {# {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }} #}
-                                {{ score.score|default:0 }}
+                        <p class="votes">
+                            {% if score.num_votes %}
+                                {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }}
                                 {% else %}
                                 <span class="small quiet">0</span>
+                            {% endif %} · 
+                            {% if score.score %}
+                                {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}
+                                {# {{ score.score|default:0 }} #}
+                            {% else %}
                             {% endif %}
-                        </span>
+                        </p>
+
 
                         {# down ========================= #}
                                 <form class="postvote" id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
