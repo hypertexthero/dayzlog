@@ -103,7 +103,7 @@ INSERT IMAGE HERE
 			</ol>
 		</div>
 
-			    <h3 id="playerid">
+		<h3 id="playerid">
 	    	<a href="#playerid" title="Click this link and copy the URL from the web browser address bar for a direct link to this particular FAQ.">My Day Z in-game player id: how do I find it?</a>
 	   	</h3>
 		<div class="answer">
@@ -114,8 +114,25 @@ INSERT IMAGE HERE
 			</ol>
 		</div>
 
+		<h3 id="images">
+	    	<a href="#images" title="Click this link and copy the URL from the web browser address bar for a direct link to this particular FAQ.">How do I insert an image in a Day Z Log entry?</a>
+	   	</h3>
+		<div class="answer">
+			<ol>
+				<li>Upload your image to <a href="http://imgur.com">imgur.com</a> or another image hosting service</li>
+				<li>Use the following <a data-toggle="modal" href="#markdownhelp">Markdown syntax</a> to insert the image into your post:</li>
+			</ol>
+
+<pre>![My photo description](http://i.imgur.com/j7QY7.jpg)</pre>
+		</div>
+
+		
+
  	</div>
  </div>
+
+ {% include "includes/markdown_cheatsheet.html" %}
+
 {% endblock %}
 
 {% block extra_body %}
