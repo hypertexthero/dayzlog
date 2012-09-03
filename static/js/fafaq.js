@@ -138,7 +138,7 @@
                 target.style.backgroundColor = "#ffff" + FadeSteps[colorId];
                 // If it's the last color, set it to transparent
                 if (colorId==1) {
-                    document.getElementById(targetId).style.backgroundColor = "transparent";
+                    document.getElementById(targetId).style.backgroundColor = "#ffffff";
                 }
                 colorId--;
                 // Wait a little bit and fade another shade

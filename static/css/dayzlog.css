@@ -25,10 +25,14 @@ form.customform textarea, form.customform div.input input {width:100% !important
 div.post {margin-bottom:2em;}
 .post-title a {color:#000; text-decoration:none;}
 td.number {vertical-align:middle; font-size:1.5em; font-weight:bold; color:#ccc; text-align:center;}
-td.vote {font-size:1em; text-align:center; font-weight:bold;}
+td.vote {text-align:center; font-weight:bold;}
+div.vote {font-weight:bold;}
 td.entry {vertical-align:middle;}
+span.score {text-align:center;}
 form.postvote, form.postvote input {margin:0; padding:0;}
-.postvote input {height:12px; width:12px;}
+form.extrabottom {margin-bottom:0.3em;}
+.postvote input {border:0; background:none; font-size:1.5em; color:#c00;}
+.postvote input.quiet {color:#ccc;}
 .nomp {margin:0 !important; padding:0 !important;}
 .clearboth {clear:both;}
 .block {display:block;}

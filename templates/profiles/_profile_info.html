@@ -6,16 +6,21 @@
 
 
 <div class="hero-unit">
-    <div class="pull-right quiet alignright">
+    <div class="pull-right alignright">
         {% if profile.player_img %}<p><a href="/logs/{{profile.user.username}}"><img src="/uploads/{{ profile.player_img }}" /></a></p>{% endif %}
         {# <p>dayzlog.com Username: {{profile.user.username}}</p> #}
-        <small><a href="/logs/{{profile.user.username}}">Log Homepage</a></small>
+            {# <small> #}
+                {% if profile.date_joined %}<b>Member since:</b> {{profile.date_joined|date:"j F Y"}}{% endif %}    
+                <br>
+                <a href="/logs/{{profile.user.username}}">Log Homepage</a>
+            {# </small> #}
     </div>
     {% if profile.name %} 
         {% ifequal request.user other_user %}
             <h1 style="margin-bottom:0.25em;">{{ profile.user.username }}</h1>
             <p>No profile information entered yet.</p>
         {% else %}
+            <p class="nomp"><b>{% trans "Day Z In-Game Profile Name" %}</b>:</p>
             <h1 style="margin-bottom:0.25em;">{{ profile.name }}</h1>
         {% endifequal %}
     {% else %}
@@ -23,7 +28,7 @@
         {# <p>No profile information entered yet. <a href="/profiles/edit/{{profile.user.username}}">Edit your profile</a> to generate a URL you can add to your Day Z in-game profile so your information appears inside Day Z.</p> #}
     {% endif %}
     <div class="profile_info">
-        {% if profile.name %}<p><b>{% trans "Day Z In-Game Profile Name" %}</b>: {{ profile.name }}</p>{% endif %}
+        
         {% if is_me %}{% if profile.player_id %}<p><b>{% trans "Player ID" %}</b>: {{ profile.player_id }} <span class="small">(only visible to you)</span></p>{% endif %}{% endif %}
         {% if profile.email %}<p><b>{% trans "Email" %}</b>: {{ profile.email }}</p>{% endif %}
         {% if profile.im %}<p><b>{% trans "IM" %}</b>: {{ profile.im }}</p>{% endif %}

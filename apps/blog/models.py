@@ -51,17 +51,17 @@ class VoteAwareManager(models.Manager):
         return self._get_score_annotation().order_by('-score')
 
 class Post(models.Model):
-    """Post model."""
-    title = models.CharField(_('title'), max_length=200)
-    slug = models.SlugField(_('slug'), blank=True)
+    """Post model"""
+    title = models.CharField(_("title"), max_length=200)
+    slug = models.SlugField(_("slug"), blank=True)
     author = models.ForeignKey(User, related_name="added_posts")
     creator_ip = models.CharField(_("IP Address of the Post Creator"), max_length=255, blank=True, null=True)
-    content_markdown = models.TextField(blank=True, verbose_name='Entry', help_text="<a data-toggle='modal' href='#markdownhelp'>markdown syntax</a>")
+    content_markdown = models.TextField(_("Entry"), blank=True, help_text="<a data-toggle='modal' href='#markdownhelp'>markdown syntax</a>")
     content_html = models.TextField(blank=True, null=True, editable=False)
-    status = models.IntegerField(_('status'), choices=STATUS_CHOICES, default=IS_DRAFT)
-    publish = models.DateTimeField(_('publish'), default=datetime.now)
-    created_at = models.DateTimeField(_('created at'), default=datetime.now)
-    updated_at = models.DateTimeField(_('updated at'))
+    status = models.IntegerField(_("status"), choices=STATUS_CHOICES, default=IS_DRAFT)
+    publish = models.DateTimeField(_("publish"), default=datetime.now)
+    created_at = models.DateTimeField(_("created at"), default=datetime.now)
+    updated_at = models.DateTimeField(_("updated at"))
 
     # votes = generic.GenericRelation(Vote)
 
