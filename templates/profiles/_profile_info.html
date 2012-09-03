@@ -20,7 +20,7 @@
             <h1 style="margin-bottom:0.25em;">{{ profile.user.username }}</h1>
             <p>No profile information entered yet.</p>
         {% else %}
-            <p class="nomp"><b>{% trans "Day Z In-Game Profile Name" %}</b>:</p>
+            <p class="nomp"><b>{% trans "Day Z In-Game Profile Name" %} <span class="normal">({{ profile.user.username }})</span></b>:</p>
             <h1 style="margin-bottom:0.25em;">{{ profile.name }}</h1>
         {% endifequal %}
     {% else %}
