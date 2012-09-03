@@ -148,7 +148,7 @@ def search(request):
         # results = Post.objects.filter(Q(title__icontains=query)|Q(content_html__icontains=query)).distinct()
 
         # https://groups.google.com/forum/?fromgroups=#!msg/django-users/JKhf05HOezg/klz7A-vs_U0J
-        results = Post.objects.filter(Q(title__icontains=query)|Q(content_html__icontains=query)).distinct()
+        results = Post.objects.filter(Q(title__icontains=query)|Q(content_html__icontains=query)).distinct().filter(status=IS_PUBLIC)
         player_results = Profile.objects.filter(Q(name__icontains=query)).distinct()
     return render_to_response('search.html',
             {   'query': query, 
