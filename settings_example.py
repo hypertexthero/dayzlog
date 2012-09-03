@@ -182,7 +182,7 @@ INSTALLED_APPS = [
     "blog",
     "voting",
     "relationships",
-    # "south"
+    "south"
     # 'generic_aggregation'
 ]
 

@@ -102,14 +102,14 @@ class Post(models.Model):
         return [self.author]
 
     # =todo: next/prev links
-    def get_next(self):
-        next = Post.objects.filter(id__gt=self.id)
-        if next:
-            return next[0]
-        return False
+    # def get_next(self):
+    #     next = Post.objects.filter(id__gt=self.id)
+    #     if next:
+    #         return next[0]
+    #     return False
       
-    def get_prev(self):
-        prev = Post.objects.filters(id__lt=self.id)
-        if prev:
-            return prev[0]
-        return False
+    # def get_prev(self):
+    #     prev = Post.objects.filters(id__lt=self.id)
+    #     if prev:
+    #         return prev[0]
+    #     return False

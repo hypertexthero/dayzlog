@@ -6,6 +6,7 @@ Application to share and follow <a href="http://dayzmod.com">Day Z</a> stories o
 
 - About / Help dedicated pages
     - Help for [squad xml](http://community.bistudio.com/wiki/squad.xml, finding player id, adding Day Z Log URL to in-game profile, etc.
+- Use sprites for up/down vote arrows
 - Enable Comments with Disqus
 - Setup South for DB migrations
 

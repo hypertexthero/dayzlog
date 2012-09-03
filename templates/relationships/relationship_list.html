@@ -11,6 +11,7 @@
 
 <h2 class="normal">Manage your Day Z Log user relationships</h2>
 <ul class="unstyled">
+  {% if relationship_list %}
     {% for user in relationship_list %}
         <li>
             <a href="/profiles/{{ user.username }}">{{ user.username }}</a>
@@ -37,5 +38,8 @@
             
         </li>
     {% endfor %}
+  {% else %}
+  <p>You are following or being followed by anyone, yet.</p>
+  {% endif %}
 </ul>
 {% endblock %}

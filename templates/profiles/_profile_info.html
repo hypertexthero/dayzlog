@@ -6,7 +6,8 @@
 
 
 <div class="hero-unit">
-    {% if profile.name %}    
+    {% if profile.player_img %}<p class="pull-right"><img src="/site_media/media/{{ profile.player_img }}" /></p>{% endif %}
+    {% if profile.name %} 
         {% ifequal request.user other_user %}
             <h1 style="margin-bottom:0.25em;">{{ profile.user.username }}</h1>
             <p>No profile information entered yet.</p>
