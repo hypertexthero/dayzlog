@@ -5,7 +5,6 @@ Application to share and follow <a href="http://dayzmod.com">Day Z</a> stories o
 ## Todo Before Launch
 
 - Insert player roster screenshot in FAQ
-- Test comments with Disqus
 - Setup south for DB migrations
 
 ## Future Features
