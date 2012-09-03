@@ -46,7 +46,7 @@
                                 {# up ========================= #}
                                 <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
                                     {% csrf_token %}
-                                    <input type="image" id="postuparrow{{ post.id }}" src="/site_media/static/img/aup{% if vote and vote.is_upvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_upvote %}clear your vote{% else %}upvote this story{% endif %}">
+                                    <input type="image" id="postuparrow{{ post.id }}" src="/static/img/aup{% if vote and vote.is_upvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_upvote %}clear your vote{% else %}upvote this story{% endif %}">
                                      {# onclick="vote('{{ post.slug }}', 'up');" #}
                                 </form>
 
@@ -72,23 +72,23 @@
                                 {# down ========================= #}
                                 <form class="postvote" id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
                                     {% csrf_token %}
-                                    <input type="image" id="postdownarrow{{ post.id }}" src="/site_media/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_downvote %}clear your vote{% else %}downvote this story{% endif %}">
+                                    <input type="image" id="postdownarrow{{ post.id }}" src="/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_downvote %}clear your vote{% else %}downvote this story{% endif %}">
                                     {# onclick="vote('{{ post.slug }}', 'down');" #}
                                 </form>
                             </td>
                 
                             <td class="entry">
-                                    <b><a href="{{ post.get_absolute_url }}#disqus_thread" title="{{ post.title }}">{{ post.title|capfirst }}</a></b>
+                                    <b><a href="{{ post.get_absolute_url }}#disqus_thread" title="Read entry.">{{ post.title|capfirst }}</a></b>
                                 <div class="meta small">
                                     <span class="author">
-                                        By  <a href="/logs/{{ post.author.username }}/">
+                                        By  <a href="/logs/{{ post.author.username }}/" title="See this authors's Day Z Log">
                                                {# http://stackoverflow.com/a/9667189/412329 #}
                                                {% if post.author.get_profile.name %}
                                                    {{ post.author.get_profile.name }}
                                                    {% else %}
                                                    {{post.author.username}}
                                                {% endif %} 
-                                            </a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See profile.">see profile</a>)</span>
+                                            </a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See this author's profile.">see profile</a>)</span>
                                     </span>
                                     <span class="time">
                                         {{ post.updated_at|timesince }} ago
@@ -113,7 +113,7 @@
 
             {# http://django-relationships.readthedocs.org/en/latest/getting_started.html #}
             {% load relationship_tags %}
-                <h3>Entries by players you are following</h3>
+                <h3>Entries by survivors you are following</h3>
                 {% for post in post_list|following_content:request.user %}
                     <h2 class="nomp">
                         <a href="{{ post.get_absolute_url }}#disqus_thread" title="{{ post.title }}">{{ post.title|capfirst }}</a>
@@ -147,17 +147,21 @@
                         {# <a href="/write/" class="btn"><i class="icon-pencil"></i> Write New Entry</a> #}
                         {# <a href="{% url "profile_detail" user.username %}" class="btn"><i class="icon-user"></i> Edit Profile</a> to generate a URL to add to my Day Z in-game profile #}
                     {# </p> #}
-                <h2>Day Z Log</h2>
-                <h3>Share your <a href="http://dayzmod.com">Day Z</a> stories.</h3>        
-                <p>Write your stories using <a data-toggle="modal" href="#markdownhelp">Markdown</a> format. Generate a <a href="/help">squad.xml file and URL to add to your in-game profile</a> so other players can see who they&rsquo;re dealing with.
-                {% url acct_login as login_url %}
+                <h1 class="normal">Day Z Log</h1>
+                <h2>Share your <a href="/faq/#dayz">Day Z</a> stories</h2>        
+                <ol>
+                    <li>Write on your log using <a data-toggle="modal" href="#markdownhelp">Markdown</a> format.</li>
+                    <li>Display <a href="/faq/#profileingame">your dayzlog.com profile information in-game</a> so other survivors can see who they&rsquo;re dealing with.</li> 
+                    <li>Follow other survivor&rsquo;s logs&rsquo; and vote on their entries. The homepage shows the top 30.</li>
+                </ol>
+
+                <p>{% url acct_login as login_url %}
                 {% load ifsetting_tag %}
                 {% ifsetting ACCOUNT_OPEN_SIGNUP %}
-                    <a href="/account/login/">Log In</a> or <a href="/account/signup/">Sign Up</a>
+                    <a href="/account/login/" class="btn">Log In</a> or <a href="/account/signup/" class="btn">Sign Up</a>
                     {% else %}
                     <a href="/account/login/">Log In</a>
-                {% endifsetting %}
-                </p>
+                {% endifsetting %}</p>
             {# =todo: <li>Export all your stories in XML or JSON format at any time.</li> #}
         {# </div> #}
         </div>                              
@@ -175,7 +179,7 @@
 {% block extrabody %}
         {# =todo alternative ajax voting: http://lethain.com/two-faced-django-part-5-jquery-ajax/ #}
         {# http://malsup.com/jquery/form/ #}
-    {# <script src="/site_media/static/js/jquery.form.js"></script>  #}
+    {# <script src="/static/js/jquery.form.js"></script>  #}
     <script type="text/javascript"> 
         // // wait for the DOM to be loaded 
         // $(document).ready(function() { 

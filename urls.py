@@ -32,7 +32,8 @@ urlpatterns = patterns("",
     url(r"^new/$", "blog.views.new", name="new"),
     url(r"^admin/invite_user/$", "pinax.apps.signup_codes.views.admin_invite_user", name="admin_invite_user"),
     url(r"^admin/", include(admin.site.urls)),
-    url(r"^about/", include("about.urls")),
+    # url(r"^about/", include("about.urls")),
+    url(r"^faq/$", direct_to_template, {"template": "faq.html"}, name="faq"),
     url(r"^account/", include("pinax.apps.account.urls")),
     url(r"^openid/", include(PinaxConsumer().urls)),
     url(r"^profiles/", include("profiles.urls")), # NOTA BENE: that this is pointing to profiles/urls.py and not IDIOS app...
@@ -52,15 +53,14 @@ urlpatterns = patterns("",
     url(r'^search/$', 'blog.views.search', name="search"),
     )
 
-if settings.SERVE_MEDIA:
-    urlpatterns += patterns("",
-        url(r"", include("staticfiles.urls")),
-    )
+# if settings.SERVE_MEDIA:
+#     urlpatterns += patterns("",
+#         url(r"", include("staticfiles.urls")),
+#     )
 
 # =todo: figure out why I had to add this so player image is served
 if settings.DEBUG :
     urlpatterns += patterns('',
         url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
         url(r'^uploads/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-        url(r'^site_media/media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}), 
     )

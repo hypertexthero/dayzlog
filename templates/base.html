@@ -10,7 +10,7 @@
         {% endblock %}
 
         {% block style_base %}
-            <link href="{% static "pinax/css/theme.css" %}" rel="stylesheet">
+            {# <link href="{% static "pinax/css/theme.css" %}" rel="stylesheet"> #}
             <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
             <link href="{% static "bootstrap/css/bootstrap-responsive.css" %}" rel="stylesheet">
              <link href="{% static "css/dayzlog.css" %}" rel="stylesheet">
@@ -52,6 +52,7 @@
                                                 <li{% active request "^/followers/$" %}><a href="/followers/">Followers</a></li>    
                                                 <li{% active request "^/relationships/(?P<username>[\w\._\-]+)/$" %}><a href="/relationships/">Relationships</a></li>
                                             {% endif %}
+                                            <li{% active request "^/faq/$" %}><a href="/faq/" title="Frequently asked questions.">Faq</a></li>
                                         </ul>
                                 {% endblock %}
                             {# </div> #}
@@ -81,7 +82,7 @@
                         {% block footer %}
                         <form class="form-search" method="get" action="/search/"> 
                             {# <label for="id_q">Search the <a href="{% url notes_archive %}">archive</a>:</label>  #}
-                            <input class="input-medium search-query" type="text" name="q" id="id_q" size="30" placeholder="player name or keyword(s" /> 
+                            <input class="input-large search-query" type="text" name="q" id="id_q" size="30" placeholder="player name or keyword(s)" /> 
                             <button type="submit" class="btn">Search</button>
                         </form>
                         <p class="small quiet">Log entries copyright © by their authors. 

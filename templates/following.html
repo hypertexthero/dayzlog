@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head_title %}
-      Entries by players you are following - {{ user.get_profile.name }}'s's Day Z Log
+      Entries by survivors you are following - {{ user.get_profile.name }}'s's Day Z Log
 {% endblock %}
 
 {% block body_id %}log{% endblock %}
@@ -13,7 +13,7 @@
 
 {% if user.is_authenticated %}
     
-    <h2 class="normal">Entries by players you are following on Day Z Log</h2>
+    <h2 class="normal">Entries by survivors you are following on Day Z Log</h2>
     <p><a href="/relationships/">Manage your user relationships</a></p>
     {% for post in post_list|following_content:request.user %}
         <h2 class="nomp">

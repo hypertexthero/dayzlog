@@ -5,5 +5,4 @@ settings.py
 settings_local.py
 .DS_Store
 fixtures/initial_data.json
-site_media/
-uploades/
+uploads/

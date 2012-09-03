@@ -1,10 +1,10 @@
 {% extends "relationships/relationships_base.html" %}
 {% load i18n %}
 
-{% block head_title %}{% if not add %}{% trans "No longer" %} {% endif %}{{ status.verb|capfirst }} {{ to_user.username }}?{% endblock %}
+{% block head_title %}{% if not add %}{% trans "No longer" %} {% endif %}{{ status.verb|capfirst }} <b>{{ to_user.username }}</b>?{% endblock %}
 
 {% block body %}
-  <p>{% if not add %}{% trans "No longer" %} {% endif %}{{ status.verb|capfirst }} {{ to_user.username }}?</p>
+  <p>{% if not add %}{% trans "No longer" %} {% endif %}{{ status.verb|capfirst }} <b>{{ to_user.username }}</b>?</p>
   <form method="post" action="">{% csrf_token %}
     {{ form.as_table }}
     <input class="btn btn-primary" type="submit" value="{% trans "Confirm" %}" />
