@@ -9,7 +9,7 @@ Application to share and follow <a href="http://dayzmod.com">Day Z</a> stories o
 - Fix on production server (or ideally use vagrant to make production server exactly the same as development server - CentOS):
     - DatabaseError: value too long for type character varying(50)
     - TemplateSyntaxError: Couldn't get the thumbnail player_img/2012/09/04/Screen_Shot_2012-09-04_at_09.34.40.png: The source file does not appear to be an image
-- Don't use virtualenv on production, instead get pip to install in the [webapp lib folder](http://forum.webfaction.com/viewtopic.php?pid=18256#p18256):
+- Don't use virtualenv on production, instead get pip to install in the [webapp lib folder](http://forum.webfaction.com/viewtopic.php?pid=18258#p18258): 
 
     pip install my_package --install-option="--install-dir=$HOME/webapps/app_name/lib/python2.6" --install-option="--script-dir=$HOME/webapps/app_name/bin"
 
