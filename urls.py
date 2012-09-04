@@ -2,19 +2,19 @@ from django.conf import settings
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 from django.views.generic.date_based import archive_index
-from blog import views
+from dayzlog.apps.blog import views
 from django.contrib import admin
 admin.autodiscover()
 from pinax.apps.account.openid_consumer import PinaxConsumer
 
 handler500 = "pinax.views.server_error"
 
-from blog.feeds import BlogFeedUser
+from dayzlog.apps.blog.feeds import BlogFeedUser
 blogs_feed_dict = {"feed_dict": {
     'only': BlogFeedUser,
     }}
 
-from blog.models import Post, IS_PUBLIC
+from dayzlog.apps.blog.models import Post, IS_PUBLIC
 post_dict_public = {
     'queryset': Post.objects.filter(status=IS_PUBLIC),
     'template_object_name': 'post',

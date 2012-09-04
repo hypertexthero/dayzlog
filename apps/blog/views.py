@@ -12,10 +12,10 @@ from django.conf import settings
 from django.db.models import Q
 
 from misc.json_encode import json_response
-from blog.models import Post, IS_DRAFT, IS_PUBLIC
-from profiles.models import Profile
-from blog.forms import PostForm
-from blog.signals import post_published
+from dayzlog.apps.blog.models import Post, IS_DRAFT, IS_PUBLIC
+from dayzlog.apps.profiles.models import Profile
+from dayzlog.apps.blog.forms import PostForm
+from dayzlog.apps.blog.signals import post_published
 
 # homepage
 from django.views.generic.date_based import archive_index

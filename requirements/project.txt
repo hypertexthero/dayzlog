@@ -23,6 +23,8 @@ PIL
 
 South
 
+psycopg2
+
 # https://github.com/pinax/pinax-theme-bootstrap
 pinax-theme-bootstrap==2.0.4
 django_forms_bootstrap
@@ -33,3 +35,5 @@ django-misc
 django-voting
 django-generic-aggregation
 easy-thumbnails
+django-relationships
+BeautifulSoup

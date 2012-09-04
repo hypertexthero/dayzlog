@@ -1,8 +1,8 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 
-from blog.models import Post, IS_PUBLIC
-from profiles.models import Profile
+from dayzlog.apps.blog.models import Post, IS_PUBLIC
+from dayzlog.apps.profiles.models import Profile
 
 # =voting
 # http://code.google.com/p/django-voting/wiki/RedditStyleVoting

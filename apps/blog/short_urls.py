@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 
 from misc.views import redirect_by_name
 
-from blog.models import Blog, Post
+from dayzlog.apps.blog.models import Blog, Post
 
 def get_blog_slug(kwargs):
     return get_object_or_404(Blog, id=kwargs.pop('blog_id', 0)).slug

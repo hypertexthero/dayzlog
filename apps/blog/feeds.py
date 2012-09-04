@@ -9,7 +9,7 @@ from django.template.defaultfilters import linebreaks, escape, capfirst
 from django.utils.translation import ugettext_lazy as _
 from django.utils import feedgenerator
 
-from blog.models import Post, IS_PUBLIC
+from dayzlog.apps.blog.models import Post, IS_PUBLIC
 
 ITEMS_PER_FEED = getattr(settings, 'BLOG_ITEMS_PER_FEED', 20)
 

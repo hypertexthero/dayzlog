@@ -20,8 +20,8 @@ from idios.views import ProfileListView, ProfileDetailView, ProfileUpdateView
 
 # for squad.xml and squad.dtd generation - took view code from idios.views
 from django.views.generic.detail import DetailView
-from profiles.views import SquadXMLView
-from profiles.models import Profile
+from dayzlog.apps.profiles.views import SquadXMLView
+from dayzlog.apps.profiles.models import Profile
 from django.views.generic.simple import direct_to_template
 
 urlpatterns = patterns("idios.views",

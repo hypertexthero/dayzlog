@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from blog.models import Post
+from dayzlog.apps.blog.models import Post
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'publish', 'status')

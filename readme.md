@@ -5,7 +5,7 @@ Application to share and follow <a href="http://dayzmod.com">Day Z</a> stories o
 ## Todo Before Launch
 
 - Insert player roster screenshot in FAQ
-- Setup [fabric deployment](https://github.com/ashwoods/webfaction-django-fabfile)
+- Setup [auto database backup](http://docs.webfaction.com/user-guide/databases.html#id2)
 
 ## Future Features
 

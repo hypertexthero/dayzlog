@@ -1,4 +1,4 @@
-from blog.models import Post
+from dayzlog.apps.blog.models import Post
 
 
 def import_post(request, import_item):
