@@ -68,10 +68,10 @@ def add(request, form_class=PostForm, template_name="blog/post_add.html"):
     if request.method == "POST" and post_form.is_valid():
         post = post_form.save(commit=False)
         post.author = request.user
-        creator_ip = request.META.get('HTTP_X_FORWARDED_FOR', None)
-        if not creator_ip:
-            creator_ip = request.META.get('REMOTE_ADDR', None)
-        post.creator_ip = creator_ip
+        # creator_ip = request.META.get('HTTP_X_FORWARDED_FOR', None)
+        # if not creator_ip:
+            # creator_ip = request.META.get('REMOTE_ADDR', None)
+        # post.creator_ip = creator_ip
         post.save()
         request.user.message_set.create(message=_("Successfully created post '%s'") % post.title)
         return redirect("blog_user_post_detail", username=request.user.username, slug=post.slug)

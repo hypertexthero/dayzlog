@@ -8,7 +8,7 @@ class PostForm(forms.ModelForm):
     
     class Meta:
         model = Post
-        exclude = ('author', 'slug', 'creator_ip', 'created_at', 'updated_at', 'publish', 
+        exclude = ('author', 'slug', 'created_at', 'updated_at', 'publish', 
                     'content_html')
     
     def __init__(self, request, *args, **kwargs):
