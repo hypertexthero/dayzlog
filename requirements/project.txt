@@ -17,8 +17,13 @@ html5lib
 Pygments
 
 # NOTA BENE: libjpeg needs to be installed manually, BEFORE PIL! 
-# http://blaolao.com/setting-up-django-mysql-mysql-python-pil-etc
-# http://freecode.com/projects/libjpeg
+	# http://blaolao.com/setting-up-django-mysql-mysql-python-pil-etc
+	# http://freecode.com/projects/libjpeg
+
+	# sudo ./configure
+	# sudo make
+	# sudo make install
+
 PIL
 
 South
