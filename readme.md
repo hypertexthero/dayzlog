@@ -6,6 +6,9 @@ Application to share and follow <a href="http://dayzmod.com">Day Z</a> stories o
 
 - Insert player roster screenshot in FAQ
 - Setup [auto database backup](http://docs.webfaction.com/user-guide/databases.html#id2)
+- Fix on production server (or ideally use vagrant to make production server exactly the same as development server - CentOS):
+    - DatabaseError: value too long for type character varying(50)
+    - TemplateSyntaxError: Couldn't get the thumbnail player_img/2012/09/04/Screen_Shot_2012-09-04_at_09.34.40.png: The source file does not appear to be an image - probably need to install libjpeg on server
 
 ## Future Features
 
