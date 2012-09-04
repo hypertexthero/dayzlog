@@ -37,14 +37,14 @@ post_dict_public = {
 urlpatterns = patterns('',
     # disabling viewing of list of all logs
     # url(r'^$', 'django.views.generic.list_detail.object_list', post_dict_public, name='blog_post_list'),
-    url(r'^(?P<username>[\w\._\-]+)/$', 'blog.views.user_post_list', dict(post_dict_public, template_name='blog/user_post_list.html'), name='blog_user_post_list'),
-    url(r'^edit/(?P<id>\d+)/$', 'blog.views.edit', name='blog_edit'),
-    url(r'^(?P<action>draft|public)/(?P<id>\d+)/$', 'blog.views.change_status', name='blog_change_status'),
-    url(r'^delete/(?P<id>\d+)/$', 'blog.views.delete', name='blog_delete'), 
+    url(r'^(?P<username>[\w\._\-]+)/$', 'dayzlog.apps.blog.views.user_post_list', dict(post_dict_public, template_name='blog/user_post_list.html'), name='blog_user_post_list'),
+    url(r'^edit/(?P<id>\d+)/$', 'dayzlog.apps.blog.views.edit', name='blog_edit'),
+    url(r'^(?P<action>draft|public)/(?P<id>\d+)/$', 'dayzlog.apps.blog.views.change_status', name='blog_change_status'),
+    url(r'^delete/(?P<id>\d+)/$', 'dayzlog.apps.blog.views.delete', name='blog_delete'), 
     # =voting
     url(r'^(?P<slug>[-\w]+)/(?P<direction>up|down|clear)vote/?$', vote_on_object, post_dict_vote, name='post_voting'),
     # needs to come after the above otherwise post detail url doesn't work
     
-    url(r'^(?P<username>[\w\._\-]+)/(?P<slug>[-\w]+)/$', 'blog.views.blog_user_post_detail', post_dict, name='blog_user_post_detail'),
+    url(r'^(?P<username>[\w\._\-]+)/(?P<slug>[-\w]+)/$', 'dayzlog.apps.blog.views.blog_user_post_detail', post_dict, name='blog_user_post_detail'),
    )
 

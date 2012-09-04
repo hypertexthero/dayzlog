@@ -28,8 +28,8 @@ post_dict = {
 
 urlpatterns = patterns("",
 
-    url(r"^$", "blog.views.homepage", name="home"),
-    url(r"^new/$", "blog.views.new", name="new"),
+    url(r"^$", "dayzlog.apps.blog.views.homepage", name="home"),
+    url(r"^new/$", "dayzlog.apps.blog.views.new", name="new"),
     url(r"^admin/invite_user/$", "pinax.apps.signup_codes.views.admin_invite_user", name="admin_invite_user"),
     url(r"^admin/", include(admin.site.urls)),
     # url(r"^about/", include("about.urls")),
@@ -41,16 +41,16 @@ urlpatterns = patterns("",
     url(r"^notices/", include("notification.urls")),
     url(r"^announcements/", include("announcements.urls")),
     # url(r'^log/', include('blog.urls')),
-    url(r'^logs/', include('blog.urls')),
+    url(r'^logs/', include('dayzlog.apps.blog.urls')),
     url(r'^relationships/', include('relationships.urls')),
-    url(r'^following/','blog.views.following', name='following'),
-    url(r'^followers/','blog.views.followers', name='followers'),
-    url(r'^backup/$', 'blog.views.backup', name='backup'),
-    url(r'^dashboard/$', 'blog.views.dashboard', dict(post_dict, template_name='blog/dashboard.html'), name='dashboard'),
-    url(r'^write/$', 'blog.views.add', name='blog_add'),
+    url(r'^following/','dayzlog.apps.blog.views.following', name='following'),
+    url(r'^followers/','dayzlog.apps.blog.views.followers', name='followers'),
+    url(r'^backup/$', 'dayzlog.apps.blog.views.backup', name='backup'),
+    url(r'^dashboard/$', 'dayzlog.apps.blog.views.dashboard', dict(post_dict, template_name='blog/dashboard.html'), name='dashboard'),
+    url(r'^write/$', 'dayzlog.apps.blog.views.add', name='blog_add'),
     # url(r'^b/', include('blogs.short_urls')), # For short urls, if you want
     url(r'^feeds/posts/(?P<url>w+)/', 'django.contrib.syndication.views.feed', blogs_feed_dict),
-    url(r'^search/$', 'blog.views.search', name="search"),
+    url(r'^search/$', 'dayzlog.apps.blog.views.search', name="search"),
     )
 
 # if settings.SERVE_MEDIA:

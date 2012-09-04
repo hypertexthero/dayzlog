@@ -38,7 +38,7 @@ urlpatterns = patterns("idios.views",
 )
 
 # for squad.xml and squad.dtd generation - took view code from idios.views
-urlpatterns += patterns("profiles.views",
+urlpatterns += patterns("dayzlog.apps.profiles.views",
     url(r"^(?P<username>[\w\._-]+)/squad.dtd$", direct_to_template, {"template": "profiles/squad.dtd",}, name="squaddtd"),
     url(r"^(?P<username>[\w\._-]+)/squad.xml$", SquadXMLView.as_view(), name="squadxml"),
 )
