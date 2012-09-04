@@ -16,6 +16,9 @@ html5lib
 # http://freewisdom.org/projects/python-markdown/CodeHilite
 Pygments
 
+# NOTA BENE: libjpeg needs to be installed manually, BEFORE PIL! 
+# http://blaolao.com/setting-up-django-mysql-mysql-python-pil-etc
+# http://freecode.com/projects/libjpeg
 PIL
 
 South
@@ -29,3 +32,4 @@ django_forms_bootstrap
 django-misc
 django-voting
 django-generic-aggregation
+easy-thumbnails

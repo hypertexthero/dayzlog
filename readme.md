@@ -5,7 +5,7 @@ Application to share and follow <a href="http://dayzmod.com">Day Z</a> stories o
 ## Todo Before Launch
 
 - Insert player roster screenshot in FAQ
-- Setup south for DB migrations
+- Setup [fabric deployment](https://github.com/ashwoods/webfaction-django-fabfile)
 
 ## Future Features
 
@@ -14,6 +14,10 @@ Application to share and follow <a href="http://dayzmod.com">Day Z</a> stories o
     - jQuery/AJAX for voting (use http://vanilla-js.com/ :)
     - Previous/Next entry by user
     - Feeds & Content Export in Atom XML and JSON
+    - [Player image upload size/dimensions optimization](https://github.com/jdriscoll/django-imagekit)
+        - <http://blog.bixly.com/post/4315807876/django-imagekit>
+        - <http://stackoverflow.com/questions/2845000/resizing-image-on-upload-with-django-imagekit>
+        - or <http://code.google.com/p/django-stdimage/>
 - I18N, German & Russian to begin with
 - [Cacheing](https://docs.djangoproject.com/en/dev/topics/cache/) for homepage view
 - Profile images?

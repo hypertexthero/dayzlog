@@ -50,7 +50,7 @@
                                             {% if user.is_authenticated %}
                                                 <li{% active request "^/following/$" %}><a href="/following/">Following</a></li>
                                                 <li{% active request "^/followers/$" %}><a href="/followers/">Followers</a></li>    
-                                                <li{% active request "^/relationships/(?P<username>[\w\._\-]+)/$" %}><a href="/relationships/">Relationships</a></li>
+                                                {# <li{% active request "^/relationships/(?P<username>[\w\._\-]+)/$" %}><a href="/relationships/">Relationships</a></li> #}
                                             {% endif %}
                                             <li{% active request "^/faq/$" %}><a href="/faq/" title="Frequently asked questions.">Faq</a></li>
                                         </ul>

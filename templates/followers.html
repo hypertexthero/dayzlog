@@ -4,7 +4,7 @@
     Entries by survivors who are following you - {{ user.get_profile.name }}'s's Day Z Log
 {% endblock %}
 
-{% block body_id %}log{% endblock %}
+{# {% block body_id %}log{% endblock %} #}
 
 {% block body %}
 
@@ -14,7 +14,7 @@
 {% if user.is_authenticated %}
     
     <h2 class="normal">Entries by survivors who are following you Day Z Log</h2>
-    <p><a href="/relationships/">Manage your user relationships</a></p>
+    {# <p><a href="/relationships/">Manage your user relationships</a></p> #}
     {% for post in post_list|followers_content:request.user %}
         <h2 class="nomp">
             <a href="{{ post.get_absolute_url }}#disqus_thread" title="{{ post.title }}">{{ post.title|capfirst }}</a>

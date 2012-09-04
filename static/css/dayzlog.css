@@ -22,7 +22,7 @@ tr, td {background:#222 !important; border-color:#444;}*/
 tr, td {border-top:0 !important;}
 h1 {text-align:left !important;}
 form.customform textarea, form.customform div.input input {width:100% !important;}
-div.post {margin-bottom:2em;}
+div.post {margin-bottom:5em;}
 .post-title a {color:#000; text-decoration:none;}
 td.number {vertical-align:middle; font-size:1.5em; font-weight:bold; color:#ccc; text-align:center;}
 td.vote {text-align:center; font-weight:bold;}

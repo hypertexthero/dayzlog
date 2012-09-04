@@ -7,7 +7,23 @@
 
 <div class="hero-unit">
     <div class="pull-right alignright">
-        {% if profile.player_img %}<p><a href="/logs/{{profile.user.username}}"><img src="/uploads/{{ profile.player_img }}" /></a></p>{% endif %}
+        
+        {% if profile.player_img %}
+            {% load thumbnail %}
+            {# <p><a href="/logs/{{profile.user.username}}"><img src="/uploads/{{ profile.player_img }}" /></a></p> #}
+            <p><a href="/logs/{{profile.user.username}}"><img src="{% thumbnail profile.player_img 260x180 crop %}" /></a></p>
+        {% endif %}
+
+        
+            {# https://docs.djangoproject.com/en/dev/topics/db/queries/#related-objects #}
+            {# {% for photo in object.photo_set.all %} #}
+            {# {{ photos }} #}
+                {# <li> #}
+                    {# <a href="/uploads/{{ profile.player_img }}"><img src="{% thumbnail profile.player_img 150x150 %}" /></a> #}
+                    
+                {# </li>                 #}
+            {# {% endfor %} #}
+
         {# <p>dayzlog.com Username: {{profile.user.username}}</p> #}
             {# <small> #}
                 {% if profile.date_joined %}<b>Member since:</b> {{profile.date_joined|date:"j F Y"}}{% endif %}    

@@ -147,7 +147,7 @@
                                 {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }}
                                 {% else %}
                                 <span class="small quiet">0</span>
-                            {% endif %} · 
+                            {% endif %}<br>
                             {% if score.score %}
                                 {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}
                                 {# {{ score.score|default:0 }} #}
