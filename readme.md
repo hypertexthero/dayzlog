@@ -6,9 +6,6 @@ Application to share and follow <a href="http://dayzmod.com">Day Z</a> stories o
 
 - Insert player roster screenshot in FAQ
 - Setup [auto database backup](http://docs.webfaction.com/user-guide/databases.html#id2)
-- Fix on production server (or ideally use vagrant to make production server exactly the same as development server - CentOS):
-    - DatabaseError: value too long for type character varying(50)
-    - http://community.webfaction.com/questions/7340/how-to-install-pil-with-truetype-support
 
 ## Future Features
 

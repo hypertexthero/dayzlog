@@ -7,3 +7,4 @@ settings_local.py
 fixtures/initial_data.json
 uploads/
 fabfile/
+wsgi.py
