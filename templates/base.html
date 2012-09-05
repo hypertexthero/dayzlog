@@ -4,7 +4,14 @@
 <html lang="{{ LANGUAGE_CODE }}">
     <head>
         <meta charset="utf-8" />
+        <meta name="robots" content="all" />
+        <meta name="description" content="Share your Day Z zombie apocalypse survival stories" />
+        <meta name="keywords" content="day z, dayz, dayzlog, journal, zombie, apocalypse" />
+
         <title>{% block head_title_base %}{% block head_title %}{% endblock %}{% if SITE_NAME %} - {{ SITE_NAME }}{% endif %}{% endblock %}</title>
+
+        <link rel="Shortcut Icon" href="{% static "img/favicon.ico" %}" type="image/x-icon" />
+
         {% block viewport %}
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% endblock %}
@@ -13,7 +20,7 @@
             {# <link href="{% static "pinax/css/theme.css" %}" rel="stylesheet"> #}
             <link href="{% static "bootstrap/css/bootstrap.css" %}" rel="stylesheet">
             <link href="{% static "bootstrap/css/bootstrap-responsive.css" %}" rel="stylesheet">
-             <link href="{% static "css/dayzlog.css" %}" rel="stylesheet">
+            <link href="{% static "css/dayzlog.css" %}" rel="stylesheet">
             
             {% block extra_style %}{% endblock %}
         {% endblock %}
