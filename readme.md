@@ -7,6 +7,7 @@ Check it out at: <http://dayzlog.com>
 ## Todo now
 
 - Count votes after voteup/votedown links are clicked by logged-out user after they log-in
+- Work on custom design so it is more zombie and less twitter-bootstrap
 
 ## Todo: Future Features
 
