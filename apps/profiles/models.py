@@ -11,7 +11,7 @@ from datetime import datetime
 from easy_thumbnails.fields import ThumbnailerImageField
 
 class Profile(ProfileBase):
-    name = models.CharField(_("In-Game Name"), max_length=50, null=True, blank=True, help_text="<b>Must match your Day Z in-game player name exactly <a href='/faq/#playername'>(what is my player name?)</a>. Required to make your profile information appear within Day Z.</b>")
+    name = models.CharField(_("In-Game Name"), max_length=50, null=True, blank=True, help_text="The extended name you want to display in-game. If you want this to match the in-game player name that appears in the roster when pressing the P key, write that same name here.")
     player_id = models.CharField(_("Player ID"), max_length=20, null=True, blank=True, help_text="<b>Must match your Day Z in-game player id exactly <a href='/faq/#playerid'>(what is my player id?)</a>. Required to make your profile information appear within Day Z.</b>")
     email = models.EmailField(_("Email"), blank=True, help_text="An email address you want other users to see, if any.")
     im = models.CharField(_("im"), max_length=50, null=True, blank=True, help_text="An instant messaging address you want other users to see, if any.")

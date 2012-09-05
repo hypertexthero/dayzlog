@@ -66,7 +66,7 @@
 		<div class="answer">
 			<ol>
 				<li><a href="/account/signup/">Sign up for an account</a></li>
-				<li>{% if user.is_authenticated %}<a href="/profiles/edit/{{user.username}}">Edit your profile</a>{% else %}Edit your profile{% endif %}, making sure to add your in-game <a href="#playername">player name</a> and <a href="#playerid">player id</a> (see below)</li>
+				<li>{% if user.is_authenticated %}<a href="/profiles/edit/{{user.username}}">Edit your profile</a>{% else %}Edit your profile{% endif %}, making sure to add your in-game <a href="#playerid">player id</a> (see below)</li>
 				<li>Insert the generated URL found in {% if user.is_authenticated %}<a href="/profiles/{{user.username}}">your dayzlog.com profile page</a>{% else %}your dayzlog.com profile page{% endif %} 
 
 				{% comment %}
@@ -79,18 +79,20 @@
 					 into your in-game Day Z settings by doing the following:
 					<ol>
 						<li>Start Day Z, go to the main menu and click on <b>&lsquo;Player profile&rsquo;</b></li>
-						<li>Select your player profile name and click <b>&lsquo;Edit&rsquo;</b></li>
-						<li>Add your URL to the <b>&lsquo;Squad URL:&rsquo;</b> field and click <b>&lsquo;Okay&rsquo;</b></li>
+						<li>Select your player name and click <b>&lsquo;Edit&rsquo;</b></li>
+						<li>Add your generated URL to the <b>&lsquo;Squad URL:&rsquo;</b> field and click <b>&lsquo;Okay&rsquo;</b></li>
 					</ol>	
 				</li>
 			</ol>
 
-			<p>Your profile information will now be visible in-game by pressing <kbd>&lsquo;p&rsquo;</kbd> to open the player roster and clicking on your player name:</p>
+			<p>Your dayzlog.com profile information will now be visible in-game by pressing <kbd>&lsquo;p&rsquo;</kbd> to open the player roster and clicking on your player name:</p>
 
 
 			<img src="{% static "img/player-roster.jpg" %}" alt="An in-game screenshot of the player roster. Notice that the player has found a map, watch and compass!" />
 
 		</div>
+
+{% comment %}
 
 		<h3 id="playername">
 			<a href="#playername" title="Click this link and copy the URL from the web browser address bar for a direct link to this particular FAQ.">My Day Z in-game player name: how do I find it?</a>
@@ -98,10 +100,11 @@
 		<div class="answer">
 			<ol>
 				<li>Start Day Z, go to the main menu and click on <b>&lsquo;Player profile&rsquo;</b></li>
-				<li>Your player profile name is listed here. Write it down. If you want to change it, select your player profile name and click <b>&lsquo;Edit&rsquo;</b></li>
+				<li>Your player profiles are listed here. Write down the player name you want to associate with your dayzlog.com profile. Note: capital letters and spaces matter.</li>
 				<li>Write your desired player name in the <b>Player name</b> field and click <b>&lsquo;Okay&rsquo;</b>. <b>Remember to {% if user.is_authenticated %}<a href="/profiles/edit/{{user.username}}">update your profile</a>{% else %}update your profile{% endif %} with this exact player name in order to correctly display your profile information within Day Z.</b></li>
 			</ol>
 		</div>
+{% endcomment %}
 
 		<h3 id="playerid">
 	    	<a href="#playerid" title="Click this link and copy the URL from the web browser address bar for a direct link to this particular FAQ.">My Day Z in-game player id: how do I find it?</a>
@@ -109,7 +112,7 @@
 		<div class="answer">
 			<ol>
 				<li>Start Day Z, go to the main menu and click on <b>&lsquo;Player profile&rsquo;</b></li>
-				<li>Select your player profile name and click <b>&lsquo;Edit&rsquo;</b></li>
+				<li>Select your player name and click <b>&lsquo;Edit&rsquo;</b></li>
 				<li>Write down the number displayed in the <b>Player ID</b> field. <b>Remember to {% if user.is_authenticated %}<a href="/profiles/edit/{{user.username}}">update your profile</a>{% else %}update your DayZLog.com profile{% endif %} with this exact player id in order to correctly display your profile information within Day Z.</b></li>
 			</ol>
 		</div>
