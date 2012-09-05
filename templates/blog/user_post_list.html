@@ -19,45 +19,46 @@
 {% load pagination_tags %}
 {% autopaginate post_list 10 %}                    
 
+<header class="pull-right" style="max-width:30%;">
+
+    {% if author.get_profile.player_img %}
+    {% load thumbnail %}
+    <p><a href="/profiles/{{author.username}}"><img src="{% thumbnail author.get_profile.player_img 260x180 crop %}" /></a></p>{% endif %}
+
+    <h1>
+        {% if author.get_profile.name %}{{ author.get_profile.name }}{% else %}{{author.username}}{% endif %}&rsquo;s <br><span class="normal">Day Z Log</span>
+    </h1>
+    <p>
+    {% if author.get_profile.date_joined %}<b>Member since:</b> {{author.get_profile.date_joined|date:"j F Y"}}{% endif %}    
+        <br>
+        <a href="/profiles/{{author.username}}" title="See profile.">Player Profile</a>
+    </p>
+      
+
+
+    {# http://django-relationships.readthedocs.org/en/latest/getting_started.html #}
+    {% load relationship_tags %}         
+    {% if user.is_authenticated %}
+    {% ifequal request.user author.get_profile.user %}
+
+        {% else %}
+
+        {# decide whether or not the current user is following this user #}
+        {% if_relationship request.user author.get_profile.user "following" %}
+            {# they are following them, so show a "remove" url #}
+            <a class="btn btn-smaller" href="{{ author.get_profile.user|remove_relationship_url:"following" }}">Unfollow</a>
+        {% else %}
+            {# they are not following them, so show a link to start following #}
+            <a class="btn btn-smaller" href="{{ author.get_profile.user|add_relationship_url:"following" }}">Follow</a>
+        {% endif_relationship %}
+
+    {% endifequal %}
+    {% endif %}
+
+</header>
+
+
     {% if post_list %}
-        <header class="pull-right" style="max-width:30%;">
-
-            {% if author.get_profile.player_img %}
-            {% load thumbnail %}
-            <p><a href="/profiles/{{author.username}}"><img src="{% thumbnail author.get_profile.player_img 260x180 crop %}" /></a></p>{% endif %}
-
-            <h1>
-                {% if author.get_profile.name %}{{ author.get_profile.name }}{% else %}{{author.username}}{% endif %}&rsquo;s <br><span class="normal">Day Z Log</span>
-            </h1>
-            <p>
-            {% if author.get_profile.date_joined %}<b>Member since:</b> {{author.get_profile.date_joined|date:"j F Y"}}{% endif %}    
-                <br>
-                <a href="/profiles/{{author.username}}" title="See profile.">Player Profile</a>
-            </p>
-              
-
-
-            {# http://django-relationships.readthedocs.org/en/latest/getting_started.html #}
-            {% load relationship_tags %}         
-            {% if user.is_authenticated %}
-            {% ifequal request.user author.get_profile.user %}
-
-                {% else %}
-
-                {# decide whether or not the current user is following this user #}
-                {% if_relationship request.user author.get_profile.user "following" %}
-                    {# they are following them, so show a "remove" url #}
-                    <a class="btn btn-smaller" href="{{ author.get_profile.user|remove_relationship_url:"following" }}">Unfollow</a>
-                {% else %}
-                    {# they are not following them, so show a link to start following #}
-                    <a class="btn btn-smaller" href="{{ author.get_profile.user|add_relationship_url:"following" }}">Follow</a>
-                {% endif_relationship %}
-
-            {% endifequal %}
-            {% endif %}
-
-        </header>
-
         <div class="row">
             <div class="span8">
             {% for post in post_list %}

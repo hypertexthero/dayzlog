@@ -25,6 +25,7 @@ Pygments
 	# sudo make
 	# sudo make install
 
+# NOTA BENE: on some hosts PIL's setup.py needs to be fixed before installation: http://community.webfaction.com/questions/7340/how-to-install-pil-with-truetype-support
 PIL
 
 South
