@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load blog_tags %}
 
-{% block head_title %}{{ post.title }} - {% if post.author.get_profile.name %}{{ post.author.get_profile.name }}{% else %}{{ user.username }}{% endif %}'s Day Z Log's Day Z Log{% endblock %}
+{% block head_title %}{{ post.title }} - {% if post.author.get_profile.name %}{{ post.author.get_profile.name }}{% else %}{{ user.username }}{% endif %}'s Day Z Log{% endblock %}
 
 {% block body_id %}postdetail{% endblock body_id %}
 
