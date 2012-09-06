@@ -20,8 +20,6 @@ from typogrify.templatetags.typogrify_tags import typogrify
 # defining html sanitizer to subsequently use in content_markdown to content_html conversion of user content at post save
 # http://code.google.com/p/html5lib/wiki/UserDocumentation
 # http://djangosnippets.org/snippets/2444/
-
-# =todo: figure out why html5lib sanitization is not working anymore
 # http://michelf.ca/blog/2010/markdown-and-xss/
 import html5lib
 from html5lib import sanitizer

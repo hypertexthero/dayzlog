@@ -31,7 +31,6 @@
                 </p>
             {% load markup %}
             {# {{ post.content_markdown|markdown:"safe" }} #}
-            {# =todo: figure out why html5lib sanitization is not working anymore #}
             {# http://michelf.ca/blog/2010/markdown-and-xss/ #}
             {{ post.content_html|safe }}
             </div>
