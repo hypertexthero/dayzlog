@@ -38,7 +38,8 @@
             <ul class="nav pull-right">
                 <li{% active request "^/write/$" %}><a href="/write/" title="Write a log entry.">Write</a></li>
                 <li{% active request "^/dashboard/$" %}><a href="/dashboard/" title="Your entries, draft and public.">Dashboard</a></li>
-                <li id="nav-log"><a href="/logs/{{ user.username }}" title="Your log homepage.">Log</a></li>
+                {# <li{% ifequal request.GET.username authenticated_user %}{% else %} id="nav-log"{% endifequal %}><a href="/logs/{{ user.username }}" title="Your log homepage.">Log</a></li> #}
+                <li id="nav-log"><a href="/logs/{{ user.username }}" title="Log homepage.">Log</a></li>
                 <li id="nav-profile"><a href="/profiles/{{ user.username }}" title="Edit to generate a URL to add to your Day Z in-game profile.">In-Game Profile</a></li>
             </ul>
     {% endif %}
