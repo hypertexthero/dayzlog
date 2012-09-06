@@ -3,7 +3,7 @@
 {# {% block head_title %}{{ post.author.username }}'s Day Z Log{% endblock %} #}
 
 {% block head_title %}
-    {{ user.username }}'s Day Z Log
+    {% if user.get_profile.name %}{{ user.get_profile.name }}{% else %}{{ user.username }}{% endif %}'s Day Z Log
 {% endblock %}
 
 {# {% block extra_head %} #}
