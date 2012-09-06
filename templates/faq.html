@@ -37,9 +37,9 @@
 			<a href="#dayz" title="Click this link and copy the URL from the web browser address bar for a direct link to this particular FAQ.">Day Z?</a>
 		</h3>
 		<div class="answer">
-			<p><a href="http://www.dayzmod.com">Day Z</a> is a modification (mod) of a men-with-guns simulation called <a href="http://www.arma2.com">Arma 2</a>. It is arguably the game that the relatively tedious Arma 2 simulation was missing. Arma 2 provides large maps with forests and urban areas, accurate ballistic physics, good open-area sound simulation, day, night and weather cycles, lots of guns and vehicles. Day Z provides survival gameplay (hide, scavenge, hunt), player location, inventory and condition persistence, flares, chemlights, axes, firewood, beans, multiple human-controlled players and a computer-controlled zombie horde. The wild popularity of Day Z means that a <a href="http://dayzgame.com">standalone game is being developed</a>.</p>
+			<p><a href="http://www.dayzmod.com">Day Z</a> is a modification (mod) of a men-with-guns simulation called <a href="http://www.arma2.com">Arma 2</a>. It is arguably the game that the relatively tedious simulation was missing. Arma 2 provides large maps with forests and urban areas, accurate ballistic physics, realistic sound, day, night and weather cycles, lots of guns and vehicles. Day Z provides survival gameplay (hide, scavenge, hunt), player location, inventory and condition persistence, flares, chemlights, axes, firewood, beans, multiple human-controlled players and a computer-controlled zombie horde. The wild popularity of Day Z means that a <a href="http://dayzgame.com">standalone game is being developed</a>.</p>
 
-			<p>To play Day Z (Windows-only, unfortunately) you currently need:</p>
+			<p>Currently, to play Day Z you need (Windows-only, unfortunately):</p>
 
 			<ol>
 				<li>A copy of the imaginatively-named <a href="http://store.steampowered.com/agecheck/sub/4639">Arma 2: Combined Ops</a>.</li>
@@ -54,9 +54,9 @@
 			<p>dayzlog.com is a website for people who have experienced Day Z&rsquo;s human-zombie apocalypse — also known as &lsquo;survivors&rsquo; — to share their stories on the web and in-game. After <a href="/account/signup/">signing up for an account</a>, survivors can:</p> 
 
 			<ol>
-				<li>Write log entries</li>
-				<li><a href="/faq/#profileingame">Display profile information on the player roster in-game</a>. Survivors do this by editing their profile on dayzlog.com and <a href="#profileingame">pasting a generated URL to their in-game Day Z settings</a></li>
-				<li>Follow other survivor&rsquo;s logs&rsquo; and vote on their entries. The homepage shows the top 30</li>
+				<li>Write log entries.</li>
+				<li><a href="/faq/#profileingame">Display profile information on the in-game Day Z player roster</a>. Survivors do this by editing their profile on dayzlog.com and <a href="#profileingame">pasting a generated URL to their in-game Day Z settings</a>.</li>
+				<li>Follow other survivor&rsquo;s logs&rsquo;, comment and vote on their entries. The homepage shows the top 30.</li>
 			</ol>
 		</div>
 
@@ -68,9 +68,9 @@
 				<li><a href="/account/signup/">Sign up for an account</a> at dayzlog.com</li>
 				<li>{% if user.is_authenticated %}<a href="/profiles/edit/{{user.username}}">Edit your profile</a>{% else %}Edit your profile{% endif %} at dayzlog.com, <b>making sure to add your in-game Player ID</b>, which you can find by doing the following:
 					<ol style="list-style-type:lower-alpha;">
-						<li>Start Day Z, go to the main menu and click on <b>&lsquo;Player profile&rsquo;</b></li>
-						<li>Select your player name and click <b>&lsquo;Edit&rsquo;</b></li>
-						<li>Write down the number displayed in the <b>Player ID</b> field. <b>You must add your Player ID in order to correctly display your dayzlog.com profile information within Day Z.</b></li>
+						<li>Start Day Z, go to the main menu and click on <b>&lsquo;Player profile&rsquo;</b>.</li>
+						<li>Select your player name and click <b>&lsquo;Edit&rsquo;</b>.</li>
+						<li>Write down the number displayed in the <b>Player ID</b> field. <b>You must add your Player ID in order to correctly display your dayzlog.com profile information within Day Z</b>.</li>
 					</ol>
 				</li>
 				<li>Back in Day Z, insert the generated URL found in {% if user.is_authenticated %}<a href="/profiles/{{user.username}}">your dayzlog.com profile page</a>{% else %}your dayzlog.com profile page{% endif %} 
@@ -84,9 +84,9 @@
 
 					 into your in-game Day Z settings by doing the following:
 					<ol style="list-style-type:lower-alpha;">
-						<li>Start Day Z, go to the main menu and click on <b>&lsquo;Player profile&rsquo;</b></li>
-						<li>Select your player name and click <b>&lsquo;Edit&rsquo;</b></li>
-						<li>Add your generated URL to the <b>&lsquo;Squad URL:&rsquo;</b> field and click <b>&lsquo;Okay&rsquo;</b></li>
+						<li>Start Day Z, go to the main menu and click on <b>&lsquo;Player profile&rsquo;</b>.</li>
+						<li>Select your player name and click <b>&lsquo;Edit&rsquo;</b>.</li>
+						<li>Add your generated URL to the <b>&lsquo;Squad URL:&rsquo;</b> field and click <b>&lsquo;Okay&rsquo;</b>.</li>
 					</ol>	
 				</li>
 			</ol>
@@ -117,9 +117,9 @@
 	   	</h3>
 		<div class="answer">
 			<ol>
-				<li>Start Day Z, go to the main menu and click on <b>&lsquo;Player profile&rsquo;</b></li>
-				<li>Select your player name and click <b>&lsquo;Edit&rsquo;</b></li>
-				<li>Write down the number displayed in the <b>Player ID</b> field. <b>Remember to {% if user.is_authenticated %}<a href="/profiles/edit/{{user.username}}">update your profile</a>{% else %}update your DayZLog.com profile{% endif %} with this exact Player ID in order to correctly display your profile information within Day Z.</b></li>
+				<li>Start Day Z, go to the main menu and click on <b>&lsquo;Player profile&rsquo;</b>.</li>
+				<li>Select your player name and click <b>&lsquo;Edit&rsquo;</b>.</li>
+				<li>Write down the number displayed in the <b>Player ID</b> field. <b>Remember to {% if user.is_authenticated %}<a href="/profiles/edit/{{user.username}}">update your profile</a>{% else %}update your DayZLog.com profile{% endif %} with this exact Player ID in order to correctly display your profile information within Day Z.</b>.</li>
 			</ol>
 		</div>
 
