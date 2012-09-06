@@ -1,4 +1,41 @@
 {% extends "blog/blog_base.html" %}
 {% block body %}
-    <h1>Thanks for voting! <a class="btn" href="javascript:history.go(-1)">Back</a></h1>
+    <p>Thanks for logging in.</p> 
+    {# <p>You can now <a class="btn" href="javascript:history.go(-2)">go back and vote</a></p> #}
+    <p>You can now confirm your <strong>vote on <a href="{{ post.get_absolute_url }}">{{post.title}}</a> by <a href="/profiles/{{post.author.username}}">{% if post.author.get_profile.name %}{{ post.author.get_profile.name }}{% else %}{{ user.username }}{% endif %}</a>:</strong></p>
+    
+    {# up ========================= #}
+    <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/" method="POST">
+        {% csrf_token %}
+        {% if vote and vote.is_upvote %}
+           <input type="submit" value="&and; clear your vote" id="postuparrow{{ post.id }}" title="clear your vote">
+        {% else %}
+            <input class="quiet" type="submit" value="&and; upvote this entry" id="postuparrow{{ post.id }}" title="upvote this entry">
+        {% endif %}
+        {# <input type="submit" value="{% if vote and vote.is_upvote %}&Delta;{% else %}&uArr;{% endif %}" id="postuparrow{{ post.id }}" title="{% if vote and vote.is_upvote %}clear your vote{% else %}upvote this story{% endif %}"> #}
+         {# src="/static/img/aup{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" #}
+         {# onclick="vote('{{ post.slug }}', 'up');" #}
+    </form>
+
+    {# down ========================= #}
+    <form class="postvote" id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/" method="POST">
+        {% csrf_token %}
+        {% if vote and vote.is_downvote %}
+            <input type="submit" value="&or; clear your vote" id="postdownarrow{{ post.id }}" title="clear your vote">
+        {% else %}
+            <input class="quiet" type="submit" value="&or; downvote this entry" id="postdownarrow{{ post.id }}" title="downvote this entry">
+        {% endif %}
+        {# <input type="submit" value="{% if vote and vote.is_downvote %}&nabla;{% else %}&dArr;{% endif %}" id="postdownarrow{{ post.id }}" title="{% if vote and vote.is_downvote %}clear your vote{% else %}downvote this story{% endif %}"> #}
+        {# src="/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" #}
+        {# onclick="vote('{{ post.slug }}', 'down');" #}
+    </form>
+    
+    {# score ========================= #}
+    <p>
+        {% if score.num_votes %}
+            {{ score.num_votes|default:0 }} {# vote{{ score.num_votes|default:0|pluralize }} #}
+            {% else %}
+            <span class="small quiet">0</span>
+        {% endif %} 
+    </p>
 {% endblock %}

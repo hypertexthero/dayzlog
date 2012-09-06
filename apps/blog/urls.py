@@ -16,7 +16,7 @@ post_dict_vote = {
     'template_object_name': 'post',
     'slug_field': 'slug',
     # 'extra_context': {"username": User},
-    'template_name': 'blog/post_confirm_vote.html',
+    'template_name': 'blog/post_confirm_vote.html', # this is the default, specifying anyway
     'allow_xmlhttprequest': 'true',
 }
 
