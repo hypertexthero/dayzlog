@@ -29,7 +29,11 @@
                     <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username }}&rsquo;s profile.">see profile</a>)</span> 
                     <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i"}} GMT {{post.updated_at|date:"O"}}</a>
                 </p>
-            {{ post.content_html|safe }}            
+            {% load markup %}
+            {# {{ post.content_markdown|markdown:"safe" }} #}
+            {# =todo: figure out why html5lib sanitization is not working anymore #}
+            {# http://michelf.ca/blog/2010/markdown-and-xss/ #}
+            {{ post.content_html|safe }}
             </div>
             
             

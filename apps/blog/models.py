@@ -20,6 +20,9 @@ from typogrify.templatetags.typogrify_tags import typogrify
 # defining html sanitizer to subsequently use in content_markdown to content_html conversion of user content at post save
 # http://code.google.com/p/html5lib/wiki/UserDocumentation
 # http://djangosnippets.org/snippets/2444/
+
+# =todo: figure out why html5lib sanitization is not working anymore
+# http://michelf.ca/blog/2010/markdown-and-xss/
 import html5lib
 from html5lib import sanitizer
 def sanitize(value):
@@ -56,7 +59,7 @@ class Post(models.Model):
     slug = models.SlugField(_("slug"), blank=True)
     author = models.ForeignKey(User, related_name="added_posts")
     # creator_ip = models.CharField(_("IP Address of the Post Creator"), max_length=255, blank=True, null=True)
-    content_markdown = models.TextField(_("Entry"), blank=True, help_text="<a data-toggle='modal' href='#markdownhelp'>Markdown syntax</a>. Any HTML will be automatically removed.")
+    content_markdown = models.TextField(_("Entry"), blank=True, help_text="<a data-toggle='modal' href='#markdownhelp'>Markdown syntax</a>.")
     content_html = models.TextField(blank=True, null=True, editable=False)
     status = models.IntegerField(_("status"), choices=STATUS_CHOICES, default=IS_DRAFT)
     publish = models.DateTimeField(_("publish"), default=datetime.now)
@@ -84,7 +87,7 @@ class Post(models.Model):
 
     def save(self, force_insert=False, force_update=False, update_date=True):
         # http://www.freewisdom.org/projects/python-markdown/Extra
-        self.content_html = sanitize(typogrify(markdown.markdown(self.content_markdown, ["safe", "extra", "footnotes", "tables", "nl2br", "codehilite"])))
+        self.content_html = sanitize(typogrify(markdown.markdown(self.content_markdown, ["extra", "footnotes", "tables", "nl2br", "codehilite"])))
         
         if update_date:
             self.updated_at = datetime.now()
