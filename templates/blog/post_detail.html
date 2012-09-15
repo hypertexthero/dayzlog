@@ -17,7 +17,7 @@
     <div class="row">
         <div class="span6">
             <div class="post">
-                <h1>{{ post.title }}</h1>
+                <h1>{{ post.title|capfirst }}</h1>
                 <p>
                     By <strong><a href="/logs/{{ post.author.username }}/">
                             {% if post.author.get_profile.name %}
