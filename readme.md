@@ -8,6 +8,7 @@ Check it out at: <http://dayzlog.com>
 
 - Work on custom design so it is more zombie and less twitter-bootstrap
 - Set up fabric deployment
+- Link [Day Z?](http://dayzlog.com/faq/#dayz) FAQ section words to images and sounds.
 
 ## Todo in Future (upcoming features)
 
