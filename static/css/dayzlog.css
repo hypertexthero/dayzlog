@@ -2,7 +2,7 @@ body {padding-top: 0;}
 div.navbar, div.navbar-fixed-top {position:relative !important;}
 
 body {background:#eee; color:#111; font-family:verdana;}
-div.hero-unit {background:#eee; color:#bbb;}
+div.hero-unit {background:#fafafa;}
 div.well {border:0;}
 legend {color:#111; border-color:#ddd;}
 /*a:link {color:#f00;}

@@ -65,7 +65,7 @@
             
                 <div class="post">
                     <h2><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.title }}</h2>
-                    <p><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a> · <a href="{{ post.get_absolute_url }}{% if post.allow_comments %}#disqus_thread{% endif %}"></a></p>
+                    <p><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a>{% if post.allow_comments %} · <a href="{{ post.get_absolute_url }}#disqus_thread"></a>{% endif %}</p>
 
                     {# {{ post.content_html|safe|truncatewords_html:"30" }} #}
                     {{ post.content_html|safe }}
