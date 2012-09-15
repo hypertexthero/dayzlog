@@ -7,8 +7,9 @@ Check it out at: <http://dayzlog.com>
 ## Todo now
 
 - Work on custom design so it is more zombie and less twitter-bootstrap
+- Set up fabric deployment
 
-## Todo: Future Features
+## Todo in Future (upcoming features)
 
 - Blog
     - Markdown preview with Markedit, imgur for image hosting
