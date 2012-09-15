@@ -11,7 +11,6 @@ a:hover {color:#fc0;}
 a:active {color:#fcc;}*/
 tr, td {background:#eee !important; border-color:#444;}
 tr.even td {background:#eaeaea !important;}
-.quiet {color:#333;}
 
 /* custom styles */
 .big-modal{
@@ -51,11 +50,6 @@ form.postvote, form.postvote input {margin:0 !important; padding:0 !important;}
 .small {font-size:0.9em;}
 #footer {margin-top: 2em;}
 
-
 body#log li#nav-log a,
 body#profile li#nav-profile a
-{
-  color: white; 
-  text-decoration: none;
-  background-color: #222;
-}
+{color: white; text-decoration: none; background-color: #222;}
