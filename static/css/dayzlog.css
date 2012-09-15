@@ -1,6 +1,6 @@
 body {padding-top: 0; background:#eee; color:#111; font-family:verdana, sans-serif;}
 a.brand i {font-size:0.9em; vertical-align:middle; color:#c00;}
-p, li {line-height:1.5em;}
+p, li, .btn {line-height:1.5em;}
 a i {vertical-align:middle !important;}
 blockquote {border-left:2px solid #ddd;}
 blockquote p {font-size:1em;}
