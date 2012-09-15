@@ -1,7 +1,9 @@
-body {padding-top: 0;}
+body {padding-top: 0; background:#eee; color:#111; font-family:verdana, sans-serif;}
+p, li {line-height:1.5em;}
+blockquote {border-left:2px solid #ddd;}
+blockquote p {font-size:1em;}
+p + p {margin-bottom:1em;}
 div.navbar, div.navbar-fixed-top {position:relative !important;}
-
-body {background:#eee; color:#111; font-family:verdana;}
 div.hero-unit {background:#fafafa;}
 div.well {border:0;}
 legend {color:#111; border-color:#ddd;}
@@ -22,6 +24,7 @@ tr.even td {background:#eaeaea !important;}
 /*.modal-body {max-height: 600px;}*/
 tr, td {border-top:0 !important;}
 h1 {text-align:left !important;}
+h2 {margin-bottom:0.25em;}
 form.customform textarea, form.customform div.input input {width:100% !important;}
 div.post {margin-bottom:5em;}
 .post-title a {color:#000; text-decoration:none;}
