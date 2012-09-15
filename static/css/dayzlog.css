@@ -1,15 +1,17 @@
 body {padding-top: 0;}
 div.navbar, div.navbar-fixed-top {position:relative !important;}
 
-/*body {background:#222; color:#bbb;}
-div.hero-unit {background:#222; color:#bbb;}
+body {background:#eee; color:#111; font-family:verdana;}
+div.hero-unit {background:#eee; color:#bbb;}
 div.well {border:0;}
-legend {color:#bbb; border-color:#444;}
-a:link {color:#f00;}
+legend {color:#111; border-color:#ddd;}
+/*a:link {color:#f00;}
 a:visited {color:#c00;}
 a:hover {color:#fc0;}
-a:active {color:#fcc;}
-tr, td {background:#222 !important; border-color:#444;}*/
+a:active {color:#fcc;}*/
+tr, td {background:#eee !important; border-color:#444;}
+tr.even td {background:#eaeaea !important;}
+.quiet {color:#333;}
 
 /* custom styles */
 .big-modal{
@@ -40,6 +42,7 @@ form.postvote, form.postvote input {margin:0 !important; padding:0 !important;}
 .quiet {color:#ccc;}
 .subdued {color:#aaa;}
 .normal {font-weight:normal;}
+.bold {font-weight:bold;}
 .tip {background:#ffc;}
 .breadcrumb {color:#999;}
 .center {text-align:center;}

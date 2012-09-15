@@ -17,7 +17,7 @@
     {# <p><a href="/relationships/">Manage your user relationships</a></p> #}
     {% for post in post_list|following_content:request.user %}
         <h2 class="nomp">
-            <a href="{{ post.get_absolute_url }}#disqus_thread" title="{{ post.title }}">{{ post.title|capfirst }}</a>
+            <a href="{{ post.get_absolute_url }}{% if post.allow_comments %}#disqus_thread{% endif %}" title="{{ post.title }}">{{ post.title|capfirst }}</a>
         </h2> 
         <div class="meta small">
             <span class="author">
