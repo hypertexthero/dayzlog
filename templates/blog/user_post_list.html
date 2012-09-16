@@ -23,12 +23,12 @@
 
     {% if author.get_profile.player_img %}
     {% load thumbnail %}
-    <p><a href="/profiles/{{author.username}}"><img src="{% thumbnail author.get_profile.player_img 260x180 crop %}" /></a></p>{% endif %}
+    <p><a href="/profiles/{{author.username}}"><img class="player-img" src="{% thumbnail author.get_profile.player_img 260x180 crop %}" /></a></p>{% endif %}
 
-    <h1>
-        {% if author.get_profile.name %}{{ author.get_profile.name }}{% else %}{{author.username}}{% endif %}&rsquo;s <br><span class="normal">Day Z Log</span>
-    </h1>
-    <p>
+    <h2>
+        {% if author.get_profile.name %}{{ author.get_profile.name }}{% else %}{{author.username}}{% endif %}&rsquo;s <span class="small normal">Day Z Log</span>
+    </h2>
+    <p class="subdued">
     {% if author.get_profile.date_joined %}<b>Member since:</b> {{author.get_profile.date_joined|date:"j F Y"}}{% endif %}    
         <br>
         <a href="/profiles/{{author.username}}" title="See profile.">Player Profile</a>
@@ -64,7 +64,7 @@
             {% for post in post_list %}
             
                 <div class="post">
-                    <h2><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.title }}</h2>
+                    <h1><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.title }}</h1>
                     <p><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a>{% if post.allow_comments %} · <a href="{{ post.get_absolute_url }}#disqus_thread"></a>{% endif %}</p>
 
                     {# {{ post.content_html|safe|truncatewords_html:"30" }} #}

@@ -7,14 +7,11 @@
 
 <div class="hero-unit">
     <div class="pull-right alignright">
-        
         {% if profile.player_img %}
             {% load thumbnail %}
             {# <p><a href="/logs/{{profile.user.username}}"><img src="/uploads/{{ profile.player_img }}" /></a></p> #}
-            <p><a href="/logs/{{profile.user.username}}"><img src="{% thumbnail profile.player_img 260x180 crop %}" /></a></p>
+            <p><a href="/logs/{{profile.user.username}}"><img class="player-img" src="{% thumbnail profile.player_img 260x180 crop %}" /></a></p>
         {% endif %}
-
-        
             {# https://docs.djangoproject.com/en/dev/topics/db/queries/#related-objects #}
             {# {% for photo in object.photo_set.all %} #}
             {# {{ photos }} #}
@@ -26,11 +23,10 @@
 
         {# <p>dayzlog.com Username: {{profile.user.username}}</p> #}
             {# <small> #}
-                {% if profile.date_joined %}<b>Member since:</b> {{profile.date_joined|date:"j F Y"}}{% endif %} · <a href="/logs/{{profile.user.username}}">Log Homepage</a>
+                {% if profile.date_joined %}<span class="subdued"><b>Member since:</b> {{profile.date_joined|date:"j F Y"}}{% endif %}<br><a href="/logs/{{profile.user.username}}">Log Homepage</a></span>
             {# </small> #}
-
     </div>
-    <br class="clearfix">
+    {# <br class="clearfix"> #}
     {% if profile.name %} 
         {% ifequal request.user other_user %}
             <h1 style="margin-bottom:0.25em;">{{ profile.user.username }}</h1>
@@ -45,12 +41,13 @@
         {# <p>No profile information entered yet. <a href="/profiles/edit/{{profile.user.username}}">Edit your profile</a> to generate a URL you can add to your Day Z in-game profile so your information appears inside Day Z.</p> #}
     {% endif %}
     <div class="profile_info">
-        
-        {% if is_me %}{% if profile.player_id %}<p><b>{% trans "Player ID" %}</b>: {{ profile.player_id }} <span class="small">(only visible to you)</span></p>{% endif %}{% endif %}
-        {% if profile.email %}<p><b>{% trans "Email" %}</b>: {{ profile.email }}</p>{% endif %}
-        {% if profile.im %}<p><b>{% trans "IM" %}</b>: {{ profile.im }}</p>{% endif %}
-        {% if profile.remark %}<p><b>{% trans "Remark" %}</b>: {{ profile.remark }}</p>{% endif %}
+        <p>
+        {% if is_me %}{% if profile.player_id %}<b>{% trans "Player ID" %}</b>: {{ profile.player_id }} <span class="small">(only visible to you)</span><br>{% endif %}{% endif %}
+        {% if profile.email %}<b>{% trans "Email" %}</b>: {{ profile.email }}<br>{% endif %}
+        {% if profile.im %}<b>{% trans "IM" %}</b>: {{ profile.im }}<br>{% endif %}
+        {% if profile.remark %}<b>{% trans "Remark" %}</b>: {{ profile.remark }}<br>{% endif %}
         {# {% if profile.website %}<p><b>{% trans "Website" %}</b>: <a href="{{ profile.website }}">{{ profile.website }}</a></p>{% endif %} #}
+        </p>
     </div>
 
     {% load account_tags %}

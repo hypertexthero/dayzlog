@@ -1,14 +1,18 @@
 body {padding-top: 0; background:#eee; color:#111; font-family:verdana, sans-serif;}
 a.brand i {font-size:0.9em; vertical-align:middle; color:#c00;}
 p, li, .btn {line-height:1.5em;}
+li.navbar-text {line-height:2.8em !important; color:#666;}
 a i {vertical-align:middle !important;}
 blockquote {border-left:2px solid #ddd;}
 blockquote p {font-size:1em;}
 p + p {margin-bottom:1em;}
 div.navbar, div.navbar-fixed-top {position:relative !important;}
+img.player-img {border:2px solid #111;}
+b, strong {font-weight:bold;}
+
 div.hero-unit {background:#fafafa;}
 div.well {border:0;}
-legend {color:#111; border-color:#ddd;}
+legend, hr {color:#111; border-color:#ddd;}
 /*a:link {color:#f00;}
 a:visited {color:#c00;}
 a:hover {color:#fc0;}
@@ -29,13 +33,13 @@ h1 {text-align:left !important;}
 h2 {margin-bottom:0.25em;}
 form.customform textarea, form.customform div.input input {width:100% !important;}
 textarea#id_content_markdown {min-height:27em;}
-input#id_allow_comments {width:auto !important;}
+input#id_allow_comments, input#player_img-clear_id {width:auto !important;}
 div.post {margin-bottom:5em;}
 .post-title a {color:#000; text-decoration:none;}
 td.number {vertical-align:middle; font-size:1.5em; font-weight:bold; color:#ccc; text-align:center;}
 td.vote {text-align:center; font-weight:bold;}
 div.vote {font-weight:bold; vertical-align:middle;}
-p.votes {text-align:center; line-height:13px; margin:0.45em 0 0 !important; padding:0 !important;}
+p.votes {text-align:center; line-height:13px; margin:0 !important; padding:0 !important;}
 body#postdetail p.votes {text-align:left;}
 td.entry {vertical-align:middle;}
 form.postvote, form.postvote input {margin:0 !important; padding:0 !important;}
@@ -45,8 +49,8 @@ form.postvote, form.postvote input {margin:0 !important; padding:0 !important;}
 .clearboth {clear:both;}
 .block {display:block;}
 .alignright {text-align:right !important;}
-.quiet {color:#ccc;}
-.subdued {color:#aaa;}
+.quiet {color:#aaa;}
+.subdued {color:#999;}
 .normal {font-weight:normal;}
 .bold {font-weight:bold;}
 .tip {background:#ffc;}
@@ -55,7 +59,7 @@ form.postvote, form.postvote input {margin:0 !important; padding:0 !important;}
 .help-block {font-size:0.9em; color:#999; margin-bottom:1.5em;}
 .error {color:#c00;}
 .small {font-size:0.9em;}
-#footer {margin-top: 2em;}
+#footer {margin-top:2em;}
 
 body#log li#nav-log a,
 body#profile li#nav-profile a
