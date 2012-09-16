@@ -7,17 +7,16 @@ Check it out at: <http://dayzlog.com>
 ## Todo now
 
 - Work on custom design so it is more zombie and less twitter-bootstrap
+- Link [Day Z?](http://dayzlog.com/faq/#dayz) FAQ section words to images and sounds
 - Set up fabric deployment
-- Link [Day Z?](http://dayzlog.com/faq/#dayz) FAQ section words to images and sounds.
 
 ## Todo in Future (upcoming features)
 
 - Blog
-    - Markdown preview with Markedit, imgur for image hosting
     - Feeds & Content Export in Atom XML and JSON
-    - jQuery/AJAX for voting (use http://vanilla-js.com/ :)
+    - jQuery/AJAX for voting
     - Previous/Next entry by user
-    - [Player image upload optimization](https://github.com/jdriscoll/django-imagekit)
+    - [Player image upload optimization](https://github.com/jdriscoll/django-imagekit)?
         - <http://blog.bixly.com/post/4315807876/django-imagekit>
         - <http://stackoverflow.com/questions/2845000/resizing-image-on-upload-with-django-imagekit>
 - I18N, German & Russian to begin with
