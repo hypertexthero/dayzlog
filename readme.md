@@ -17,8 +17,6 @@ Check it out at: <http://dayzlog.com>
     - jQuery/AJAX for voting
     - Previous/Next entry by user
     - [Player image upload optimization](https://github.com/jdriscoll/django-imagekit)?
-        - <http://blog.bixly.com/post/4315807876/django-imagekit>
-        - <http://stackoverflow.com/questions/2845000/resizing-image-on-upload-with-django-imagekit>
 - I18N, German & Russian to begin with
 - Ability to close own account
 - Profile list with alphabetical navigation
