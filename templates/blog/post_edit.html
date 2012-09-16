@@ -1,23 +1,12 @@
 {% extends "blog/blog_base.html" %}
-
+{% load staticfiles %}
 {% load i18n %}
 
 {% block head_title %}Edit - {{ post.title }} - {{ user.username }}'s Day Z Log{% endblock %}
 
-{% block external_css %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{{ STATIC_URL }}redactor/css/editor.css" type="text/css" />
-{% endblock %}
-
-{% block external_js %}
-    {{ block.super }}
-    <script src="{{ STATIC_URL }}redactor/editor.js" language="JavaScript" type="text/javascript"></script>
-{% endblock %}
-
-{% block js %}
-    {{ block.super }}
-    <script src="{{ STATIC_URL }}js/blog.js" language="JavaScript" type="text/javascript"></script>
-{% endblock %}
+{% block extra_style %}
+    <link href="{% static "css/Markdown.Editor.css" %}" rel="stylesheet">
+{% endblock extra_style %}
 
 {% block body %}
 
@@ -25,9 +14,9 @@
 <form class="customform" id="add_post" method="POST" action="{% url blog_edit post.id %}">
     {% csrf_token %}
   <fieldset>
-    <legend>Editing entry titled</span> &ldquo;{{ post.title }}&rdquo;</legend>  
-        {{ post_form|as_bootstrap }}
-        {# {% include "post_form.html" %} #}
+        <legend>Editing entry titled</span> &ldquo;{{ post.title }}&rdquo;</legend>  
+        {# {{ post_form|as_bootstrap }} #}
+        {% include "blog/entry_form.html" %}
         <br>
         <button type="submit" class="btn btn-primary btn-large">Update</button> or <a class="warning" href="{% firstof request.META.HTTP_REFERER url notes_detail note.id %}">cancel</a>
   </fieldset>
@@ -35,3 +24,59 @@
 
 {% include "includes/markdown_cheatsheet.html" %}
 {% endblock %}
+
+{% block extra_script %}
+    <script src="{% static "js/Markdown.Converter.js" %}"></script>
+    <script src="{% static "js/Markdown.Sanitizer.js" %}"></script>
+    <script src="{% static "js/Markdown.Editor.js" %}"></script>
+
+    <script type="text/javascript">
+    (function () {
+        var converter1 = Markdown.getSanitizingConverter();
+        var editor1 = new Markdown.Editor(converter1);
+        editor1.run();
+        
+        // var converter2 = new Markdown.Converter();
+
+        // converter2.hooks.chain("preConversion", function (text) {
+        //     return text.replace(/\b(a\w*)/gi, "*$1*");
+        // });
+
+        // converter2.hooks.chain("plainLinkText", function (url) {
+        //     return "This is a link to " + url.replace(/^https?:\/\//, "");
+        // });
+        
+        var help = function () { alert("Do you need help?"); }
+        
+        // var editor2 = new Markdown.Editor(converter2, "-second", { handler: help });
+        
+        // editor2.run();
+    })();
+
+
+// toggle preview =todo: get this working in an include
+// http://stackoverflow.com/a/9380998
+// http://jsfiddle.net/andresilich/dQ5b7/1/
+$('a.toggles').click(function() {
+    // $('a.toggles i').toggleClass('icon-chevron-left icon-chevron-right');
+
+    $('#wmd-preview').animate({
+        width: 'toggle'
+    }, 500);
+    // $('#content').toggleClass('span12 span9');
+});
+
+$('#wmd-preview').toggle(
+
+function() {
+    $(this).css({
+        'display': 'block'
+    });
+}, function() {
+    $(this).css({
+        'display': 'none'
+    });
+});
+
+</script>
+{% endblock extra_script %}

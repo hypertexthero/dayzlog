@@ -65,3 +65,5 @@ form.postvote, form.postvote input {margin:0 !important; padding:0 !important;}
 body#log li#nav-log a,
 body#profile li#nav-profile a
 {color: white; text-decoration: none; background-color: #222;}
+
+div#wmd-preview {padding:1em; border:1px dotted #ddd; margin-bottom:1em; display:none; background:#fafafa;}

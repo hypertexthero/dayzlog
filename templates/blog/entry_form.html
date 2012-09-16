@@ -1,0 +1,25 @@
+{# https://github.com/samwillis/pagedown-bootstrap #}
+{# http://stackoverflow.com/a/5930179 #}
+<label for="id_title">{{ post_form.title.label }}</label>
+<div class="input">
+    {{ post_form.title }}
+</div>
+<br>
+
+<div class="wmd-panel">
+    <label for="id_content_markdown">{{ post_form.content_markdown.label }} <span class="quiet small"><a data-toggle='modal' href='#markdownhelp'>markdown syntax</a> · <a href="#" class="toggles">see a preview{# <i class="icon-chevron-left"></i> #}</a></span></label>
+    <div id="wmd-button-bar"></div>
+    {{ post_form.content_markdown }}
+</div>
+
+{# <label for="wmd-preview"></label> #}
+<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+<br>
+
+<label for="id_status">{{ post_form.status.label }}</label>
+    {{ post_form.status }}
+
+<br>
+<br>
+
+<label for="id_allow_comments">{{ post_form.allow_comments }} {{ post_form.allow_comments.label }}</label>
