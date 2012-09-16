@@ -34,6 +34,7 @@ h2 {margin-bottom:0.25em;}
 form.customform textarea, form.customform div.input input {width:100% !important;}
 textarea#id_content_markdown {min-height:27em;}
 input#id_allow_comments, input#player_img-clear_id {width:auto !important;}
+input#player_img-clear_id {display:block;}
 div.post {margin-bottom:5em;}
 .post-title a {color:#000; text-decoration:none;}
 td.number {vertical-align:middle; font-size:1.5em; font-weight:bold; color:#ccc; text-align:center;}
