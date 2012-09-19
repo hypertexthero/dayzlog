@@ -53,11 +53,11 @@ class VoteAwareManager(models.Manager):
 
 class Post(models.Model):
     """Post model"""
-    title = models.CharField(_("title"), max_length=200)
+    title = models.CharField(_("title"), max_length=200, blank=False)
     slug = models.SlugField(_("slug"), blank=True)
     author = models.ForeignKey(User, related_name="added_posts")
     # creator_ip = models.CharField(_("IP Address of the Post Creator"), max_length=255, blank=True, null=True)
-    content_markdown = models.TextField(_("Entry"), blank=True, help_text="<a data-toggle='modal' href='#markdownhelp'>Markdown syntax</a>.")
+    content_markdown = models.TextField(_("Entry"), blank=False, help_text="<a data-toggle='modal' href='#markdownhelp'>Markdown syntax</a>.")
     content_html = models.TextField(blank=True, null=True, editable=False)
     status = models.IntegerField(_("status"), choices=STATUS_CHOICES, default=IS_PUBLIC)
     allow_comments = models.BooleanField(_("Allow Comments?"), blank=False, default=1)
@@ -90,10 +90,11 @@ class Post(models.Model):
         
         if update_date:
             self.updated_at = datetime.now()
-        if (self.slug == None or self.slug == ''):
-            if not self.id:
-                super(Post, self).save(force_insert, force_update)
-            self.slug = '%d-%s' % (self.id, slugify(self.title))
+            self.slug = '%s' % (slugify(self.title))
+        # if (self.slug == None or self.slug == ''):
+        if not self.id:
+            super(Post, self).save(force_insert, force_update)
+        self.slug = '%d-%s' % (self.id, slugify(self.title))
 
         super(Post, self).save(force_insert, force_update)
 
