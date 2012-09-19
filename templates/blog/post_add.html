@@ -7,6 +7,8 @@
     <link href="{% static "css/Markdown.Editor.css" %}" rel="stylesheet">
 {% endblock extra_style %}
 
+{% block body_class %}entryform{% endblock %}
+
 {% block content %}
 
 {% load bootstrap_tags %}
@@ -17,7 +19,7 @@
         {# {{ post_form|as_bootstrap }} #}
         {% include "blog/entry_form.html" %}
         <br>
-        <button type="submit" class="btn btn-primary btn-large">Submit</button> or <a href="javascript:history.go(-1)">Cancel</a>
+        <button type="submit" class="btn btn-primary btn-large" tabindex="5">Submit</button> or <a href="javascript:history.go(-1)">Cancel</a>
     </fieldset>
 </form>
 

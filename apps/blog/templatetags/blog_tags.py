@@ -52,6 +52,14 @@ def active(request, pattern):
         return ' class="active"'
     return ''
 
+# http://stackoverflow.com/a/9250304
+@register.filter
+def tabindex(value, index):
+    """
+    Add a tabindex attribute to the widget for a bound field.
+    """
+    value.field.widget.attrs['tabindex'] = index
+    return value
 
 # http://djangosnippets.org/snippets/2019/
 # from django.db.models.loading import get_model

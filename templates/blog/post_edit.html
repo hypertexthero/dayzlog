@@ -8,6 +8,8 @@
     <link href="{% static "css/Markdown.Editor.css" %}" rel="stylesheet">
 {% endblock extra_style %}
 
+{% block body_class %}entryform{% endblock %}
+
 {% block body %}
 
 {% load bootstrap_tags %}
@@ -18,7 +20,7 @@
         {# {{ post_form|as_bootstrap }} #}
         {% include "blog/entry_form.html" %}
         <br>
-        <button type="submit" class="btn btn-primary btn-large">Update</button> or <a class="warning" href="{% firstof request.META.HTTP_REFERER url notes_detail note.id %}">cancel</a>
+        <button type="submit" class="btn btn-primary btn-large" tabindex="5">Update</button> or <a class="warning" href="{% firstof request.META.HTTP_REFERER url notes_detail note.id %}">cancel</a>
   </fieldset>
 </form>
 

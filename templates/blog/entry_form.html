@@ -1,12 +1,17 @@
 {# https://github.com/samwillis/pagedown-bootstrap #}
 {# http://stackoverflow.com/a/5930179 #}
 
+{% load blog_tags %}
 
 {{ post_form.non_field_errors }}
 
 <label for="id_title">{{ post_form.title.label }}</label>
 <div class="input{% if post_form.title.errors %} alert alert-error{% endif %}">
-    {{ post_form.title }}
+    
+    {{ post_form.title|tabindex:1 }}
+
+   {# <input id="id_title" type="text" name="title" tabindex="1" maxlength="200" value="{{post_form.title.value}}"> #}
+
     {% if post_form.title.errors %}
 	    {% for error in post_form.title.errors %}
 	        {{ error|escape }}
@@ -35,7 +40,9 @@
 
 	{% if post_form.content_markdown.errors %}<div class="alert alert-error">{% endif %}
 
-	    {{ post_form.content_markdown }}
+	    {{ post_form.content_markdown|tabindex:2 }}
+
+	{# <textarea class="wmd-input" rows="10" id="wmd-input" name="content_markdown" cols="40" tabindex="2">{{post_form.content_markdown.value}}</textarea> #}
 
 	{% if post_form.content_markdown.errors %}
 		{% for error in post_form.content_markdown.errors %}
@@ -51,7 +58,9 @@
 <br>
 
 <label for="id_status">{{ post_form.status.label }}</label>
-    {{ post_form.status }}
+
+    {{ post_form.status|tabindex:3 }}
+
     {% if post_form.status.errors %}
 	    <div class="alert alert-error">
 	    {% for error in post_form.status.errors %}
@@ -62,7 +71,7 @@
 <br>
 <br>
 
-<label for="id_allow_comments">{{ post_form.allow_comments }} {{ post_form.allow_comments.label }}</label>
+<label for="id_allow_comments">{{ post_form.allow_comments|tabindex:4 }} {{ post_form.allow_comments.label }}</label>
     {% if post_form.allow_comments.errors %}
 	    <div class="alert alert-error">
 	    {% for error in post_form.allow_comments.errors %}
