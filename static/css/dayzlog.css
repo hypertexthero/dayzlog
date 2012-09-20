@@ -32,7 +32,7 @@ tr, td {border-top:0 !important;}
 h1 {text-align:left !important;}
 h2 {margin-bottom:0.25em;}
 form.customform textarea, form.customform div.input input {width:100% !important;}
-textarea#id_content_markdown {min-height:27em;}
+textarea#wmd-input {min-height:27em; padding:2em;}
 input#id_allow_comments, input#player_img-clear_id {width:auto !important;}
 input#player_img-clear_id {display:block;}
 div.post {margin-bottom:5em;}
@@ -40,7 +40,7 @@ div.post {margin-bottom:5em;}
 td.number {vertical-align:middle; font-size:1.5em; font-weight:bold; color:#ccc; text-align:center;}
 td.vote {text-align:center; font-weight:bold;}
 div.vote {font-weight:bold; vertical-align:middle;}
-p.votes {text-align:center; line-height:13px; margin:0 !important; padding:0 !important;}
+p.votes {text-align:center; line-height:1em; margin:0 0 -0.15em !important; padding:0 !important;}
 body#postdetail p.votes {text-align:left;}
 td.entry {vertical-align:middle;}
 form.postvote, form.postvote input {margin:0 !important; padding:0 !important;}
@@ -67,4 +67,4 @@ body#log li#nav-log a,
 body#profile li#nav-profile a
 {color: white; text-decoration: none; background-color: #222;}
 
-div#wmd-preview {padding:1em; border:1px dotted #ddd; margin-bottom:1em; display:none; background:#fafafa;}
+div#wmd-preview {padding:2em 2em 3em; border:1px dotted #ddd; margin-bottom:1em; background:#fafafa; display:none;}

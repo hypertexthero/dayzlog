@@ -32,7 +32,7 @@ backup_dict = {
 }
 
 post_dict_public = {
-    'queryset': Post.objects.filter(status=IS_PUBLIC),
+    'queryset': Post.objects.filter(status=IS_PUBLIC).order_by('-created_at'),
     'template_object_name': 'post',
     # 'extra_context': {"user": user},
 }
