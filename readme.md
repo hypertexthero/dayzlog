@@ -6,12 +6,13 @@ Check it out at: <http://dayzlog.com>
 
 ## Todo now
 
-- Work on custom design so it is more zombie and less twitter-bootstrap
 - Link [Day Z FAQ section](http://dayzlog.com/faq/#dayz) words to images and sounds
 - Set up fabric deployment
 
 ## Todo in Future (upcoming features)
 
+- Social/Open ID signup?
+- Memcache when the site is wildly popular
 - Blog
     - Feeds & Content Export in Atom XML and JSON
     - jQuery/AJAX for voting
