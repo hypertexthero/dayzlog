@@ -19,7 +19,7 @@
             <div class="post">
                 <h1>{{ post.title|capfirst }}</h1>
                 <p class="subdued">
-                    By <strong><a href="/logs/{{ post.author.username }}/">
+                    By <strong><a href="/logs/{{ post.author.username }}/" title="See this survivor's log homepage, follow or unfollow.">
                             {% if post.author.get_profile.name %}
                                    {{ post.author.get_profile.name }}
                                    {% else %}
