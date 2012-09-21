@@ -19,14 +19,14 @@
             <div class="post">
                 <h1>{{ post.title|capfirst }}</h1>
                 <p class="subdued">
-                    By <strong><a href="/logs/{{ post.author.username }}/" title="See this survivor's log homepage, follow or unfollow.">
+                    By <strong><a href="/logs/{{ post.author.username }}/" title="See this survivor&rsquo;s log homepage, follow or unfollow.">
                             {% if post.author.get_profile.name %}
                                    {{ post.author.get_profile.name }}
                                    {% else %}
                                    {{post.author.username}}
                             {% endif %}
                         </a></strong>
-                    <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See {{ post.author.username }}&rsquo;s profile.">see profile</a>)</span> 
+                    <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See this sursivor&rsquo;s profile.">see profile</a>)</span> 
                     <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i"}} GMT {{post.updated_at|date:"O"}}</a>
                 </p>
             {% load markup %}
