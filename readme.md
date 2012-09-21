@@ -11,7 +11,7 @@ Check it out at: <http://dayzlog.com>
 
 ## Todo in Future (upcoming features)
 
-- Social/Open ID signup?
+- [Social/Open ID signup](https://github.com/flashingpumpkin/django-socialregistration)? Or [allauth](https://github.com/pennersr/django-allauth)?
 - Memcache when the site is wildly popular
 - Blog
     - Feeds & Content Export in Atom XML and JSON
