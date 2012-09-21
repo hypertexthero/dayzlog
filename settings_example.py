@@ -176,15 +176,21 @@ INSTALLED_APPS = [
     "pinax.apps.account",
     "pinax.apps.signup_codes",
     
-    # project
-    "about",
-    "profiles",
-    "blog",
+    # Misc
     "voting",
     "relationships",
-    # "south"
+    "easy_thumbnails",
     # 'generic_aggregation'
+
+    # Project
+    "profiles",
+    "blog",
+    
+    # First install south, then syncdb, then uncomment apps under Project above and migrate
+    # "south",
 ]
+
+THUMBNAIL_DEBUG = True
 
 FIXTURE_DIRS = [
     os.path.join(PROJECT_ROOT, "fixtures"),

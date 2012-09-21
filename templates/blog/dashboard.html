@@ -18,12 +18,19 @@
     <p class="pull-right"><a class="btn btn-primary" href="/write/"><i class="icon-pencil"></i> Write new log entry</a></p>
         {% regroup post_list|dictsort:"status" by status as posts_by_status %}
 
+        {# get ready for displaying score #}            
+        {% load voting_tags %}
+        {% votes_by_user user on post_list as vote_dict %}
+        {% scores_for_objects post_list as score_dict %}
+
         {% for post_list in posts_by_status %}
             <h2 class="normal clearboth">{{ post_list.list.0.get_status_display }}</h2>
             <table class="table table-striped table-condensed">
                 {% with post_list.list|dictsortreversed:"created_at" as posts %}
+                {# =todo: sort with tablesorter #}
                     <thead>
                         <td>{% trans "Title & Comments" %}</td>
+                        <td>{% trans "Score" %}</td>
                         <td>{% trans "Created" %}</td>
                         <td>{% trans "Updated" %}</td>
                         <td>{% trans "Actions" %}</td>
@@ -34,6 +41,19 @@
                                 {# <a href="{{ post.blog.get_absolute_url }}" class="blog_link_small">{{ post.blog.name }}</a> #}
                                 {# <span class="blog_post_breaker_small">&rarr;</span> #}
                                 <b><a href="{{ post.get_absolute_url }}" class="post_link_small">{{ post.title }}</a></b>{% if post.allow_comments %} · <a href="{{ post.get_absolute_url }}#disqus_thread"></a>{% endif %}
+                            </td>
+                            <td>
+                                {% dict_entry_for_item post from vote_dict as vote %}
+                                {% dict_entry_for_item post from score_dict as score %}
+
+                                {# score ========================= #}
+                                <p class="votes">
+                                    {% if score.num_votes %}
+                                        {{ score.num_votes|default:0 }} {# vote{{ score.num_votes|default:0|pluralize }} #}
+                                        {% else %}
+                                        <span class="small quiet">0</span>
+                                    {% endif %} 
+                                </p>
                             </td>
                             <td>{{ post.created_at|date:"D, d M Y, H:i"}}</td>
                             <td>{{ post.updated_at|date:"D, d M Y, H:i"}}</td>

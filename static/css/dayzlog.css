@@ -1,6 +1,8 @@
 body {padding-top: 0; background:#eee; color:#111; font-family:verdana, sans-serif;}
 a.brand i {font-size:0.9em; vertical-align:middle; color:#c00;}
-p, li, .btn {line-height:1.7em;}
+p, li, .btn {line-height:1.8em;}
+div.post {font-size:1.2em;}
+div.post p, div.post li {line-height:1.8em;}
 li.navbar-text {line-height:2.8em !important; color:#666;}
 a i {vertical-align:middle !important;}
 blockquote {border-left:2px solid #ddd;}
