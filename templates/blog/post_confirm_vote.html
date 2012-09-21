@@ -16,6 +16,9 @@
     </form>
 
     {# down ========================= #}
+    {% comment %}
+        
+    
     <form id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/" method="POST">
         {% csrf_token %}
         {% if vote and vote.is_downvote %}
@@ -27,5 +30,5 @@
         {# src="/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" #}
         {# onclick="vote('{{ post.slug }}', 'down');" #}
     </form>
- 
+    {% endcomment %}
 {% endblock %}
