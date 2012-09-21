@@ -65,7 +65,7 @@
 
         {# http://django-relationships.readthedocs.org/en/latest/getting_started.html #}
         {% load relationship_tags %}         
-        {# {% if user.is_authenticated %} #}
+        {% if user.is_authenticated %}
         {% ifequal request.user author.get_profile.user %}
 
         {% else %}
@@ -80,7 +80,7 @@
         {% endif_relationship %}
 
         {% endifequal %}
-        {# {% endif %} #}
+        {% endif %}
 
     </div>
 
