@@ -18,7 +18,7 @@
         <div class="span6">
             <div class="post">
                 <h1>{{ post.title|capfirst }}</h1>
-                <p>
+                <p class="subdued">
                     By <strong><a href="/logs/{{ post.author.username }}/">
                             {% if post.author.get_profile.name %}
                                    {{ post.author.get_profile.name }}
@@ -131,7 +131,7 @@
                             <input type="image" id="postuparrow{{ post.id }}" src="/static/img/aup{% if vote and vote.is_upvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_upvote %}clear your vote{% else %}upvote this story{% endif %}">
                         </form>
                         {% endcomment %}
-
+                            <p class="subdued normal">Votes:</p>
                             <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
                                 {% csrf_token %}
                                 {% if vote and vote.is_upvote %}
@@ -188,6 +188,48 @@
                         {% endcomment %}
                     </div>
             
+
+    
+{% comment %}
+    
+
+        {% if post.author.get_profile.player_img %}
+        {% load thumbnail %}
+        <p><a href="/profiles/{{post.author.username}}"><img class="player-img" src="{% thumbnail post.author.get_profile.player_img 260x180 crop %}" /></a></p>{% endif %}
+
+        <h2>
+        {% if post.author.get_profile.name %}{{ post.author.get_profile.name }}{% else %}{{post.author.username}}{% endif %}&rsquo;s <span class="small normal">Day Z Log</span>
+        </h2>
+        <p class="subdued">
+        {% if post.author.get_profile.date_joined %}<b>Member since:</b> {{post.author.get_profile.date_joined|date:"j F Y"}}{% endif %}    
+        <br>
+        <a href="/profiles/{{post.author.username}}" title="See profile.">Player Profile</a>
+        </p>
+{% endcomment %}
+
+        
+        {# http://django-relationships.readthedocs.org/en/latest/getting_started.html #}
+        {% load relationship_tags %}         
+        {# {% if user.is_authenticated %} #}
+        {% ifequal request.user author.get_profile.user %}
+
+        {% else %}
+        <p style="margin-top:2em;">
+        {# decide whether or not the current user is following this user #}
+        {% if_relationship request.user post.author.get_profile.user "following" %}
+            {# they are following them, so show a "remove" url #}
+            <a class="btn btn-smaller" href="{{ post.author.get_profile.user|remove_relationship_url:"following" }}">Unfollow this survivor</a>
+        {% else %}
+            {# they are not following them, so show a link to start following #}
+            <a class="btn btn-smaller" href="{{ post.author.get_profile.user|add_relationship_url:"following" }}">Follow this survivor</a>
+        {% endif_relationship %}
+        </p>
+        {% endifequal %}
+        {# {% endif %} #}
+
+    
+
+
         </div>
     </div>
     {% endif %}

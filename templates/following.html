@@ -13,7 +13,7 @@
 
 {% if user.is_authenticated %}
     
-    <h2 class="normal">Entries by survivors you are following on Day Z Log</h2>
+    <h1 class="normal">Entries by survivors you are following on Day Z Log</h1>
     {# <p><a href="/relationships/">Manage your user relationships</a></p> #}
     {% for post in post_list|following_content:request.user %}
         <h2 class="nomp">

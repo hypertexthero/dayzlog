@@ -12,14 +12,14 @@
     <!-- Masthead
     ================================================== -->
     <header class="jumbotron subhead" id="overview">
-      <h2 class="normal"><a href="{% url blog_user_post_list user %}" title="See my log homepage.">My Day Z Log</a> Entries</h2>
+      <h1 class="normal"><a href="{% url blog_user_post_list user %}" title="See my log homepage.">My Day Z Log</a> Entries</h1>
     </header>
     
     <p class="pull-right"><a class="btn btn-primary" href="/write/"><i class="icon-pencil"></i> Write new log entry</a></p>
         {% regroup post_list|dictsort:"status" by status as posts_by_status %}
 
         {% for post_list in posts_by_status %}
-            <h2 style="clear:both;">{{ post_list.list.0.get_status_display }}</h2>
+            <h2 class="normal clearboth">{{ post_list.list.0.get_status_display }}</h2>
             <table class="table table-striped table-condensed">
                 {% with post_list.list|dictsortreversed:"created_at" as posts %}
                     <thead>

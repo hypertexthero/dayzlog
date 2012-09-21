@@ -19,27 +19,54 @@
 {% load pagination_tags %}
 {% autopaginate post_list 10 %}                    
 
-<header class="pull-right" style="max-width:30%;">
 
-    {% if author.get_profile.player_img %}
-    {% load thumbnail %}
-    <p><a href="/profiles/{{author.username}}"><img class="player-img" src="{% thumbnail author.get_profile.player_img 260x180 crop %}" /></a></p>{% endif %}
+<div class="row">
+    <div class="span6">
+        {% if post_list %}
+    
+        {% for post in post_list %}
+            <div class="post">
+                <h1><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.title }}</h1>
+                <p><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a>{% if post.allow_comments %} · <a href="{{ post.get_absolute_url }}#disqus_thread"></a>{% endif %}</p>
 
-    <h2>
+                {# {{ post.content_html|safe|truncatewords_html:"30" }} #}
+                {{ post.content_html|safe }}
+
+            </div>
+
+            {% endfor %}
+        {% paginate %}
+    
+    {% else %}
+
+    <header class="jumbotron subhead" id="overview">
+        <h1>{{ author.username }}&rsquo;s <span class="normal">Day Z Log</span> <small>No entries yet.</small></h1>
+    </header>
+          
+    {% endif %}      
+    </div>
+
+    <div class="span4" style="padding:1em;">
+
+        {% if author.get_profile.player_img %}
+        {% load thumbnail %}
+        <p><a href="/profiles/{{author.username}}"><img class="player-img" src="{% thumbnail author.get_profile.player_img 260x180 crop %}" /></a></p>{% endif %}
+
+        <h2>
         {% if author.get_profile.name %}{{ author.get_profile.name }}{% else %}{{author.username}}{% endif %}&rsquo;s <span class="small normal">Day Z Log</span>
-    </h2>
-    <p class="subdued">
-    {% if author.get_profile.date_joined %}<b>Member since:</b> {{author.get_profile.date_joined|date:"j F Y"}}{% endif %}    
+        </h2>
+        <p class="subdued">
+        {% if author.get_profile.date_joined %}<b>Member since:</b> {{author.get_profile.date_joined|date:"j F Y"}}{% endif %}    
         <br>
         <a href="/profiles/{{author.username}}" title="See profile.">Player Profile</a>
-    </p>
-      
+        </p>
 
 
-    {# http://django-relationships.readthedocs.org/en/latest/getting_started.html #}
-    {% load relationship_tags %}         
-    {% if user.is_authenticated %}
-    {% ifequal request.user author.get_profile.user %}
+
+        {# http://django-relationships.readthedocs.org/en/latest/getting_started.html #}
+        {% load relationship_tags %}         
+        {# {% if user.is_authenticated %} #}
+        {% ifequal request.user author.get_profile.user %}
 
         {% else %}
 
@@ -52,37 +79,14 @@
             <a class="btn btn-smaller" href="{{ author.get_profile.user|add_relationship_url:"following" }}">Follow</a>
         {% endif_relationship %}
 
-    {% endifequal %}
-    {% endif %}
+        {% endifequal %}
+        {# {% endif %} #}
 
-</header>
+    </div>
+
+</div>
 
 
-    {% if post_list %}
-        <div class="row">
-            <div class="span8">
-            {% for post in post_list %}
-            
-                <div class="post">
-                    <h1><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.title }}</h1>
-                    <p><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a>{% if post.allow_comments %} · <a href="{{ post.get_absolute_url }}#disqus_thread"></a>{% endif %}</p>
-
-                    {# {{ post.content_html|safe|truncatewords_html:"30" }} #}
-                    {{ post.content_html|safe }}
-
-                </div>
-
-            {% endfor %}
-                {% paginate %}
-            </div>
-        </div>
-    {% else %}
-
-    <header class="jumbotron subhead" id="overview">
-    <h1>{{ author.username }}&rsquo;s <span class="normal">Day Z Log</span> <small>No entries yet.</small></h1>
-    </header>
-          
-    {% endif %}      
 
 {% block extrabody %}
     {# disqus comment count #}
