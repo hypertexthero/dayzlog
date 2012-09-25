@@ -35,15 +35,46 @@ STATUS_CHOICES = (
     (IS_PUBLIC, _("Published")),
 )
 
+# hackernews ranking algorythm 
+#     (p - 1) / (t + 2)^1.5
+#     where p = points and t = age in hours
+# - http://amix.dk/blog/post/19574
+# - http://stackoverflow.com/questions/3783892/implementing-the-hacker-news-ranking-algorithm-in-sql
+# - http://stackoverflow.com/questions/1965341/implementing-a-popularity-algorithm-in-django
+# - http://stackoverflow.com/questions/1964395/complex-ordering-in-django
+# - http://stackoverflow.com/questions/12545840/hacker-news-algorithm-for-django-voting-sort-order
+# - http://stackoverflow.com/questions/1964544/timestamp-difference-in-hours-for-postgresql
+# - http://eflorenzano.com/blog/2008/05/24/managers-and-voting-and-subqueries-oh-my/
+
+# =todo: would be nicer to do the above SQL calculation in python like this, but alas, can't get it to work on separate Vote table together with Post table. Tried it in views.py, too:
+
+# loved = score
+# for post in loved:
+#     delta_in_hours = (int(datetime.now().strftime("%s")) - int(post.created_at.strftime("%s"))) / 3600
+#     post.popularity = ((score - 1) / (delta_in_hours + 2)**1.5)
+# loved = sorted(loved, key=lambda x: x.popularity, reverse=True)
+# return loved
+
 class VoteAwareManager(models.Manager):
     """ Get top votes. hot = VoteAwareManager() """
-    def _get_score_annotation(self): # http://stackoverflow.com/questions/1301346/the-meaning-of-a-single-and-a-double-underscore-before-an-object-name-in-python
+    def _get_score_annotation(self):
         model_type = ContentType.objects.get_for_model(self.model)
         table_name = self.model._meta.db_table
+
         return self.extra(select={
-            'score': 'SELECT COALESCE(SUM(vote),0) FROM %s WHERE content_type_id=%d AND object_id=%s.id' %
-                (Vote._meta.db_table, int(model_type.id), table_name)}
-        )
+
+            # MANY USERS - once lots and lots of items are available (-1 vote to negate user's own vote):
+            # http://stackoverflow.com/questions/1964544/timestamp-difference-in-hours-for-postgresql
+            # 'score': 'SELECT COALESCE(SUM( (vote - 1) / ((EXTRACT(EPOCH FROM current_timestamp - created_at)/3600)+2)^1.5)) FROM %s WHERE content_type_id=%d AND object_id=%s.id' % (Vote._meta.db_table, int(model_type.id), table_name)
+            
+            # FEW USERS - once many items are available
+            # http://stackoverflow.com/questions/1964544/timestamp-difference-in-hours-for-postgresql
+            # 'score': 'SELECT COALESCE(SUM( vote / ((EXTRACT(EPOCH FROM current_timestamp - created_at)/3600)+2)^1.5)) FROM %s WHERE content_type_id=%d AND object_id=%s.id' % (Vote._meta.db_table, int(model_type.id), table_name)
+
+            # LAUNCH (almost no users) - use in beginning when there are few items
+            'score': 'SELECT COALESCE(SUM(vote),0) FROM %s WHERE content_type_id=%d AND object_id=%s.id' % (Vote._meta.db_table, int(model_type.id), table_name)
+            
+            })
 
     def most_hated(self):
         return self._get_score_annotation().order_by('score')

@@ -25,14 +25,26 @@ ADMINS = [
 
 MANAGERS = ADMINS
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3", # Add "postgresql_psycopg2", "postgresql", "mysql", "sqlite3" or "oracle".
+#         "NAME": "dev.db",                       # Or path to database file if using sqlite3.
+#         "USER": "",                             # Not used with sqlite3.
+#         "PASSWORD": "",                         # Not used with sqlite3.
+#         "HOST": "",                             # Set to empty string for localhost. Not used with sqlite3.
+#         "PORT": "",                             # Set to empty string for default. Not used with sqlite3.
+#     }
+# }
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3", # Add "postgresql_psycopg2", "postgresql", "mysql", "sqlite3" or "oracle".
-        "NAME": "dev.db",                       # Or path to database file if using sqlite3.
-        "USER": "",                             # Not used with sqlite3.
+        "ENGINE": "django.db.backends.postgresql_psycopg2", # Add "postgresql_psycopg2", "postgresql", "mysql", "sqlite3" or "oracle".
+        "NAME": "dzl",                       # Or path to database file if using sqlite3.
+        "USER": "yourcomputerusername",                             # Not used with sqlite3.
         "PASSWORD": "",                         # Not used with sqlite3.
-        "HOST": "",                             # Set to empty string for localhost. Not used with sqlite3.
-        "PORT": "",                             # Set to empty string for default. Not used with sqlite3.
+        # http://stackoverflow.com/a/5500831/412329
+        "HOST": "/tmp/",                       # Set to empty string for localhost. Not used with sqlite3.
+        "PORT": "5432",                             # Set to empty string for default. Not used with sqlite3.
     }
 }
 
