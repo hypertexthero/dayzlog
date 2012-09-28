@@ -182,10 +182,9 @@ def followers(request):
         extra_context= {'author': request.user}
     )
 
-# from django.views.decorators.cache import cache_page
-
+from django.views.decorators.cache import cache_page
 # cache for one minute
-# @cache_page(60 * 1)
+@cache_page(60 * 1)
 def homepage(request): 
     """Show top posts"""   
     return object_list(request, 
