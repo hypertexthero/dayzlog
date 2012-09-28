@@ -28,7 +28,7 @@
                         </a></strong>
                     <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See this sursivor&rsquo;s profile.">see profile</a>)</span>
                     <br> 
-                    <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i"}} GMT {{post.updated_at|date:"O"}}</a>
+                    <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.created_at|date:"D, d M Y, H:i"}} GMT {{post.created_at|date:"O"}}</a>
                 </p>
             {% load markup %}
             {# {{ post.content_markdown|markdown:"safe" }} #}

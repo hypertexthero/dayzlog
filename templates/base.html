@@ -126,6 +126,13 @@
             <script src="{% static "js/jquery.min.js" %}"></script>
             <script src="{% static "bootstrap/js/bootstrap.js" %}"></script>
             <script src="{% static "pinax/js/theme.js" %}"></script>
+
+            <script src="{% static "js/jquery.timeago.js" %}"></script>
+            <script type="text/javascript">
+                jQuery(document).ready(function() {
+                    jQuery("time.timeago").timeago();
+                });
+            </script>
             {% block extra_script %}{% endblock %}
         {% endblock %}
 

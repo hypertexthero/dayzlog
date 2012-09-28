@@ -62,6 +62,7 @@ form.postvote, form.postvote input {margin:0 !important; padding:0 !important;}
 .help-block {font-size:0.9em; color:#999; margin-bottom:1.5em;}
 .error {color:#c00;}
 .small {font-size:0.9em;}
+.smaller {font-size:0.8em;}
 #footer {margin-top:2em; clear:both; text-align:center;}
 body.entryform #footer {display:none;}
 

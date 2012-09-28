@@ -102,9 +102,10 @@
                                                {% endif %} 
                                             </a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See this author's profile.">see profile</a>)</span>
                                     </span>
-                                    <span class="time small">
-                                        {{ post.updated_at|timesince }} ago
-                                    </span>
+
+                                        {# {{ post.created_at|timesince }} ago #}
+                                        <time class="timeago small" datetime="{{ post.created_at|date:"c" }}">{{ post.created_at|date:"c" }}</time>
+
                                     <span class="comments small">
                                         <a href="{{ post.get_absolute_url }}{% if post.allow_comments %}#disqus_thread{% endif %}">
                                     </a>
