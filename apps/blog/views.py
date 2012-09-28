@@ -21,6 +21,7 @@ from dayzlog.apps.blog.signals import post_published
 from django.views.generic.date_based import archive_index
 from django.views.generic.list_detail import object_list
 
+
 def blog_post_detail(request, *kargs, **kwargs):
     blog = get_object_or_404(Blog, slug = kwargs.pop('blog', ''))
     kwargs['template_object_name'] = 'post'
@@ -181,11 +182,15 @@ def followers(request):
         extra_context= {'author': request.user}
     )
 
+# from django.views.decorators.cache import cache_page
+
+# cache for one minute
+# @cache_page(60 * 1)
 def homepage(request): 
     """Show top posts"""   
     return object_list(request, 
         # http://eflorenzano.com/blog/2008/05/24/managers-and-voting-and-subqueries-oh-my/
-        queryset=Post.hot.most_loved().filter(status=IS_PUBLIC), # .annotate(num_votes=Count('score')) 
+        queryset=Post.hot.most_loved().filter(status=IS_PUBLIC)[:300], # .annotate(num_votes=Count('score')) 
         template_name='homepage.html',
         template_object_name='post',
         extra_context= {'profile': get_profiles}
@@ -194,7 +199,7 @@ def homepage(request):
 def new(request): 
     """Show new posts"""
     return object_list(request, 
-        queryset=Post.objects.filter(status=IS_PUBLIC).order_by('-created_at'), 
+        queryset=Post.objects.filter(status=IS_PUBLIC).order_by('-created_at')[:300], 
         template_name='new.html',
         template_object_name='post',
         extra_context= {"profile": get_profiles}

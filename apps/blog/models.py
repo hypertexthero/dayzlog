@@ -66,7 +66,8 @@ class VoteAwareManager(models.Manager):
 
             # MANY USERS - once lots and lots of items are available (-1 vote to negate user's own vote):
             # http://stackoverflow.com/questions/1964544/timestamp-difference-in-hours-for-postgresql
-            'score': 'SELECT COALESCE(SUM(vote / ((EXTRACT(EPOCH FROM current_timestamp - created_at)/3600)+2)^1.5)) FROM %s WHERE content_type_id=%d AND object_id=%s.id' % (Vote._meta.db_table, int(model_type.id), table_name)
+            # needed COALESCE(...,0) so that items with no votes get a score of 0.0 instead of NULL and don't go first on the list
+            'score': 'SELECT COALESCE(SUM(vote / ((EXTRACT(EPOCH FROM current_timestamp - created_at)/3600)+2)^1.5),0) FROM %s WHERE content_type_id=%d AND object_id=%s.id' % (Vote._meta.db_table, int(model_type.id), table_name)
             
             # FEW USERS - once many items are available
             # http://stackoverflow.com/questions/1964544/timestamp-difference-in-hours-for-postgresql

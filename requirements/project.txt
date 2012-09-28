@@ -44,3 +44,5 @@ django-voting
 easy-thumbnails
 django-relationships
 BeautifulSoup
+
+python-memcached
