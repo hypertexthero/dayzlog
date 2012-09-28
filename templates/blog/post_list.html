@@ -10,8 +10,8 @@
             
             <table class="table table-striped table-condensed">
                 <colgroup>
-                    <col style="width:3em;"></col>
-                    <col style="width:4em;"></col>
+                    <col></col>
+                    <col></col>
                     <col></col>
                 </colgroup>
                 {# <thead> #}
@@ -58,7 +58,7 @@
                                      {# src="/static/img/aup{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" #}
                                      {# onclick="vote('{{ post.slug }}', 'up');" #}
                                 </form>
-
+                                {% comment %}
                                 {# score ========================= #}
                                 <p class="votes">
                                     {% if score.num_votes %}
@@ -69,7 +69,7 @@
                                 </p>
 
                                 {# down ========================= #}
-                                {% comment %}
+
                                 <form class="postvote" id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
                                     {% csrf_token %}
                                     {% if vote and vote.is_downvote %}
@@ -87,7 +87,7 @@
                             <td class="entry">
                                     <b><a href="{{ post.get_absolute_url }}" title="Read entry.">{{ post.title|capfirst }}</a></b>
                                 <div class="meta small subdued">
-                                    <span class="author">
+                                    <span class="author small">
                                         {% if score.score %}
                                             {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}
                                         {# {{ score.score|default:0 }} #}
@@ -102,10 +102,10 @@
                                                {% endif %} 
                                             </a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See this author's profile.">see profile</a>)</span>
                                     </span>
-                                    <span class="time">
+                                    <span class="time small">
                                         {{ post.updated_at|timesince }} ago
                                     </span>
-                                    <span class="comments">
+                                    <span class="comments small">
                                         <a href="{{ post.get_absolute_url }}{% if post.allow_comments %}#disqus_thread{% endif %}">
                                     </a>
                                     </span>

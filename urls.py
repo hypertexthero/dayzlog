@@ -34,6 +34,7 @@ urlpatterns = patterns("",
     url(r"^admin/", include(admin.site.urls)),
     # url(r"^about/", include("about.urls")),
     url(r"^faq/$", direct_to_template, {"template": "faq.html"}, name="faq"),
+    # url(r"^beans/$", direct_to_template, {"template": "beans.html"}, name="beans"),
     url(r"^account/", include("pinax.apps.account.urls")),
     url(r"^openid/", include(PinaxConsumer().urls)),
     url(r"^profiles/", include("profiles.urls")), # NOTA BENE: that this is pointing to profiles/urls.py and not IDIOS app...

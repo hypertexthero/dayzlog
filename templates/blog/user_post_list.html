@@ -55,7 +55,7 @@
         <h2>
         {% if author.get_profile.name %}{{ author.get_profile.name }}{% else %}{{author.username}}{% endif %}&rsquo;s <span class="small normal">Day Z Log</span>
         </h2>
-        <p class="subdued">
+        <p>
         {% if author.get_profile.date_joined %}<b>Member since:</b> {{author.get_profile.date_joined|date:"j F Y"}}{% endif %}    
         <br>
         <a href="/profiles/{{author.username}}" title="See profile.">Player Profile</a>

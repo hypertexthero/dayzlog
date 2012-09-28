@@ -23,7 +23,7 @@
 
         {# <p>dayzlog.com Username: {{profile.user.username}}</p> #}
             {# <small> #}
-                {% if profile.date_joined %}<span class="subdued"><b>Member since:</b> {{profile.date_joined|date:"j F Y"}}{% endif %}<br><a href="/logs/{{profile.user.username}}">Log Homepage</a></span>
+                {% if profile.date_joined %}<b>Member since:</b> {{profile.date_joined|date:"j F Y"}}{% endif %}<br><a href="/logs/{{profile.user.username}}">Log Homepage</a>
             {# </small> #}
     </div>
     {# <br class="clearfix"> #}

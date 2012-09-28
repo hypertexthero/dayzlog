@@ -12,7 +12,7 @@
     <!-- Masthead
     ================================================== -->
     <header class="jumbotron subhead" id="overview">
-      <h1 class="normal"><a href="{% url blog_user_post_list user %}" title="See my log homepage.">My Day Z Log</a> Entries</h1>
+      <h1 class="normal">My Day Z Log Entries</h1>
     </header>
     
     <p class="pull-right"><a class="btn btn-primary" href="/write/"><i class="icon-pencil"></i> Write new log entry</a></p>
@@ -58,12 +58,12 @@
                             <td>{{ post.created_at|date:"D, d M Y, H:i"}}</td>
                             <td>{{ post.updated_at|date:"D, d M Y, H:i"}}</td>
                             <td class="actions">
-                                <a href="{% url blog_edit post.id %}"><i class="icon-edit"></i> {% trans "Edit" %}</a>
-                                <a href="{% url blog_delete post.id %}"><i class="icon-remove"></i> {% trans "Delete" %}</a>
+                                <a href="{% url blog_edit post.id %}"><i class="icon-edit"></i> {% trans "edit" %}</a>
+                                <a href="{% url blog_delete post.id %}"><i class="icon-remove"></i> {% trans "delete" %}</a>
                                 {% if post.is_public %}
-                                    <a href="{% url blog_change_status 'draft' post.id %}"><i class="icon-inbox"></i> {% trans "Move to Drafts" %}</a>
+                                    <a href="{% url blog_change_status 'draft' post.id %}"><i class="icon-inbox"></i> {% trans "move to drafts" %}</a>
                                 {% else %}
-                                    <a href="{% url blog_change_status 'public' post.id %}"><i class="icon-ok"></i> {% trans "Publish" %}</a>
+                                    <a href="{% url blog_change_status 'public' post.id %}"><i class="icon-ok"></i> {% trans "publish" %}</a>
                                 {% endif %}
                             </td>
                         </tr>

@@ -97,20 +97,20 @@
        <div class="span4">
             {% ifequal post.author request.user %}
                 <p class="meta well">
-                    <a href="{% url blog_edit post.id %}"><i class="icon-edit"></i> Edit</a>
+                    <a href="{% url blog_edit post.id %}"><i class="icon-edit"></i> edit</a>
                      {% if post.status == 1 %}
                         <br>
-                        <b class="tip">{% trans "This post is an unpublished draft." %}</b>
-                        <a href="{% url blog_change_status 'public' post.id %}" class="inline_action btn tip"><i class="icon-ok"></i> {% trans "Publish?" %}</a>
+                        {# <b class="tip">{% trans "This post is an unpublished draft." %}</b> #}
+                        <a href="{% url blog_change_status 'public' post.id %}" class="inline_action btn tip"><i class="icon-ok"></i> {% trans "publish?" %}</a>
                         {# {% else %} #}
                         {# <a href="{% url blog_change_status 'draft' post.id %}" class="inline_action btn tip">{% trans "make draft?" %}</a> #}
                         {% else %}
                         <br>
-                        {% trans "This post is currently Live." %}
-                        <a href="{% url blog_change_status 'draft' post.id %}" class="inline_action btn tip"><i class="icon-inbox"></i> {% trans "Move to Drafts?" %}</a>
+                        {# {% trans "This post is currently Live." %} #}
+                        <a href="{% url blog_change_status 'draft' post.id %}" class="inline_action btn tip"><i class="icon-inbox"></i> {% trans "move to drafts?" %}</a>
                     {% endif %}
                     <br>
-                    <a href="{% url blog_delete post.id %}"><i class="icon-remove"></i> Delete</a> 
+                    <a href="{% url blog_delete post.id %}"><i class="icon-remove"></i> delete</a> 
                 </p>
             {% endifequal %}
 
@@ -132,7 +132,7 @@
                             <input type="image" id="postuparrow{{ post.id }}" src="/static/img/aup{% if vote and vote.is_upvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_upvote %}clear your vote{% else %}upvote this story{% endif %}">
                         </form>
                         {% endcomment %}
-                            <p class="subdued normal">Votes:</p>
+                            {# <p class="subdued normal">Points</p> #}
                             <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
                                 {% csrf_token %}
                                 {% if vote and vote.is_upvote %}
@@ -152,11 +152,13 @@
                             {# {% endif %}     #}
                         {# </span> #}
                         <p class="votes">
+                        {% comment %}
                             {% if score.num_votes %}
                                 {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }}
                                 {% else %}
                                 <span class="small quiet">0</span>
                             {% endif %}<br>
+                        {% endcomment %}
                             {% if score.score %}
                                 {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}
                                 {# {{ score.score|default:0 }} #}
