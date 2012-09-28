@@ -52,7 +52,7 @@ form.postvote, form.postvote input {margin:0 !important; padding:0 !important;}
 .clearboth {clear:both;}
 .block {display:block;}
 .alignright {text-align:right !important;}
-.quiet {color:#aaa;}
+.quiet, input[placeholder] {color:#aaa;}
 .subdued {color:#999;}
 .normal {font-weight:normal;}
 .bold {font-weight:bold;}

@@ -53,8 +53,10 @@
     {% load account_tags %}
     {% load url from future %}
     {% if is_me %}
-        {# <p class="pull-right"><a class="btn btn-primary btn-large" href="{% url "profile_edit" %}" class="btn">{% trans "Edit my profile" %}</a></p> #}
-        <p><a class="btn btn-primary btn-large" href="/profiles/edit/{{profile.user.username}}" class="btn">{% trans "Edit profile" %}</a></p>
+        <div class="form-actions">
+            {# <p class="pull-right"><a class="btn btn-primary btn-large" href="{% url "profile_edit" %}" class="btn">{% trans "Edit my profile" %}</a></p> #}
+            <p><a class="btn btn-primary btn-large" href="/profiles/edit/{{profile.user.username}}" class="btn">{% trans "Edit profile" %}</a></p>
+        </div>
     {% endif %}
 
 </div>

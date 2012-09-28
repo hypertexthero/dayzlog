@@ -18,8 +18,9 @@
         <legend>New Log Entry</legend>  
         {# {{ post_form|as_bootstrap }} #}
         {% include "blog/entry_form.html" %}
-        <br>
-        <button type="submit" class="btn btn-primary btn-large" tabindex="5">Submit</button> or <a href="javascript:history.go(-1)">Cancel</a>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-large" tabindex="5">Submit</button> or <a href="javascript:history.go(-1)">Cancel</a>
+        </div>
     </fieldset>
 </form>
 
