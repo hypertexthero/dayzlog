@@ -18,6 +18,83 @@
         <div class="span7">
             <div class="post">
                 <h1>{{ post.title|capfirst }}</h1>
+
+
+                    {# get ready for voting #}
+                    {% load voting_tags %}
+                    {% vote_by_user user on post as vote %}
+                    {% score_for_object post as score %}
+
+                    <div class="vote pull-right subdued smaller">
+                        {# {% dict_entry_for_item post from vote as vote %} #}
+                        {# {% dict_entry_for_item post from score as score %} #}
+                        
+                        {# up ========================= #}
+                        {% comment %}
+                        <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="image" id="postuparrow{{ post.id }}" src="/static/img/aup{% if vote and vote.is_upvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_upvote %}clear your vote{% else %}upvote this story{% endif %}">
+                        </form>
+                        {% endcomment %}
+                            {# <p class="subdued normal">Points</p> #}
+                            <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                                {% csrf_token %}
+                                {% if vote and vote.is_upvote %}
+                                   <input type="submit" value="&and;" id="postuparrow{{ post.id }}" title="clear your vote">
+                                {% else %}
+                                    <input class="subdued" type="submit" value="&and;" id="postuparrow{{ post.id }}" title="upvote this story">
+                                {% endif %}
+                                {# <input type="submit" value="{% if vote and vote.is_upvote %}&Delta;{% else %}&uArr;{% endif %}" id="postuparrow{{ post.id }}" title="{% if vote and vote.is_upvote %}clear your vote{% else %}upvote this story{% endif %}"> #}
+                                 {# src="/static/img/aup{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" #}
+                                 {# onclick="vote('{{ post.slug }}', 'up');" #}
+                            </form>
+
+                        {# score ========================= #}
+                        {# <span id="num_votes"> #}
+                            {# {% if score.num_votes %} #}
+                                {# {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }} #}
+                            {# {% endif %}     #}
+                        {# </span> #}
+                        <p class="votes normal smaller">
+                        {% comment %}
+                            {% if score.num_votes %}
+                                {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }}
+                                {% else %}
+                                <span class="small quiet">0</span>
+                            {% endif %}<br>
+                        {% endcomment %}
+                            {% if score.score %}
+                                {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}
+                                {# {{ score.score|default:0 }} #}
+                            {% else %}
+                            {% endif %}
+                        </p>
+
+
+                        {# down ========================= #}
+                                {% comment %}
+                                <form class="postvote" id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                                    {% csrf_token %}
+                                    {% if vote and vote.is_downvote %}
+                                        <input type="submit" value="&or;" id="postdownarrow{{ post.id }}" title="clear your vote">
+                                    {% else %}
+                                        <input class="quiet" type="submit" value="&or;" id="postdownarrow{{ post.id }}" title="downvote this story">
+                                    {% endif %}
+                                    {# <input type="submit" value="{% if vote and vote.is_downvote %}&nabla;{% else %}&dArr;{% endif %}" id="postdownarrow{{ post.id }}" title="{% if vote and vote.is_downvote %}clear your vote{% else %}downvote this story{% endif %}"> #}
+                                    {# src="/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" #}
+                                    {# onclick="vote('{{ post.slug }}', 'down');" #}
+                                </form>
+                                {% endcomment %}
+
+
+                        {% comment %}
+                        <form class="postvote" id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="image" id="postdownarrow{{ post.id }}" src="/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_downvote %}clear your vote{% else %}downvote this story{% endif %}">
+                        </form>
+                        {% endcomment %}
+                    </div>
+
                 <p class="subdued">
                     By <strong><a href="/logs/{{ post.author.username }}/" title="See this survivor&rsquo;s log homepage, follow or unfollow.">
                             {% if post.author.get_profile.name %}
@@ -101,95 +178,19 @@
                      {% if post.status == 1 %}
                         <br>
                         {# <b class="tip">{% trans "This post is an unpublished draft." %}</b> #}
-                        <a href="{% url blog_change_status 'public' post.id %}" class="inline_action btn tip"><i class="icon-ok"></i> {% trans "publish?" %}</a>
+                        <a href="{% url blog_change_status 'public' post.id %}" class="inline_action"><i class="icon-ok"></i> {% trans "publish" %}</a>
                         {# {% else %} #}
                         {# <a href="{% url blog_change_status 'draft' post.id %}" class="inline_action btn tip">{% trans "make draft?" %}</a> #}
                         {% else %}
                         <br>
                         {# {% trans "This post is currently Live." %} #}
-                        <a href="{% url blog_change_status 'draft' post.id %}" class="inline_action btn tip"><i class="icon-inbox"></i> {% trans "move to drafts?" %}</a>
+                        <a href="{% url blog_change_status 'draft' post.id %}" class="inline_action"><i class="icon-inbox"></i> {% trans "draft" %}</a>
                     {% endif %}
                     <br>
                     <a href="{% url blog_delete post.id %}"><i class="icon-remove"></i> delete</a> 
                 </p>
             {% endifequal %}
 
-
-            
-                    {# get ready for voting #}
-                    {% load voting_tags %}
-                    {% vote_by_user user on post as vote %}
-                    {% score_for_object post as score %}
-
-                    <div class="vote">
-                        {# {% dict_entry_for_item post from vote as vote %} #}
-                        {# {% dict_entry_for_item post from score as score %} #}
-                        
-                        {# up ========================= #}
-                        {% comment %}
-                        <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
-                            {% csrf_token %}
-                            <input type="image" id="postuparrow{{ post.id }}" src="/static/img/aup{% if vote and vote.is_upvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_upvote %}clear your vote{% else %}upvote this story{% endif %}">
-                        </form>
-                        {% endcomment %}
-                            {# <p class="subdued normal">Points</p> #}
-                            <form class="postvote" id="postup{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
-                                {% csrf_token %}
-                                {% if vote and vote.is_upvote %}
-                                   <input type="submit" value="&and;" id="postuparrow{{ post.id }}" title="clear your vote">
-                                {% else %}
-                                    <input class="quiet" type="submit" value="&and;" id="postuparrow{{ post.id }}" title="upvote this story">
-                                {% endif %}
-                                {# <input type="submit" value="{% if vote and vote.is_upvote %}&Delta;{% else %}&uArr;{% endif %}" id="postuparrow{{ post.id }}" title="{% if vote and vote.is_upvote %}clear your vote{% else %}upvote this story{% endif %}"> #}
-                                 {# src="/static/img/aup{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" #}
-                                 {# onclick="vote('{{ post.slug }}', 'up');" #}
-                            </form>
-
-                        {# score ========================= #}
-                        {# <span id="num_votes"> #}
-                            {# {% if score.num_votes %} #}
-                                {# {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }} #}
-                            {# {% endif %}     #}
-                        {# </span> #}
-                        <p class="votes">
-                        {% comment %}
-                            {% if score.num_votes %}
-                                {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }}
-                                {% else %}
-                                <span class="small quiet">0</span>
-                            {% endif %}<br>
-                        {% endcomment %}
-                            {% if score.score %}
-                                {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}
-                                {# {{ score.score|default:0 }} #}
-                            {% else %}
-                            {% endif %}
-                        </p>
-
-
-                        {# down ========================= #}
-                                {% comment %}
-                                <form class="postvote" id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
-                                    {% csrf_token %}
-                                    {% if vote and vote.is_downvote %}
-                                        <input type="submit" value="&or;" id="postdownarrow{{ post.id }}" title="clear your vote">
-                                    {% else %}
-                                        <input class="quiet" type="submit" value="&or;" id="postdownarrow{{ post.id }}" title="downvote this story">
-                                    {% endif %}
-                                    {# <input type="submit" value="{% if vote and vote.is_downvote %}&nabla;{% else %}&dArr;{% endif %}" id="postdownarrow{{ post.id }}" title="{% if vote and vote.is_downvote %}clear your vote{% else %}downvote this story{% endif %}"> #}
-                                    {# src="/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" #}
-                                    {# onclick="vote('{{ post.slug }}', 'down');" #}
-                                </form>
-                                {% endcomment %}
-
-
-                        {% comment %}
-                        <form class="postvote" id="postdown{{post.id}}" action="/logs/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
-                            {% csrf_token %}
-                            <input type="image" id="postdownarrow{{ post.id }}" src="/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_downvote %}clear your vote{% else %}downvote this story{% endif %}">
-                        </form>
-                        {% endcomment %}
-                    </div>
             
 
     

@@ -27,6 +27,62 @@
         {% for post in post_list %}
             <div class="post">
                 <h1><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.title }}</a></h1>
+
+                {# get ready for voting #}
+                    {% load voting_tags %}
+                    {% vote_by_user user on post as vote %}
+                    {% score_for_object post as score %}
+
+                    <div class="vote pull-right subdued smaller">
+                            <form class="postvote" id="postup{{post.id}}" action="/posts/{{ post.slug }}/{% if vote and vote.is_upvote %}clear{% else %}up{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                                {% csrf_token %}
+                                {% if vote and vote.is_upvote %}
+                                   <input type="submit" value="&and;" id="postuparrow{{ post.id }}" title="clear your vote">
+                                {% else %}
+                                    <input class="subdued" type="submit" value="&and;" id="postuparrow{{ post.id }}" title="upvote this story">
+                                {% endif %}
+                            </form>
+
+                        <p class="votes normal smaller">
+                            {% comment %}
+                            {% if score.num_votes %}
+                                {{ score.num_votes|default:0 }} vote{{ score.num_votes|default:0|pluralize }}
+                                {% else %}
+                                <span class="small quiet">0</span>
+                            {% endif %}<br>
+                            {% endcomment %}
+                            {% if score.score %}
+                                {{ score.score|default:0 }} point{{ score.score|default:0|pluralize }}
+                                {# {{ score.score|default:0 }} #}
+                            {% else %}
+                            {% endif %}
+                        </p>
+
+
+                        {# down ========================= #}
+                                {% comment %}
+                                <form class="postvote" id="postdown{{post.id}}" action="/posts/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                                    {% csrf_token %}
+                                    {% if vote and vote.is_downvote %}
+                                        <input type="submit" value="&or;" id="postdownarrow{{ post.id }}" title="clear your vote">
+                                    {% else %}
+                                        <input class="quiet" type="submit" value="&or;" id="postdownarrow{{ post.id }}" title="downvote this story">
+                                    {% endif %}
+                                    {# <input type="submit" value="{% if vote and vote.is_downvote %}&nabla;{% else %}&dArr;{% endif %}" id="postdownarrow{{ post.id }}" title="{% if vote and vote.is_downvote %}clear your vote{% else %}downvote this story{% endif %}"> #}
+                                    {# src="/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" #}
+                                    {# onclick="vote('{{ post.slug }}', 'down');" #}
+                                </form>
+                                {% endcomment %}
+
+
+                        {% comment %}
+                        <form class="postvote" id="postdown{{post.id}}" action="/posts/{{ post.slug }}/{% if vote and vote.is_downvote %}clear{% else %}down{% endif %}vote/?next={% firstof request.path '/' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="image" id="postdownarrow{{ post.id }}" src="/static/img/adown{% if vote and vote.is_downvote %}mod{% else %}grey{% endif %}.png" title="{% if vote and vote.is_downvote %}clear your vote{% else %}downvote this story{% endif %}">
+                        </form>
+                        {% endcomment %}
+                    </div>
+
                 <p><a href="{{ post.get_absolute_url }}" title="Permanent link to this entry.">{{ post.updated_at|date:"D, d M Y, H:i" }}</a>{% if post.allow_comments %} · <a href="{{ post.get_absolute_url }}#disqus_thread"></a>{% endif %}</p>
 
                 {# {{ post.content_html|safe|truncatewords_html:"30" }} #}

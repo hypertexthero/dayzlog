@@ -8,7 +8,7 @@
         {% load pagination_tags %}
         {% autopaginate post_list 30 %}                    
             
-            <table class="table table-striped table-condensed">
+            <table class="table table-condensed">
                 <colgroup>
                     <col></col>
                     <col></col>
@@ -85,7 +85,7 @@
                             </td>
                 
                             <td class="entry">
-                                    <b><a href="{{ post.get_absolute_url }}" title="Read entry.">{{ post.title|capfirst }}</a></b>
+                                    <a href="{{ post.get_absolute_url }}" title="Read entry.">{{ post.title|capfirst }}</a>
                                 <div class="meta small subdued">
                                     <span class="author small">
                                         {% if score.score %}
@@ -128,22 +128,22 @@
             {% else %}
 
                 {# <h1 style="margin-bottom:0.2em;">Day Z Log</h1> #}
-                <h2 style="margin-bottom:0.5em;">Share your <a href="/faq/#dayz">Day Z</a> zombie apocalypse survival stories</h2>        
+                <h2 style="margin-bottom:0.5em;">Your <a href="/faq/#dayz">Day Z</a> zombie apocalypse stories</h2>        
                 <ol>
-                    <li>Write on your log using <a data-toggle="modal" href="#markdownhelp">Markdown</a>.</li>
-                    <li>Display <a href="/faq/#profileingame">your profile information in-game</a> so other survivors can see who they&rsquo;re dealing with.</li> 
-                    <li>Follow other survivors&rsquo; logs and <span class="subdued">&and;</span>upvote their entries{#  up or <span class="subdued">&or;</span>down #}. The homepage shows the top 30.</li>
+                    <li>Write on your log and display your profile information in-game <a class="small" href="/faq/#profileingame">(how?)</a></li> 
+                    <li>Follow other survivors&rsquo; logs and <span class="subdued">&and;</span>upvote good entries{#  up or <span class="subdued">&or;</span>down #}. The homepage shows the top 30.</li>
                 </ol>
 
+                
                 <p>{% url acct_login as login_url %}
                 {% load ifsetting_tag %}
                 {% ifsetting ACCOUNT_OPEN_SIGNUP %}
-                    <a href="/account/login/" class="btn">Log In</a> or <a href="/account/signup/" class="btn">Sign Up</a>
+                    {# <a href="/account/login/" class="btn btn-primary">Log In</a> or  #}
+                    <a href="/account/signup/" class="btn btn-primary">Create Your Account</a>
                     {% else %}
                     <a href="/account/login/">Log In</a>
                 {% endifsetting %}</p>
-            {# =todo: <li>Export all your stories in XML or JSON format at any time.</li> #}
-        {# </div> #}
+                
         </div>                              
         {% endif %}
     </div>
@@ -151,7 +151,7 @@
 <p>There are no Day Z Log entries yet.</p>
 {% endif %}
 
-{% include "includes/markdown_cheatsheet.html" %}
+{# {% include "includes/markdown_cheatsheet.html" %} #}
 
 {% comment %}  
         {# =todo alternative ajax voting: http://lethain.com/two-faced-django-part-5-jquery-ajax/ #}

@@ -54,7 +54,7 @@ STATUS_CHOICES = (
 
 # Manager methods are intended to do "table-wide" things
 class VoteAwareManager(models.Manager):
-    """ Get recent top voted items (hacker news ranking algoryth, without the -1 since it seems to break the sql calculation)
+    """ Get recent top voted items (hacker news ranking algorythm, without the -1 for now since it breaks the calculation)
         (p - 1) / (t + 2)^1.5
         where p = points and t = age in hours
     """

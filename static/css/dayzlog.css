@@ -1,7 +1,7 @@
 body {padding-top: 0; background:#eee; color:#111; font-family:verdana, sans-serif;}
 a.brand i {font-size:0.9em; vertical-align:middle; color:#c00;}
 p, li, .btn {line-height:1.8em;}
-div.post {font-size:1.2em;}
+div.post {max-width:39em;}
 div.post p, div.post li {line-height:1.8em;}
 li.navbar-text {line-height:2.8em !important; color:#666;}
 a i {vertical-align:middle !important;}
@@ -19,8 +19,14 @@ legend, hr {color:#111; border-color:#ddd;}
 a:visited {color:#c00;}
 a:hover {color:#fc0;}
 a:active {color:#fcc;}*/
+a:visited {color:#768ca3;}
+.btn:visited {color:#111;}
+.btn-primary:visited {color:white;}
+.btn.dropdown-toggle:visited {color:#111;}
+.btn.tip {color:#111;}
+td.actions a {color:#08c;}
 tr, td {background:#eee !important; border-color:#444;}
-tr.even td {background:#eaeaea !important;}
+/*tr.even td {background:#eaeaea !important;}*/
 
 /* custom styles */
 .big-modal{
@@ -32,7 +38,10 @@ tr.even td {background:#eaeaea !important;}
 /*.modal-body {max-height: 600px;}*/
 tr, td {border-top:0 !important;}
 h1 {text-align:left !important;}
+h1 a {color:#111;}
 h2 {margin-bottom:0.25em;}
+
+form.customform {margin-bottom:20em;}
 form.customform textarea, form.customform div.input input {width:100% !important;}
 textarea#wmd-input {min-height:27em; padding:2em;}
 input#id_allow_comments, input#player_img-clear_id {width:auto !important;}
@@ -40,7 +49,7 @@ input#player_img-clear_id {display:block;}
 div.post {margin-bottom:5em;}
 .post-title a {color:#000; text-decoration:none;}
 td.number {width:0.5em; font-weight:bold; color:#ccc; text-align:right;}
-td.vote {width:0.5em; vertical-align:top; text-align:right; font-weight:bold;}
+td.vote {width:0.5em; vertical-align:top; text-align:right; font-weight:bold; line-height:1.3em;}
 td.entry {vertical-align:top;}
 div.vote {font-weight:bold;}
 p.votes {text-align:center; line-height:1em; margin:0 0 -0.15em !important; padding:0 !important;}
@@ -48,11 +57,12 @@ body#postdetail p.votes {text-align:left; padding-left:0.15em !important;}
 form.postvote, form.postvote input {margin:0 !important; padding:0 !important;}
 .postvote input {border:0; background:none; font-size:1em; color:#c00;}
 .postvote input.quiet {color:#ccc;}
+.postvote input.subdued {color:#999;}
 .nomp {margin:0 !important; padding:0 !important;}
 .clearboth {clear:both;}
 .block {display:block;}
 .alignright {text-align:right !important;}
-.quiet, input[placeholder] {color:#aaa;}
+.quiet, input[placeholder] {color:#aaa !important;}
 .subdued {color:#999;}
 .normal {font-weight:normal;}
 .bold {font-weight:bold;}
@@ -70,4 +80,4 @@ body#log li#nav-log a,
 body#profile li#nav-profile a
 {color: white; text-decoration: none; background-color: #222;}
 
-div#wmd-preview {padding:2em 2em 3em; border:1px dotted #ddd; margin-bottom:1em; background:#fafafa; display:none;}
+div#wmd-preview {padding:2em 2em 3em; border:1px dotted #ddd; margin-bottom:1em; background:#fafafa; display:none; max-width:39em;}
