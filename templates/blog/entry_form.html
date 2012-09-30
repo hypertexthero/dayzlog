@@ -40,8 +40,7 @@
 
 	{% if post_form.content_markdown.errors %}<div class="alert alert-error">{% endif %}
 
-	    {{ post_form.content_markdown|tabindex:2 }}
-
+	{{ post_form.content_markdown|tabindex:2 }}
 	{# <textarea class="wmd-input" rows="10" id="wmd-input" name="content_markdown" cols="40" tabindex="2">{{post_form.content_markdown.value}}</textarea> #}
 
 	{% if post_form.content_markdown.errors %}
