@@ -9,6 +9,9 @@
         {% autopaginate post_list 30 %}                    
             
             <table class="table table-condensed">
+                {% comment %}
+                    
+
                 <colgroup>
                     <col></col>
                     <col></col>
@@ -21,6 +24,7 @@
                     {# <th>Entry Title</th> #}
                   {# </tr> #}
                 {# </thead> #}
+                {% endcomment %}
                 <tbody>
             
                     {# get ready for voting #}            
@@ -100,7 +104,7 @@
                                                    {% else %}
                                                    {{post.author.username}}
                                                {% endif %} 
-                                            </a></strong> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See this author's profile.">see profile</a>)</span>
+                                            </a> <span class="small quiet">(<a class="quiet" href="/profiles/{{ post.author.username }}" title="See this author's profile.">see profile</a>)</span>
                                     </span>
 
                                         {# {{ post.created_at|timesince }} ago #}
@@ -148,7 +152,8 @@
 {% else %}
 <p>There are no Day Z Log entries yet.</p>
 {% endif %}
-
+</div>
+</div>
 {# {% include "includes/markdown_cheatsheet.html" %} #}
 
 {% comment %}  
