@@ -19,7 +19,7 @@ legend, hr {color:#111; border-color:#ddd;}
 a:visited {color:#c00;}
 a:hover {color:#fc0;}
 a:active {color:#fcc;}*/
-a:visited {color:#768ca3;}
+a:visited {color:#888;}
 .btn:visited {color:#111;}
 .btn-primary:visited {color:white;}
 .btn-primary {background:rgb(204, 66, 66);}
@@ -49,8 +49,8 @@ input#id_allow_comments, input#player_img-clear_id {width:auto !important;}
 input#player_img-clear_id {display:block;}
 div.post {margin-bottom:5em;}
 .post-title a {color:#000; text-decoration:none;}
-td.number {width:0.5em; font-weight:bold; color:#ccc; text-align:right;}
-td.vote {width:0.5em; vertical-align:top; text-align:right; font-weight:bold; line-height:1.3em;}
+td.number {width:0.5em; font-weight:bold; color:#ccc; text-align:right; line-height:1.4em;}
+td.vote {width:0.5em; vertical-align:top; text-align:right; font-weight:bold; line-height:1.2em;}
 td.entry {vertical-align:top;}
 div.vote {font-weight:bold;}
 p.votes {text-align:center; line-height:1em; margin:0 0 -0.15em !important; padding:0 !important;}
