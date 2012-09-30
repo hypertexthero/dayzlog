@@ -1,5 +1,5 @@
 body {padding-top: 0; background:#eee; color:#111; font-family:verdana, sans-serif;}
-a.brand i {font-size:0.9em; vertical-align:middle; color:#c00;}
+a.brand i {font-size:0.9em; vertical-align:middle; color:rgb(204, 66, 66);}
 p, li, .btn {line-height:1.8em;}
 div.post {max-width:39em;}
 div.post p, div.post li {line-height:1.8em;}
@@ -22,6 +22,7 @@ a:active {color:#fcc;}*/
 a:visited {color:#768ca3;}
 .btn:visited {color:#111;}
 .btn-primary:visited {color:white;}
+.btn-primary {background:rgb(204, 66, 66);}
 .btn.dropdown-toggle:visited {color:#111;}
 .btn.tip {color:#111;}
 td.actions a {color:#08c;}
@@ -55,7 +56,7 @@ div.vote {font-weight:bold;}
 p.votes {text-align:center; line-height:1em; margin:0 0 -0.15em !important; padding:0 !important;}
 body#postdetail p.votes {text-align:left; padding-left:0.15em !important;}
 form.postvote, form.postvote input {margin:0 !important; padding:0 !important;}
-.postvote input {border:0; background:none; font-size:1em; color:#c00;}
+.postvote input {border:0; background:none; font-size:1em; color:rgb(204, 66, 66);}
 .postvote input.quiet {color:#ccc;}
 .postvote input.subdued {color:#999;}
 .nomp {margin:0 !important; padding:0 !important;}
