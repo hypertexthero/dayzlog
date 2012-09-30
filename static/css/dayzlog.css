@@ -40,6 +40,7 @@ tr, td {border-top:0 !important;}
 h1 {text-align:left !important;}
 h1 a {color:#111;}
 h2 {margin-bottom:0.25em;}
+h3 {font-weight:normal;}
 
 form.customform {margin-bottom:20em;}
 form.customform textarea, form.customform div.input input {width:100% !important;}
