@@ -107,11 +107,11 @@
                     <br> 
                     <a href="{{ post.get_absolute_url }}" class="post_link" title="Permanent link to this entry.">{{ post.created_at|date:"D, d M Y, H:i"}} GMT {{post.created_at|date:"O"}}</a>
                 </p>
-            {% load markup %}
+            {# {% load markup %} #}
             {# {{ post.content_markdown|markdown:"safe" }} #}
             {# http://michelf.ca/blog/2010/markdown-and-xss/ #}
 
-{% spaceless %}{{ post.content_html|safe }}{% endspaceless %}
+{{ post.content_html|safe }}
             </div>
             
             

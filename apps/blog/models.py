@@ -118,7 +118,7 @@ class Post(models.Model):
 
     def save(self, force_insert=False, force_update=False, update_date=True):
         # http://www.freewisdom.org/projects/python-markdown/Extra
-        self.content_html = sanitize(typogrify(markdown.markdown(self.content_markdown, ["extra", "footnotes", "tables", "codehilite"])))
+        self.content_html = sanitize(typogrify(markdown.markdown(self.content_markdown, ["extra", "footnotes", "tables", "nl2br", "codehilite"])))
         
         if update_date:
             self.updated_at = datetime.now()
