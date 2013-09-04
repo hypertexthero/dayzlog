@@ -6,6 +6,7 @@ Check it out at: <http://dayzlog.com>
 
 ## Todo now
 
+- Implement [Mozilla Persona for authentication](https://developer.mozilla.org/en-US/docs/Mozilla/Persona/Why_Persona)
 - Link [Day Z FAQ section](http://dayzlog.com/faq/#dayz) words to images and sounds
 - Set up fabric deployment
 
