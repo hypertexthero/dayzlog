@@ -52,6 +52,10 @@ urlpatterns = patterns("",
     # url(r'^b/', include('blogs.short_urls')), # For short urls, if you want
     url(r'^feeds/posts/(?P<url>w+)/', 'django.contrib.syndication.views.feed', blogs_feed_dict),
     url(r'^search/$', 'dayzlog.apps.blog.views.search', name="search"),
+    
+    # webmaster tools site verification
+    # http://news.e-scribe.com/431
+    url(r'^googleab865041b72036e4\.html$', lambda r: HttpResponse("google-site-verification: googleab865041b72036e4.html", mimetype="text/html"))
     )
 
 # if settings.SERVE_MEDIA:
