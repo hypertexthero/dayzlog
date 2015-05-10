@@ -2,8 +2,6 @@
 
 Application to share and follow <a href="http://dayzmod.com">Day Z</a> stories on the web. Made using a variety of Django applications and Twitter Bootstrap.
 
-Check it out at: <http://dayzlog.hypertexthero.com>
-
 ## Todo now
 
 - Implement [Mozilla Persona for authentication](https://developer.mozilla.org/en-US/docs/Mozilla/Persona/Why_Persona)
